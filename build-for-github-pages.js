@@ -4,9 +4,12 @@
  * Script para fazer build e preparar o projeto para GitHub Pages
  */
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 console.log('🔨 Iniciando build para GitHub Pages...');
 
@@ -40,7 +43,7 @@ try {
 
   // 4. Copiar arquivos do build
   console.log('📋 Copiando arquivos do build...');
-  const distDir = path.join(__dirname, 'dist');
+  const distDir = path.join(__dirname, 'dist/public');
   
   if (fs.existsSync(distDir)) {
     const copyRecursive = (src, dest) => {
