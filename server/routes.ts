@@ -106,13 +106,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Nome do arquivo e conteúdo são obrigatórios" });
       }
 
-      // GitHub API integration would be implemented here
-      // For now, return a mock URL
-      const imageUrl = `https://github.com/user/repo/blob/main/images/${fileName}`;
+      const githubToken = process.env.GITHUB_TOKEN;
+      const githubOwner = process.env.GITHUB_OWNER;
+      const githubRepo = process.env.GITHUB_REPO;
+
+      if (!githubToken || !githubOwner || !githubRepo) {
+        return res.status(500).json({ 
+          message: "Configuração do GitHub não encontrada. Configure GITHUB_TOKEN, GITHUB_OWNER e GITHUB_REPO nas variáveis de ambiente." 
+        });
+      }
+
+      const path = `images/produtos/${fileName}`;
+      const githubApiUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${path}`;
+
+      // Verificar se o arquivo já existe
+      let sha = null;
+      try {
+        const existingResponse = await fetch(githubApiUrl, {
+          headers: {
+            'Authorization': `token ${githubToken}`,
+            'Accept': 'application/vnd.github.v3+json',
+          }
+        });
+        
+        if (existingResponse.ok) {
+          const existingData = await existingResponse.json();
+          sha = existingData.sha;
+        }
+      } catch (error) {
+        // Arquivo não existe, isso é normal
+      }
+
+      // Upload do arquivo
+      const uploadData = {
+        message: message || `Upload de imagem: ${fileName}`,
+        content: content,
+        ...(sha && { sha })
+      };
+
+      const uploadResponse = await fetch(githubApiUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${githubToken}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(uploadData)
+      });
+
+      if (!uploadResponse.ok) {
+        const errorData = await uploadResponse.json();
+        return res.status(500).json({ 
+          message: "Erro ao fazer upload no GitHub",
+          error: errorData.message
+        });
+      }
+
+      const result = await uploadResponse.json();
       
-      res.json({ url: imageUrl });
+      // URL para GitHub Pages (raw content)
+      const imageUrl = `https://${githubOwner}.github.io/${githubRepo}/images/produtos/${fileName}`;
+      
+      res.json({ 
+        url: imageUrl,
+        github_url: result.content.html_url
+      });
     } catch (error) {
-      res.status(500).json({ message: "Erro ao fazer upload da imagem" });
+      console.error('GitHub upload error:', error);
+      res.status(500).json({ message: "Erro interno ao fazer upload da imagem" });
     }
   });
 

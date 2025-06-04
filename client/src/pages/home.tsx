@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,10 +16,30 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("name");
+  const [, setLocation] = useLocation();
+  const [keySequence, setKeySequence] = useState<string[]>([]);
 
   const { data: products = [], isLoading } = useQuery({
     queryKey: ["/api/products"],
   });
+
+  // Acesso discreto à administração com sequência de teclas
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      const newSequence = [...keySequence, key].slice(-5); // Manter apenas os últimos 5
+      setKeySequence(newSequence);
+
+      // Sequência: "admin" para acessar a administração
+      if (newSequence.join('') === 'admin') {
+        setLocation('/gestao');
+        setKeySequence([]);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [keySequence, setLocation]);
 
   const filteredProducts = products.filter((product: Product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

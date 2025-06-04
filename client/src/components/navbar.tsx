@@ -8,7 +8,7 @@ export function Navbar() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const isAdmin = location.startsWith("/admin");
+  const isAdmin = location.startsWith("/admin") || location.startsWith("/gestao");
 
   return (
     <nav className="bg-white shadow-lg border-b-2 border-primary sticky top-0 z-40">

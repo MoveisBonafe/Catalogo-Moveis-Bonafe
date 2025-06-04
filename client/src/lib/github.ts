@@ -11,11 +11,21 @@ export async function uploadToGitHub({
   fileContent,
   message = "Upload nova imagem do produto"
 }: GitHubUploadOptions): Promise<string> {
+  // Adicionar timestamp para evitar conflitos de nome
+  const timestamp = Date.now();
+  const fileExtension = fileName.split('.').pop();
+  const uniqueFileName = `${timestamp}-${fileName.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+  
   const response = await apiRequest("POST", "/api/upload", {
-    fileName,
+    fileName: uniqueFileName,
     content: fileContent,
     message
   });
+  
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Erro no upload');
+  }
   
   const data = await response.json();
   return data.url;
