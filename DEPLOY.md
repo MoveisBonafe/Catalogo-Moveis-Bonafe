@@ -1,4 +1,4 @@
-# 🚀 Guia de Deploy para GitHub Pages
+# 🚀 Guia de Deploy - GitHub Pages
 
 Este guia explica como fazer o deploy do seu catálogo de móveis no GitHub Pages.
 
@@ -6,149 +6,94 @@ Este guia explica como fazer o deploy do seu catálogo de móveis no GitHub Page
 
 1. Conta no GitHub
 2. Repositório criado no GitHub
-3. Git instalado localmente
+3. Código do projeto commitado no repositório
 
-## 🔧 Configuração Inicial
+## 🔧 Configuração do GitHub Pages
 
-### 1. Preparar o Repositório
+### Passo 1: Configurar o Repositório
 
-```bash
-# Clone ou navegue até seu repositório local
-git clone https://github.com/SEU-USUARIO/NOME-DO-REPO.git
-cd NOME-DO-REPO
+1. Acesse seu repositório no GitHub
+2. Vá em **Settings** → **Pages**
+3. Em **Source**, selecione **Deploy from a branch**
+4. Em **Branch**, selecione **main** (ou master)
+5. Em **Folder**, selecione **/docs**
+6. Clique em **Save**
 
-# Adicione todos os arquivos do projeto
-git add .
-git commit -m "Adicionar projeto catálogo de móveis"
-git push origin main
-```
+### Passo 2: Fazer o Build
 
-### 2. Fazer Build para Produção
+Execute o script de build para GitHub Pages:
 
 ```bash
-# Execute o script de build personalizado
 node build-for-github-pages.js
 ```
 
 Este script irá:
-- Fazer build do projeto com Vite
-- Copiar arquivos para a pasta `docs/`
-- Manter arquivos especiais como `.nojekyll` e `404.html`
+- Fazer build do projeto
+- Copiar arquivos para a pasta docs/
+- Configurar roteamento para SPA
+- Criar página de gestão separada
+- Configurar estrutura de imagens
 
-### 3. Configurar GitHub Pages
+### Passo 3: Commit e Push
 
-1. Acesse seu repositório no GitHub
-2. Vá em **Settings** → **Pages**
-3. Em **Source**, selecione:
-   - **Deploy from a branch**
-   - **Branch**: `main`
-   - **Folder**: `/ (root)` ou `/docs`
-4. Clique em **Save**
+```bash
+git add .
+git commit -m "Deploy para GitHub Pages"
+git push origin main
+```
 
-### 4. Aguardar Deploy
+## 🌐 URLs de Acesso
 
-- O GitHub Actions irá automaticamente fazer o deploy
-- Aguarde alguns minutos
-- Seu site estará disponível em: `https://SEU-USUARIO.github.io/NOME-DO-REPO/`
+Após o deploy, seu site estará disponível em:
+
+- **Site principal**: `https://SEU-USUARIO.github.io/SEU-REPO`
+- **Administração**: `https://SEU-USUARIO.github.io/SEU-REPO/gestao.html`
+
+## 🔑 Configuração de Upload de Imagens
+
+Para ativar o upload automático de imagens:
+
+1. Siga o guia em `CONFIGURACAO_GITHUB.md`
+2. Configure as variáveis de ambiente
+3. Deploy o backend em um serviço como Vercel ou Netlify
+
+## 🎯 Acesso à Administração
+
+### Método 1: URL Direta
+Acesse diretamente: `https://SEU-USUARIO.github.io/SEU-REPO/gestao.html`
+
+### Método 2: Sequência de Teclas
+Na página principal, digite "admin" para acessar automaticamente
+
+## 🛠️ Troubleshooting
+
+### Problema: 404 Error
+- Verifique se GitHub Pages está configurado para usar a pasta /docs
+- Confirme que os arquivos estão na pasta docs/
+- Aguarde alguns minutos para propagação
+
+### Problema: CSS/JS não carrega
+- Verifique se os caminhos nos arquivos HTML são relativos (./assets/)
+- Execute o script de build novamente
+
+### Problema: Roteamento não funciona
+- Confirme que o arquivo 404.html está na pasta docs/
+- Verifique se o script de roteamento SPA está presente
+
+## 📱 Domínio Personalizado (Opcional)
+
+Para usar um domínio personalizado:
+
+1. Crie um arquivo `CNAME` na pasta docs/ com seu domínio
+2. Configure o DNS do seu domínio para apontar para GitHub Pages
+3. Em Settings → Pages, configure o domínio personalizado
 
 ## 🔄 Atualizações
 
 Para atualizar o site:
 
-```bash
-# Faça suas alterações no código
-# Execute o build novamente
-node build-for-github-pages.js
+1. Faça as alterações no código
+2. Execute `node build-for-github-pages.js`
+3. Commit e push das alterações
 
-# Commit e push
-git add .
-git commit -m "Atualizar site"
-git push origin main
-```
-
-## 🌐 Domínio Personalizado (Opcional)
-
-Se você tem um domínio próprio:
-
-1. Edite o arquivo `docs/CNAME`
-2. Adicione seu domínio: `moveisdesign.com`
-3. Configure o DNS do seu domínio para apontar para `SEU-USUARIO.github.io`
-
-## 🔧 Integração com GitHub para Upload de Imagens
-
-Para ativar o upload de imagens direto para o GitHub:
-
-### 1. Criar Personal Access Token
-
-1. Vá em **Settings** → **Developer settings** → **Personal access tokens**
-2. Clique em **Generate new token (classic)**
-3. Selecione os escopos:
-   - `repo` (acesso completo aos repositórios)
-4. Copie o token gerado
-
-### 2. Configurar Variáveis de Ambiente
-
-Para desenvolvimento local, crie um arquivo `.env`:
-
-```env
-GITHUB_TOKEN=ghp_seu_token_aqui
-GITHUB_OWNER=seu-usuario
-GITHUB_REPO=nome-do-repositorio
-```
-
-### 3. Atualizar Backend para Produção
-
-O backend precisará ser adaptado para funcionar como uma função serverless ou API externa, já que o GitHub Pages só serve arquivos estáticos.
-
-Opções recomendadas:
-- **Vercel Functions**
-- **Netlify Functions** 
-- **Firebase Functions**
-- **Supabase Edge Functions**
-
-## 📁 Estrutura Final
-
-```
-seu-repositorio/
-├── docs/                  # Arquivos do GitHub Pages
-│   ├── index.html        # Página principal
-│   ├── 404.html          # Página de erro 404
-│   ├── .nojekyll         # Desabilita Jekyll
-│   ├── CNAME             # Domínio personalizado (opcional)
-│   └── assets/           # CSS, JS e outros recursos
-├── .github/
-│   └── workflows/
-│       └── deploy.yml    # GitHub Actions para deploy automático
-├── client/               # Código fonte React
-├── server/               # Backend (para desenvolvimento)
-├── shared/               # Tipos compartilhados
-├── build-for-github-pages.js  # Script de build
-└── README.md
-```
-
-## 🚨 Solução de Problemas
-
-### Site não carrega após deploy
-- Verifique se o GitHub Pages está ativo nas configurações
-- Aguarde alguns minutos para propagação
-- Verifique se o arquivo `index.html` existe na pasta docs
-
-### Imagens não aparecem
-- Verifique se as URLs das imagens estão corretas
-- Para desenvolvimento, use URLs completas do GitHub
-- Para produção, configure backend externo
-
-### Erro 404 em rotas
-- O arquivo `404.html` redireciona para a home
-- Para SPA routing, todas as rotas são tratadas pelo React Router
-
-## 📞 Suporte
-
-Se encontrar problemas:
-1. Verifique os logs no GitHub Actions
-2. Consulte a documentação do GitHub Pages
-3. Verifique se todos os arquivos estão na pasta `docs/`
-
----
-
-Seu catálogo de móveis estará online e acessível para seus clientes!
+O GitHub Pages atualizará automaticamente em alguns minutos.
