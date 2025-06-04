@@ -20,7 +20,9 @@ export function ProductCard({
   onDelete, 
   showActions = false 
 }: ProductCardProps) {
-  const mainImage = product.images[0] || "/placeholder-furniture.jpg";
+  const mainImage = (product.images && product.images.length > 0) 
+    ? product.images[0] 
+    : "/placeholder-furniture.jpg";
   
   return (
     <Card 
