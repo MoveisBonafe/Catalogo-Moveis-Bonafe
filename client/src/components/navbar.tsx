@@ -21,61 +21,63 @@ export function Navbar() {
               </h1>
             </Link>
             
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                <Link href="/">
+            {/* Mostrar navegação completa apenas no admin */}
+            {isAdmin && (
+              <div className="hidden md:block">
+                <div className="ml-10 flex items-baseline space-x-4">
+                  <Link href="/">
+                    <Button 
+                      variant="secondary"
+                      className="font-medium"
+                    >
+                      <Store className="w-4 h-4 mr-2" />
+                      Ver Catálogo
+                    </Button>
+                  </Link>
                   <Button 
-                    variant={!isAdmin ? "default" : "secondary"}
-                    className="font-medium"
-                  >
-                    <Store className="w-4 h-4 mr-2" />
-                    Catálogo
-                  </Button>
-                </Link>
-                <Link href="/admin">
-                  <Button 
-                    variant={isAdmin ? "default" : "secondary"}
+                    variant="default"
                     className="font-medium"
                   >
                     <Settings className="w-4 h-4 mr-2" />
                     Administração
                   </Button>
-                </Link>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
-          <div className="md:hidden">
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-64">
-                <div className="flex flex-col space-y-4 mt-4">
-                  <Link href="/" onClick={() => setIsOpen(false)}>
+          {/* Menu mobile apenas no admin */}
+          {isAdmin && (
+            <div className="md:hidden">
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-64">
+                  <div className="flex flex-col space-y-4 mt-4">
+                    <Link href="/" onClick={() => setIsOpen(false)}>
+                      <Button 
+                        variant="ghost"
+                        className="w-full justify-start"
+                      >
+                        <Store className="w-4 h-4 mr-2" />
+                        Ver Catálogo
+                      </Button>
+                    </Link>
                     <Button 
-                      variant={!isAdmin ? "default" : "ghost"}
-                      className="w-full justify-start"
-                    >
-                      <Store className="w-4 h-4 mr-2" />
-                      Catálogo
-                    </Button>
-                  </Link>
-                  <Link href="/admin" onClick={() => setIsOpen(false)}>
-                    <Button 
-                      variant={isAdmin ? "default" : "ghost"}
+                      variant="default"
                       className="w-full justify-start"
                     >
                       <Settings className="w-4 h-4 mr-2" />
                       Administração
                     </Button>
-                  </Link>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+          )}
         </div>
       </div>
     </nav>
