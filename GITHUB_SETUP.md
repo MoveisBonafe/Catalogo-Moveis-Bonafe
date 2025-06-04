@@ -1,110 +1,87 @@
-# 🚀 Configuração Completa para GitHub Pages
+# 🚀 Configuração Completa do GitHub Pages
 
-## 📋 Checklist de Deploy
+## Problema Atual
+O site não está carregando no GitHub Pages devido a configurações de caminho de assets.
 
-### ✅ Arquivos Criados
-- [x] `docs/` - Pasta com arquivos do GitHub Pages
-- [x] `docs/index.html` - Página principal otimizada
-- [x] `docs/404.html` - Página de erro para SPA routing
-- [x] `docs/.nojekyll` - Desabilita processamento Jekyll
-- [x] `docs/robots.txt` - SEO e crawlers
-- [x] `docs/sitemap.xml` - Mapa do site
-- [x] `docs/manifest.json` - PWA manifest
-- [x] `.github/workflows/deploy.yml` - Deploy automático
-- [x] `README.md` - Documentação completa
-- [x] `DEPLOY.md` - Guia específico de deploy
-- [x] `LICENSE` - Licença MIT
+## Soluções Implementadas
 
-## 🔧 Próximos Passos
+### 1. Arquivos HTML Corrigidos
+✅ Atualizei todos os arquivos HTML na pasta `docs/` com caminhos relativos
+✅ Configurei meta tags em português
+✅ Criei página de administração separada (`gestao.html`)
 
-### 1. Configurar Repositório GitHub
+### 2. GitHub Actions (Recomendado)
+✅ Criei workflow automático em `.github/workflows/deploy.yml`
+Este workflow irá:
+- Fazer build automaticamente
+- Corrigir caminhos dos assets
+- Fazer deploy no GitHub Pages
+
+### 3. Configuração Manual Alternativa
+
+Se o GitHub Actions não funcionar, execute estes comandos no terminal:
 
 ```bash
-# Inicializar git (se ainda não foi feito)
-git init
+# 1. Fazer build
+npm run build
 
-# Adicionar origin remoto
-git remote add origin https://github.com/SEU-USUARIO/NOME-DO-REPO.git
+# 2. Copiar arquivos
+cp -r dist/public/* docs/
 
-# Adicionar todos os arquivos
-git add .
-git commit -m "feat: projeto catálogo de móveis para GitHub Pages"
-git push -u origin main
+# 3. Corrigir caminhos manualmente
+sed -i 's|src="/assets/|src="./assets/|g' docs/index.html
+sed -i 's|href="/assets/|href="./assets/|g' docs/index.html
 ```
 
-### 2. Ativar GitHub Pages
+## Passos para Ativar GitHub Pages
 
-1. Acesse seu repositório no GitHub
-2. Vá em **Settings** → **Pages**
-3. Configure:
-   - **Source**: Deploy from a branch
-   - **Branch**: main
-   - **Folder**: / (root) ou /docs
-4. Clique em **Save**
+### No seu repositório GitHub:
 
-### 3. Aguardar Deploy
+1. **Settings** → **Pages**
+2. **Source**: "Deploy from a branch"
+3. **Branch**: main (ou master)
+4. **Folder**: /docs
+5. **Save**
 
-- O GitHub Actions processará automaticamente
-- Site estará disponível em: `https://SEU-USUARIO.github.io/NOME-DO-REPO/`
-- Tempo estimado: 2-5 minutos
+### Se usar GitHub Actions:
+1. **Settings** → **Pages**
+2. **Source**: "GitHub Actions"
+3. O workflow será executado automaticamente
 
-## 🔌 Configuração de Upload de Imagens
+## URLs de Acesso
 
-Para ativar o upload direto para GitHub, você precisará configurar:
+Após o deploy:
+- **Site principal**: `https://SEU-USUARIO.github.io/SEU-REPO`
+- **Administração**: `https://SEU-USUARIO.github.io/SEU-REPO/gestao.html`
 
-### Personal Access Token
+## Acesso Discreto à Administração
 
-1. GitHub → Settings → Developer settings → Personal access tokens
-2. Generate new token (classic)
-3. Selecionar scopes: `repo` (Full control of private repositories)
-4. Copiar o token gerado
+1. **URL direta**: `/gestao.html`
+2. **Sequência de teclas**: Digite "admin" na página principal
 
-### Configurar Backend
-
-O backend atual está preparado para desenvolvimento. Para produção com GitHub Pages, você tem estas opções:
-
-1. **Vercel** - Recomendado para Next.js/React
-2. **Netlify Functions** - Serverless functions
-3. **Supabase** - Backend completo com Edge Functions
-4. **Firebase** - Google Cloud Functions
-
-## 📱 Funcionalidades Implementadas
-
-- Catálogo responsivo com filtros
-- Painel administrativo completo
-- Sistema de cores para produtos
-- Galeria de imagens com carrossel
-- Upload de arquivos preparado
-- SEO otimizado
-- PWA ready
-- Design moderno em tons de amarelo
-
-## 🌐 Estrutura Final
+## Estrutura Final
 
 ```
-projeto/
-├── docs/                    # GitHub Pages
-│   ├── index.html          # Página principal
-│   ├── 404.html            # SPA routing
-│   ├── assets/             # CSS/JS compilados
-│   ├── .nojekyll           # Bypass Jekyll
-│   ├── robots.txt          # SEO
-│   ├── sitemap.xml         # Mapa do site
-│   └── manifest.json       # PWA
-├── .github/workflows/       # CI/CD automático
-├── client/                  # Código React
-├── server/                  # Backend (dev)
-├── shared/                  # Tipos
-├── README.md               # Documentação
-├── DEPLOY.md               # Guia de deploy
-└── LICENSE                 # Licença MIT
+docs/
+├── index.html          # Site principal (caminhos relativos)
+├── gestao.html         # Administração (noindex)
+├── 404.html           # Roteamento SPA
+├── assets/            # CSS e JavaScript
+├── images/produtos/   # Imagens dos produtos
+└── manifest.json      # PWA manifest
 ```
 
-## 🚨 Notas Importantes
+## Verificação
 
-1. **URLs das Imagens**: Para GitHub Pages, use URLs absolutas para imagens
-2. **Roteamento**: O arquivo 404.html garante que as rotas do React funcionem
-3. **HTTPS**: GitHub Pages força HTTPS automaticamente
-4. **Domínio**: Edite `docs/CNAME` se tiver domínio próprio
+Para verificar se funciona:
+1. Acesse a URL do GitHub Pages
+2. Abra DevTools (F12)
+3. Verifique se não há erros 404 na aba Console
+4. Teste o acesso à administração
 
-Seu projeto está completamente preparado para o GitHub Pages!
+## Upload de Imagens
+
+Para ativar o upload automático:
+1. Configure credenciais GitHub conforme `CONFIGURACAO_GITHUB.md`
+2. Use um backend externo (Vercel/Netlify) para produção
+3. Teste primeiro em ambiente local

@@ -2,9 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -18,35 +17,99 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
+      - name: Checkout
+        uses: actions/checkout@v4
         
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build
-      run: npm run build
-      
-    - name: Copy build to docs
-      run: |
-        rm -rf docs/assets docs/*.js docs/*.css
-        cp -r dist/* docs/
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
         
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-      
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./docs
+      - name: Build project
+        run: npm run build
+        
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Prepare GitHub Pages
+        run: |
+          # Copy build files to docs
+          cp -r dist/public/* docs/
+          
+          # Fix asset paths for GitHub Pages
+          sed -i 's|src="/assets/|src="./assets/|g' docs/index.html
+          sed -i 's|href="/assets/|href="./assets/|g' docs/index.html
+          
+          # Create gestao.html with correct paths
+          cat > docs/gestao.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="pt-BR">
+            <head>
+              <meta charset="UTF-8" />
+              <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta name="robots" content="noindex, nofollow" />
+              <title>Gestão - MóveisDesign</title>
+              <link rel="manifest" href="./manifest.json">
+              <script type="module" crossorigin src="./assets/index-4qAKNjl6.js"></script>
+              <link rel="stylesheet" crossorigin href="./assets/index-CUUzcTvG.css">
+            </head>
+            <body>
+              <div id="root"></div>
+              <script>
+                if (window.location.pathname.includes('gestao')) {
+                  history.replaceState(null, null, '/gestao');
+                }
+              </script>
+            </body>
+          </html>
+          EOF
+          
+          # Update 404.html for SPA routing
+          cat > docs/404.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="pt-BR">
+            <head>
+              <meta charset="UTF-8" />
+              <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>MóveisDesign - Catálogo de Móveis</title>
+              <link rel="manifest" href="./manifest.json">
+              <script type="module" crossorigin src="./assets/index-4qAKNjl6.js"></script>
+              <link rel="stylesheet" crossorigin href="./assets/index-CUUzcTvG.css">
+            </head>
+            <body>
+              <div id="root"></div>
+              <script>
+                (function() {
+                  var redirect = sessionStorage.redirect;
+                  delete sessionStorage.redirect;
+                  if (redirect && redirect != location.href) {
+                    history.replaceState(null, null, redirect);
+                  }
+                })();
+              </script>
+            </body>
+          </html>
+          EOF
+          
+          # Create images directory
+          mkdir -p docs/images/produtos
+          
+          # Add proper HTML meta tags
+          sed -i 's|<html lang="en">|<html lang="pt-BR">|g' docs/index.html
+          sed -i 's|<title>.*</title>|<title>MóveisDesign - Catálogo de Móveis</title>|g' docs/index.html
+          
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
 
   deploy:
     environment:

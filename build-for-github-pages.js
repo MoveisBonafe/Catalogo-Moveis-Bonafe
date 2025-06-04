@@ -4,9 +4,9 @@
  * Script para fazer build e preparar o projeto para GitHub Pages
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
 
 console.log('🚀 Iniciando build para GitHub Pages...');
 
