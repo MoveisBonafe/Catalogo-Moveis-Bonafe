@@ -19,7 +19,7 @@ export default function Home() {
   const [, setLocation] = useLocation();
   const [keySequence, setKeySequence] = useState<string[]>([]);
 
-  const { data: products = [], isLoading } = useQuery({
+  const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ["/api/products"],
   });
 
@@ -41,7 +41,7 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [keySequence, setLocation]);
 
-  const filteredProducts = products.filter((product: Product) => {
+  const filteredProducts = (products as Product[]).filter((product: Product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;

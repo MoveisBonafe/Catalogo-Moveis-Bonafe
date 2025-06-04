@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MóveisDesign - Catálogo de Móveis</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Gestão - MóveisDesign</title>
     <link rel="manifest" href="./manifest.json">
     <script type="module" crossorigin src="assets/index-DYV6__xm.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-CUUzcTvG.css">
@@ -12,14 +13,10 @@
   <body>
     <div id="root"></div>
     <script>
-      // Handle client-side routing for GitHub Pages
-      (function() {
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        if (redirect && redirect != location.href) {
-          history.replaceState(null, null, redirect);
-        }
-      })();
+      // Redirecionar para a rota de gestão
+      if (window.location.pathname === '/gestao.html') {
+        history.replaceState(null, null, '/gestao');
+      }
     </script>
   </body>
 </html>
