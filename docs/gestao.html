@@ -500,7 +500,16 @@
                         <button type="button" class="btn" onclick="saveGitHubToken()" style="margin-top: 10px;">Salvar Token</button>
                     </div>
                 </form>
-                    <small style="color: #666; font-size: 0.9em; display: block; margin-top: 5px;">
+                    <div style="background: #E8F5E8; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #28a745;">
+                        <h4 style="margin: 0 0 8px 0; color: #155724; font-size: 1em;">Como funciona a sincronização:</h4>
+                        <ul style="margin: 0; padding-left: 20px; font-size: 0.9em; color: #155724;">
+                            <li>Configure o token UMA ÚNICA VEZ neste dispositivo</li>
+                            <li>Todos os dispositivos verão automaticamente os produtos</li>
+                            <li>Clientes NÃO precisam configurar nada</li>
+                            <li>Imagens ficam disponíveis para todos automaticamente</li>
+                        </ul>
+                    </div>
+                    <small style="color: #666; font-size: 0.9em; display: block; margin-top: 10px;">
                         Token necessário para fazer upload de imagens para o repositório GitHub
                     </small>
                     <div id="tokenStatus" style="margin-top: 10px; font-size: 0.9em;"></div>
@@ -1117,7 +1126,7 @@
 
                     if (response.ok) {
                         const data = await response.json();
-                        const imageUrl = `https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/docs/${fileName}`;
+                        const imageUrl = `https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/${fileName}`;
                         currentProductImages.push(imageUrl);
                         console.log(`Upload successful: ${imageUrl}`);
                     } else {

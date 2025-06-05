@@ -602,44 +602,52 @@
             }
         ];
 
-        // Load products from GitHub API - works automatically on all devices
+        // Load products from GitHub - automatic synchronization for all devices
         async function loadProductsFromGitHub() {
-            try {
-                // Try to load from the live GitHub Pages URL first (fastest)
-                const pagesResponse = await fetch('https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/products.json');
-                if (pagesResponse.ok) {
-                    const products = await pagesResponse.json();
-                    localStorage.setItem('catalogProducts', JSON.stringify(products));
-                    return products;
-                }
-            } catch (error) {
-                console.log('GitHub Pages não disponível, tentando API');
-            }
+            // Try multiple sources for maximum reliability
+            const sources = [
+                // Direct GitHub Pages URL (fastest when available)
+                'https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/products.json',
+                // GitHub API as fallback
+                'https://api.github.com/repos/MoveisBonafe/Catalogo-Moveis-Bonafe/contents/docs/products.json'
+            ];
 
-            try {
-                // Fallback to GitHub API (public access)
-                const response = await fetch('https://api.github.com/repos/MoveisBonafe/Catalogo-Moveis-Bonafe/contents/docs/products.json');
-                if (response.ok) {
-                    const data = await response.json();
-                    const content = atob(data.content);
-                    const products = JSON.parse(content);
-                    localStorage.setItem('catalogProducts', JSON.stringify(products));
-                    return products;
+            for (const source of sources) {
+                try {
+                    const response = await fetch(source);
+                    if (response.ok) {
+                        let products;
+                        
+                        if (source.includes('api.github.com')) {
+                            // GitHub API response needs decoding
+                            const data = await response.json();
+                            products = JSON.parse(atob(data.content));
+                        } else {
+                            // Direct JSON response
+                            products = await response.json();
+                        }
+                        
+                        // Save successful load to localStorage for offline access
+                        localStorage.setItem('catalogProducts', JSON.stringify(products));
+                        return products;
+                    }
+                } catch (error) {
+                    console.log(`Fonte ${source} não disponível`);
+                    continue;
                 }
-            } catch (error) {
-                console.log('GitHub API não disponível, usando armazenamento local');
             }
             
-            // Fallback to localStorage
+            // Final fallback to localStorage
             const savedProducts = localStorage.getItem('catalogProducts');
             if (savedProducts) {
                 try {
                     return JSON.parse(savedProducts);
                 } catch (e) {
-                    console.error('Erro ao carregar produtos do localStorage:', e);
+                    console.error('Erro ao carregar produtos salvos:', e);
                 }
             }
             
+            // Return sample products only if nothing else works
             return [...sampleProducts];
         }
 
