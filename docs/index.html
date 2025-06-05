@@ -371,15 +371,13 @@
         }
         
         .image-gallery {
-            max-width: 90vw;
+            max-width: 85vw;
             max-height: 85vh;
             width: auto;
             height: auto;
             position: relative;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
             background: white;
             border-radius: 20px;
             margin: auto;
@@ -392,9 +390,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 30px;
+            padding: 20px;
             width: 100%;
             min-height: 0;
+            background: white;
         }
         
         .gallery-image {
@@ -404,8 +403,8 @@
             height: auto;
             object-fit: contain;
             transition: all 0.3s ease;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         
         .modal-header {
@@ -432,9 +431,10 @@
         
         .modal-footer {
             width: 100%;
-            padding: 20px 30px 25px;
+            padding: 20px;
             background: white;
             border-top: 1px solid #dee2e6;
+            text-align: center;
         }
         
         .modal-colors {
@@ -442,6 +442,7 @@
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
+            margin-bottom: 15px;
         }
         
         .modal-color-item {
@@ -507,10 +508,8 @@
         }
         
         .swipe-indicator {
-            text-align: center;
-            font-size: 0.8em;
+            font-size: 0.85em;
             color: #6c757d;
-            margin-top: 15px;
             white-space: nowrap;
             display: none;
         }
@@ -1017,7 +1016,7 @@
                 gallery.style.display = 'flex';
                 placeholder.style.display = 'none';
                 galleryImage.src = imagesToShow[currentImageIndex];
-                galleryImage.alt = `${currentProduct.name} - ${currentProduct.colors[currentColorIndex]?.name || 'Imagem'}`;
+                galleryImage.alt = currentProduct.colors[currentColorIndex]?.name || 'Imagem do produto';
                 
                 // Handle image loading errors
                 galleryImage.onerror = function() {
@@ -1026,9 +1025,8 @@
                     placeholder.style.display = 'flex';
                     placeholder.innerHTML = `
                         <div style="text-align: center; padding: 40px;">
-                            <div style="font-size: 4em; margin-bottom: 20px;">📷</div>
-                            <h3 style="color: #666; margin-bottom: 10px;">Imagem não disponível</h3>
-                            <p style="color: #999;">${currentProduct.name}</p>
+                            <div style="font-size: 4em; margin-bottom: 20px; opacity: 0.3;">📷</div>
+                            <h3 style="color: #999; font-weight: 400;">Imagem não disponível</h3>
                         </div>
                     `;
                 };
@@ -1041,9 +1039,8 @@
                 placeholder.style.display = 'flex';
                 placeholder.innerHTML = `
                     <div style="text-align: center; padding: 40px;">
-                        <div style="font-size: 4em; margin-bottom: 20px;">📷</div>
-                        <h3 style="color: #666; margin-bottom: 10px;">Nenhuma imagem disponível</h3>
-                        <p style="color: #999;">${currentProduct.name}</p>
+                        <div style="font-size: 4em; margin-bottom: 20px; opacity: 0.3;">📷</div>
+                        <h3 style="color: #999; font-weight: 400;">Nenhuma imagem disponível</h3>
                     </div>
                 `;
             }
