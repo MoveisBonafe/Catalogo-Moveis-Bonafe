@@ -1101,6 +1101,40 @@
 
             document.getElementById('productModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
+
+            // Add swipe events to the entire modal for complete touch coverage
+            setupModalSwipeEvents();
+        }
+
+        function setupModalSwipeEvents() {
+            const modal = document.getElementById('productModal');
+            const gallery = document.getElementById('imageGallery');
+            const imageContainer = gallery.querySelector('.gallery-image-container');
+            const galleryImage = document.getElementById('galleryImage');
+
+            // Remove existing events first
+            modal.removeEventListener('touchstart', handleModalTouchStart);
+            modal.removeEventListener('touchend', handleModalTouchEnd);
+            gallery.removeEventListener('touchstart', handleModalTouchStart);
+            gallery.removeEventListener('touchend', handleModalTouchEnd);
+            if (imageContainer) {
+                imageContainer.removeEventListener('touchstart', handleModalTouchStart);
+                imageContainer.removeEventListener('touchend', handleModalTouchEnd);
+            }
+            galleryImage.removeEventListener('touchstart', handleModalTouchStart);
+            galleryImage.removeEventListener('touchend', handleModalTouchEnd);
+
+            // Add events to multiple elements for better coverage
+            modal.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+            modal.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+            gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+            gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+            if (imageContainer) {
+                imageContainer.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+                imageContainer.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+            }
+            galleryImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+            galleryImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
         }
 
         function setupModalColors() {
@@ -1134,20 +1168,6 @@
             const galleryImage = document.getElementById('galleryImage');
             
             let imagesToShow = currentProduct.images || [];
-            
-            // Remove existing touch events to prevent duplicates
-            const imageContainer = gallery.querySelector('.gallery-image-container');
-            
-            gallery.removeEventListener('touchstart', handleModalTouchStart);
-            gallery.removeEventListener('touchend', handleModalTouchEnd);
-            
-            if (imageContainer) {
-                imageContainer.removeEventListener('touchstart', handleModalTouchStart);
-                imageContainer.removeEventListener('touchend', handleModalTouchEnd);
-            }
-            
-            galleryImage.removeEventListener('touchstart', handleModalTouchStart);
-            galleryImage.removeEventListener('touchend', handleModalTouchEnd);
             
             // Se não há cores selecionadas ou imagens para a cor, usar navegação por imagem
             if (!currentProduct.colors || currentProduct.colors.length === 0) {
@@ -1198,19 +1218,6 @@
                     `;
                 }
             }
-
-            // Add swipe events to gallery container, image container, and image for complete touch coverage
-            
-            gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-            gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
-            
-            if (imageContainer) {
-                imageContainer.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-                imageContainer.addEventListener('touchend', handleModalTouchEnd, { passive: true });
-            }
-            
-            galleryImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-            galleryImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
         }
 
         function closeProductModal() {
@@ -1221,7 +1228,10 @@
         function nextColor() {
             if (!currentProduct.colors || currentProduct.colors.length <= 1) return;
             
+            const oldIndex = currentColorIndex;
             currentColorIndex = currentColorIndex < currentProduct.colors.length - 1 ? currentColorIndex + 1 : 0;
+            
+            console.log(`Color changed from ${oldIndex} to ${currentColorIndex} (total: ${currentProduct.colors.length})`);
             
             // Mapear cor para imagem correspondente (igual à tela principal)
             if (currentProduct.images && currentProduct.images.length > 0) {
@@ -1235,7 +1245,10 @@
         function previousColor() {
             if (!currentProduct.colors || currentProduct.colors.length <= 1) return;
             
+            const oldIndex = currentColorIndex;
             currentColorIndex = currentColorIndex > 0 ? currentColorIndex - 1 : currentProduct.colors.length - 1;
+            
+            console.log(`Color changed from ${oldIndex} to ${currentColorIndex} (total: ${currentProduct.colors.length})`);
             
             // Mapear cor para imagem correspondente (igual à tela principal)
             if (currentProduct.images && currentProduct.images.length > 0) {
@@ -1424,8 +1437,6 @@
         
         // Modal touch/swipe events
         document.addEventListener('keydown', handleKeyPress);
-        document.getElementById('productModal').addEventListener('touchstart', handleModalTouchStart);
-        document.getElementById('productModal').addEventListener('touchend', handleModalTouchEnd);
         
         // Close modal when clicking outside the image
         document.getElementById('productModal').addEventListener('click', function(e) {

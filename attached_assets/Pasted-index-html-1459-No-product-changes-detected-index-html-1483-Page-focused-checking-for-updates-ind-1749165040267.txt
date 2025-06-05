@@ -1,0 +1,291 @@
+index.html:1459 No product changes detected
+index.html:1483 Page focused, checking for updates
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 836, end: 600, diff: 236, threshold: 30}diff: 236end: 600start: 836threshold: 30[[Prototype]]: Objectconstructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()__proto__: (…)get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 836, end: 600, diff: 236, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 836, end: 600, diff: 236, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1483 Page focused, checking for updates
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 640, end: 746, diff: -106, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 640, end: 746, diff: -106, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 640, end: 746, diff: -106, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 640, end: 746, diff: -106, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 643, end: 719, diff: -76, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 643, end: 719, diff: -76, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 643, end: 719, diff: -76, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 643, end: 719, diff: -76, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 625, end: 719, diff: -94, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 625, end: 719, diff: -94, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 625, end: 719, diff: -94, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 625, end: 719, diff: -94, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 848, end: 572, diff: 276, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 848, end: 572, diff: 276, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 840, end: 738, diff: 102, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 840, end: 738, diff: 102, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 840, end: 738, diff: 102, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 795, end: 638, diff: 157, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 795, end: 638, diff: 157, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 779, end: 682, diff: 97, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 779, end: 682, diff: 97, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 775, end: 665, diff: 110, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 775, end: 665, diff: 110, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 769, end: 687, diff: 82, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 769, end: 687, diff: 82, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 770, end: 667, diff: 103, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 770, end: 667, diff: 103, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 761, end: 649, diff: 112, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 761, end: 649, diff: 112, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 749, end: 652, diff: 97, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 749, end: 652, diff: 97, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 762, end: 615, diff: 147, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 762, end: 615, diff: 147, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 586, end: 730, diff: -144, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 586, end: 730, diff: -144, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 604, end: 692, diff: -88, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 604, end: 692, diff: -88, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 625, end: 719, diff: -94, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 625, end: 719, diff: -94, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 607, end: 680, diff: -73, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 607, end: 680, diff: -73, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 624, end: 687, diff: -63, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 624, end: 687, diff: -63, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 798, end: 798, diff: 0, threshold: 30}
+index.html:1402 Swipe não atingiu threshold
+index.html:1380 Swipe detectado: {start: 798, end: 798, diff: 0, threshold: 30}
+index.html:1402 Swipe não atingiu threshold
+index.html:1380 Swipe detectado: {start: 753, end: 753, diff: 0, threshold: 30}
+index.html:1402 Swipe não atingiu threshold
+index.html:1380 Swipe detectado: {start: 753, end: 753, diff: 0, threshold: 30}
+index.html:1402 Swipe não atingiu threshold
+index.html:1380 Swipe detectado: {start: 756, end: 757, diff: -1, threshold: 30}
+index.html:1402 Swipe não atingiu threshold
+index.html:1380 Swipe detectado: {start: 756, end: 757, diff: -1, threshold: 30}
+index.html:1402 Swipe não atingiu threshold
+index.html:1380 Swipe detectado: {start: 778, end: 634, diff: 144, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 778, end: 634, diff: 144, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 760, end: 617, diff: 143, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 760, end: 617, diff: 143, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 748, end: 611, diff: 137, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 748, end: 611, diff: 137, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 778, end: 530, diff: 248, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 778, end: 530, diff: 248, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 822, end: 668, diff: 154, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 822, end: 668, diff: 154, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 822, end: 668, diff: 154, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 804, end: 627, diff: 177, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 804, end: 627, diff: 177, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 804, end: 627, diff: 177, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 770, end: 674, diff: 96, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 770, end: 674, diff: 96, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 770, end: 674, diff: 96, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 770, end: 674, diff: 96, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 797, end: 653, diff: 144, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 797, end: 653, diff: 144, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 797, end: 653, diff: 144, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 797, end: 653, diff: 144, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 817, end: 685, diff: 132, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 817, end: 685, diff: 132, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 817, end: 685, diff: 132, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1380 Swipe detectado: {start: 798, end: 675, diff: 123, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 798, end: 675, diff: 123, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 798, end: 675, diff: 123, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 798, end: 675, diff: 123, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 824, end: 628, diff: 196, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 824, end: 628, diff: 196, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1380 Swipe detectado: {start: 824, end: 628, diff: 196, threshold: 30}
+index.html:1383 Swipe válido detectado
+index.html:1386 Navegando entre cores
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1483 Page focused, checking for updates
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
+index.html:1459 No product changes detected
