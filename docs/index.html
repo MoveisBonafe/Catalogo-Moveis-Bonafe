@@ -835,14 +835,32 @@
             }
         });
 
-        // Refresh products when page becomes visible (returning from management)
-        document.addEventListener('visibilitychange', function() {
-            if (!document.hidden) {
-                allProducts = loadProducts();
+        // Auto-refresh products every 2 seconds to sync with management changes
+        function refreshProducts() {
+            const newProducts = loadProducts();
+            if (JSON.stringify(newProducts) !== JSON.stringify(allProducts)) {
+                allProducts = newProducts;
                 filteredProducts = [...allProducts];
                 filterProducts();
             }
+        }
+
+        // Refresh products when page becomes visible (returning from management)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                refreshProducts();
+            }
         });
+
+        // Listen for storage changes for instant sync
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'catalogUpdate') {
+                refreshProducts();
+            }
+        });
+
+        // Check for product updates every 2 seconds as backup
+        setInterval(refreshProducts, 2000);
 
         // Initialize
         setTimeout(() => {

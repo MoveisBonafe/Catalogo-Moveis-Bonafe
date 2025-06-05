@@ -683,6 +683,8 @@
 
         function saveProducts() {
             localStorage.setItem('catalogProducts', JSON.stringify(allProducts));
+            // Trigger storage event for real-time sync
+            localStorage.setItem('catalogUpdate', Date.now().toString());
         }
 
         let allProducts = loadProducts();
