@@ -241,18 +241,71 @@
             border: 1px solid #E0E0E0;
         }
         
-        .product-image {
+        .product-image-container {
             width: 100%;
             height: 250px;
-            background: white;
             border-radius: 8px;
             margin-bottom: 15px;
             overflow: hidden;
+            position: relative;
+            background: white;
+        }
+        
+        .product-image-gallery {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: transparent;
+        }
+        
+        .product-image.active {
+            opacity: 1;
+        }
+        
+        .card-click-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
             cursor: pointer;
-            transition: transform 0.3s ease;
+        }
+        
+        .image-nav-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 6px;
+            z-index: 10;
+        }
+        
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: rgba(255, 255, 255, 0.9);
         }
         
         .product-image:hover {
@@ -331,14 +384,21 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            border: 2px solid #E6D5A8;
+            border: 2px solid #E0E0E0;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
         
         .color-dot:hover {
-            transform: scale(1.2);
-            border-color: #F2C41B;
+            transform: scale(1.1);
+            border-color: #FFD700;
+        }
+        
+        .color-dot.active {
+            border-color: #FFD700;
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
+            transform: scale(1.05);
         }
         
         .footer {
@@ -739,15 +799,28 @@
             container.style.display = 'grid';
             
             container.innerHTML = products.map(product => `
-                <div class="product-card" onclick="openProductModal(${product.id})">
+                <div class="product-card">
                     ${product.images && product.images.length > 0 ? `
-                        <div class="product-image">
-                            <img src="${product.images[0]}" alt="${product.name}" 
-                                 onload="this.parentElement.classList.remove('no-image')"
-                                 onerror="handleImageError(this)">
+                        <div class="product-image-container" data-product-id="${product.id}">
+                            <div class="product-image-gallery">
+                                ${product.images.map((img, index) => `
+                                    <img class="product-image ${index === 0 ? 'active' : ''}" 
+                                         src="${img}" alt="${product.name}" 
+                                         onload="this.parentElement.parentElement.classList.remove('no-image')"
+                                         onerror="handleImageError(this)">
+                                `).join('')}
+                            </div>
+                            ${product.images.length > 1 ? `
+                                <div class="image-nav-dots">
+                                    ${product.images.map((_, index) => `
+                                        <span class="nav-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            <div class="card-click-overlay" onclick="openProductModal(${product.id})"></div>
                         </div>
                     ` : `
-                        <div class="product-image no-image">
+                        <div class="product-image no-image" onclick="openProductModal(${product.id})">
                             📷 Sem imagem
                         </div>
                     `}
@@ -770,8 +843,13 @@
                         <div class="colors">
                             <span class="color-label">Cores:</span>
                             <div class="color-dots">
-                                ${product.colors.slice(0, 4).map(color => 
-                                    `<div class="color-dot" style="background-color: ${color.hex}" title="${color.name}"></div>`
+                                ${product.colors.slice(0, 4).map((color, index) => 
+                                    `<div class="color-dot ${index === 0 ? 'active' : ''}" 
+                                          style="background-color: ${color.hex}" 
+                                          title="${color.name}"
+                                          data-product-id="${product.id}"
+                                          data-color-index="${index}"
+                                          onclick="switchToColorImage(${product.id}, ${index})"></div>`
                                 ).join('')}
                                 ${product.colors.length > 4 ? 
                                     `<span style="font-size: 0.8em; color: #666;">+${product.colors.length - 4}</span>` : ''
@@ -783,6 +861,9 @@
             `).join('');
         }
 
+        // Update the existing renderProducts function to include navigation
+        const originalRenderProducts = renderProducts;
+        
         function filterProducts() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const categoryFilter = document.getElementById('categoryFilter').value;
@@ -998,18 +1079,180 @@
         // Check for product updates every 2 seconds as backup
         setInterval(refreshProducts, 2000);
 
+        // Card image navigation and swipe functionality
+        function initializeCardImageNavigation() {
+            document.querySelectorAll('.product-image-container').forEach(container => {
+                const gallery = container.querySelector('.product-image-gallery');
+                const images = container.querySelectorAll('.product-image');
+                const dots = container.querySelectorAll('.nav-dot');
+                let currentIndex = 0;
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                // Dot navigation
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        switchImage(index);
+                    });
+                });
+
+                // Touch events for swipe
+                gallery.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                gallery.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+
+                function switchImage(index) {
+                    if (index >= 0 && index < images.length) {
+                        images[currentIndex].classList.remove('active');
+                        dots[currentIndex]?.classList.remove('active');
+                        
+                        currentIndex = index;
+                        
+                        images[currentIndex].classList.add('active');
+                        dots[currentIndex]?.classList.add('active');
+                    }
+                }
+
+                function handleSwipe() {
+                    const swipeThreshold = 50;
+                    const swipeDistance = touchEndX - touchStartX;
+                    
+                    if (Math.abs(swipeDistance) > swipeThreshold) {
+                        if (swipeDistance > 0 && currentIndex > 0) {
+                            switchImage(currentIndex - 1); // Swipe right = previous
+                        } else if (swipeDistance < 0 && currentIndex < images.length - 1) {
+                            switchImage(currentIndex + 1); // Swipe left = next
+                        }
+                    }
+                }
+
+                // Store reference for external access
+                container.switchImage = switchImage;
+            });
+        }
+
+        // Switch to specific color image
+        function switchToColorImage(productId, colorIndex) {
+            const container = document.querySelector(`[data-product-id="${productId}"]`);
+            const colorDots = document.querySelectorAll(`[data-product-id="${productId}"][data-color-index]`);
+            
+            if (container && container.switchImage) {
+                // Update active color
+                colorDots.forEach(dot => dot.classList.remove('active'));
+                const selectedDot = document.querySelector(`[data-product-id="${productId}"][data-color-index="${colorIndex}"]`);
+                if (selectedDot) selectedDot.classList.add('active');
+                
+                // Switch to corresponding image (assuming color index matches image index)
+                container.switchImage(colorIndex);
+            }
+        }
+
+        // Make function global
+        window.switchToColorImage = switchToColorImage;
+
         // Initialize
         async function initializeCatalog() {
             try {
                 allProducts = await loadProducts();
                 filteredProducts = [...allProducts];
                 renderProducts(filteredProducts);
+                initializeCardImageNavigation();
             } catch (error) {
                 console.error('Error loading products:', error);
                 allProducts = [...sampleProducts];
                 filteredProducts = [...allProducts];
                 renderProducts(filteredProducts);
+                initializeCardImageNavigation();
             }
+        }
+
+        // Re-initialize navigation when products are re-rendered
+        function renderProducts(products) {
+            const container = document.getElementById('productsContainer');
+            const loadingState = document.getElementById('loadingState');
+            const noProductsState = document.getElementById('noProductsState');
+
+            loadingState.style.display = 'none';
+            
+            if (products.length === 0) {
+                container.style.display = 'none';
+                noProductsState.style.display = 'block';
+                return;
+            }
+
+            noProductsState.style.display = 'none';
+            container.style.display = 'grid';
+            
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    ${product.images && product.images.length > 0 ? `
+                        <div class="product-image-container" data-product-id="${product.id}">
+                            <div class="product-image-gallery">
+                                ${product.images.map((img, index) => `
+                                    <img class="product-image ${index === 0 ? 'active' : ''}" 
+                                         src="${img}" alt="${product.name}" 
+                                         onload="this.parentElement.parentElement.classList.remove('no-image')"
+                                         onerror="handleImageError(this)">
+                                `).join('')}
+                            </div>
+                            ${product.images.length > 1 ? `
+                                <div class="image-nav-dots">
+                                    ${product.images.map((_, index) => `
+                                        <span class="nav-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            <div class="card-click-overlay" onclick="openProductModal(${product.id})"></div>
+                        </div>
+                    ` : `
+                        <div class="product-image no-image" onclick="openProductModal(${product.id})">
+                            📷 Sem imagem
+                        </div>
+                    `}
+                    <div class="product-header">
+                        <span class="category-badge">${product.category}</span>
+                    </div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    ${product.features && product.features.length > 0 ? `
+                        <div class="features">
+                            ${product.features.slice(0, 3).map(feature => 
+                                `<span class="feature-tag">${feature}</span>`
+                            ).join('')}
+                            ${product.features.length > 3 ? 
+                                `<span class="feature-tag">+${product.features.length - 3} mais</span>` : ''
+                            }
+                        </div>
+                    ` : ''}
+                    ${product.colors && product.colors.length > 0 ? `
+                        <div class="colors">
+                            <span class="color-label">Cores:</span>
+                            <div class="color-dots">
+                                ${product.colors.slice(0, 4).map((color, index) => 
+                                    `<div class="color-dot ${index === 0 ? 'active' : ''}" 
+                                          style="background-color: ${color.hex}" 
+                                          title="${color.name}"
+                                          data-product-id="${product.id}"
+                                          data-color-index="${index}"
+                                          onclick="switchToColorImage(${product.id}, ${index})"></div>`
+                                ).join('')}
+                                ${product.colors.length > 4 ? 
+                                    `<span style="font-size: 0.8em; color: #666;">+${product.colors.length - 4}</span>` : ''
+                                }
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+            
+            // Re-initialize navigation after rendering
+            setTimeout(initializeCardImageNavigation, 100);
         }
 
         initializeCatalog();
