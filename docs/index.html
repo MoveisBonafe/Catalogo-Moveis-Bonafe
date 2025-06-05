@@ -1357,20 +1357,17 @@
             window.open(url, '_blank');
         }
 
-        // Modal touch/swipe events
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        function handleTouchStart(e) {
+        // Modal touch/swipe events (using existing variables)
+        function handleModalTouchStart(e) {
             touchStartX = e.changedTouches[0].screenX;
         }
 
-        function handleTouchEnd(e) {
+        function handleModalTouchEnd(e) {
             touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+            handleModalSwipe();
         }
 
-        function handleSwipe() {
+        function handleModalSwipe() {
             const swipeThreshold = 50;
             const diff = touchStartX - touchEndX;
             
@@ -1414,8 +1411,8 @@
         
         // Modal touch/swipe events
         document.addEventListener('keydown', handleKeyPress);
-        document.getElementById('productModal').addEventListener('touchstart', handleTouchStart);
-        document.getElementById('productModal').addEventListener('touchend', handleTouchEnd);
+        document.getElementById('productModal').addEventListener('touchstart', handleModalTouchStart);
+        document.getElementById('productModal').addEventListener('touchend', handleModalTouchEnd);
         
         // Close modal when clicking outside the image
         document.getElementById('productModal').addEventListener('click', function(e) {
