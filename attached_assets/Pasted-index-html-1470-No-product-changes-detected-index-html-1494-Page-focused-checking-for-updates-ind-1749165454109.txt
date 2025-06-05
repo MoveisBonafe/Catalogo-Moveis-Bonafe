@@ -1,0 +1,64 @@
+index.html:1470 No product changes detected
+index.html:1494 Page focused, checking for updates
+index.html:1470 No product changes detected
+index.html:1393 Swipe detectado: {start: 786, end: 643, diff: 143, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 1 to 2 (total: 4)
+index.html:1393 Swipe detectado: {start: 786, end: 643, diff: 143, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 2 to 3 (total: 4)
+index.html:1393 Swipe detectado: {start: 778, end: 693, diff: 85, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 3 to 0 (total: 4)
+index.html:1393 Swipe detectado: {start: 778, end: 693, diff: 85, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 0 to 1 (total: 4)
+index.html:1393 Swipe detectado: {start: 784, end: 693, diff: 91, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 1 to 2 (total: 4)
+index.html:1393 Swipe detectado: {start: 784, end: 693, diff: 91, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 2 to 3 (total: 4)
+index.html:1470 No product changes detected
+index.html:1393 Swipe detectado: {start: 771, end: 677, diff: 94, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 3 to 0 (total: 4)
+index.html:1393 Swipe detectado: {start: 771, end: 677, diff: 94, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 0 to 1 (total: 4)
+index.html:1393 Swipe detectado: {start: 757, end: 654, diff: 103, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 1 to 2 (total: 4)
+index.html:1393 Swipe detectado: {start: 757, end: 654, diff: 103, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 2 to 3 (total: 4)
+index.html:1393 Swipe detectado: {start: 743, end: 639, diff: 104, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 3 to 0 (total: 4)
+index.html:1393 Swipe detectado: {start: 743, end: 639, diff: 104, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 0 to 1 (total: 4)
+index.html:1393 Swipe detectado: {start: 752, end: 642, diff: 110, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 1 to 2 (total: 4)
+index.html:1393 Swipe detectado: {start: 752, end: 642, diff: 110, threshold: 30}
+index.html:1396 Swipe válido detectado
+index.html:1399 Navegando entre cores
+index.html:1234 Color changed from 2 to 3 (total: 4)
+index.html:1470 No product changes detected
+index.html:1470 No product changes detected
+index.html:1470 No product changes detected
+index.html:1470 No product changes detected

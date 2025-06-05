@@ -463,8 +463,9 @@
             background: white;
             overflow: hidden;
             cursor: pointer;
-            touch-action: pan-y;
+            touch-action: none;
             user-select: none;
+            position: relative;
         }
         
         .gallery-image {
@@ -1112,29 +1113,38 @@
             const imageContainer = gallery.querySelector('.gallery-image-container');
             const galleryImage = document.getElementById('galleryImage');
 
-            // Remove existing events first
+            // Remove ALL existing touch events to prevent conflicts
             modal.removeEventListener('touchstart', handleModalTouchStart);
             modal.removeEventListener('touchend', handleModalTouchEnd);
+            modal.removeEventListener('touchstart', handleTouchStart);
+            modal.removeEventListener('touchend', handleTouchEnd);
+            
             gallery.removeEventListener('touchstart', handleModalTouchStart);
             gallery.removeEventListener('touchend', handleModalTouchEnd);
+            gallery.removeEventListener('touchstart', handleTouchStart);
+            gallery.removeEventListener('touchend', handleTouchEnd);
+            
             if (imageContainer) {
                 imageContainer.removeEventListener('touchstart', handleModalTouchStart);
                 imageContainer.removeEventListener('touchend', handleModalTouchEnd);
+                imageContainer.removeEventListener('touchstart', handleTouchStart);
+                imageContainer.removeEventListener('touchend', handleTouchEnd);
             }
+            
             galleryImage.removeEventListener('touchstart', handleModalTouchStart);
             galleryImage.removeEventListener('touchend', handleModalTouchEnd);
+            galleryImage.removeEventListener('touchstart', handleTouchStart);
+            galleryImage.removeEventListener('touchend', handleTouchEnd);
 
-            // Add events to multiple elements for better coverage
-            modal.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-            modal.addEventListener('touchend', handleModalTouchEnd, { passive: true });
-            gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-            gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+            // Add ONLY to the image container for better precision and coverage
             if (imageContainer) {
-                imageContainer.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-                imageContainer.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+                imageContainer.addEventListener('touchstart', handleModalTouchStart, { passive: false });
+                imageContainer.addEventListener('touchend', handleModalTouchEnd, { passive: false });
             }
-            galleryImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-            galleryImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+            
+            // Also add to the image itself as backup
+            galleryImage.addEventListener('touchstart', handleModalTouchStart, { passive: false });
+            galleryImage.addEventListener('touchend', handleModalTouchEnd, { passive: false });
         }
 
         function setupModalColors() {
@@ -1379,10 +1389,17 @@
         
         function handleModalTouchStart(e) {
             modalTouchStartX = e.changedTouches[0].screenX;
+            console.log('Touch start on modal:', modalTouchStartX);
         }
 
         function handleModalTouchEnd(e) {
             modalTouchEndX = e.changedTouches[0].screenX;
+            console.log('Touch end on modal:', modalTouchEndX);
+            
+            // Prevent default behavior to avoid interference
+            e.preventDefault();
+            e.stopPropagation();
+            
             handleModalSwipe();
         }
 
