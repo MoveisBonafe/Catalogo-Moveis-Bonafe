@@ -262,20 +262,58 @@
         }
         
         .colors {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             margin-top: 15px;
         }
         
         .color-label {
             font-size: 0.9em;
             color: #666;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .colors-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
         }
         
         .color-dots {
             display: flex;
             gap: 6px;
+            flex: 1;
+            align-items: center;
+        }
+        
+        .view-btn {
+            background: linear-gradient(135deg, #007AFF, #0056CC);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 122, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .view-btn:hover {
+            background: linear-gradient(135deg, #0056CC, #003D99);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 122, 255, 0.4);
+        }
+        
+        .view-btn-solo {
+            width: 100%;
+            padding: 10px 16px;
+            font-size: 0.9em;
+            justify-content: center;
         }
         
         .color-dot {
@@ -896,16 +934,27 @@
                     ${product.colors && product.colors.length > 0 ? `
                         <div class="colors">
                             <span class="color-label">Cores:</span>
-                            <div class="color-dots">
-                                ${product.colors.slice(0, 4).map(color => 
-                                    `<div class="color-dot" style="background-color: ${color.hex}" title="${color.name}"></div>`
-                                ).join('')}
-                                ${product.colors.length > 4 ? 
-                                    `<span style="font-size: 0.8em; color: #666;">+${product.colors.length - 4}</span>` : ''
-                                }
+                            <div class="colors-row">
+                                <div class="color-dots">
+                                    ${product.colors.slice(0, 4).map(color => 
+                                        `<div class="color-dot" style="background-color: ${color.hex}" title="${color.name}"></div>`
+                                    ).join('')}
+                                    ${product.colors.length > 4 ? 
+                                        `<span style="font-size: 0.8em; color: #666;">+${product.colors.length - 4}</span>` : ''
+                                    }
+                                </div>
+                                <button class="view-btn" onclick="event.stopPropagation(); openProductModal(${product.id})" title="Ver produto">
+                                    👁️ Ver
+                                </button>
                             </div>
                         </div>
-                    ` : ''}
+                    ` : `
+                        <div class="colors">
+                            <button class="view-btn view-btn-solo" onclick="event.stopPropagation(); openProductModal(${product.id})" title="Ver produto">
+                                👁️ Ver Produto
+                            </button>
+                        </div>
+                    `}
                 </div>
             `).join('');
         }
