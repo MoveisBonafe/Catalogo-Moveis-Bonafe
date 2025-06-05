@@ -23,7 +23,10 @@
         "hex": "#8c5b17"
       }
     ],
-    "features": [],
+    "features": [
+      "Largura: 0,44m",
+      "Altura: 1,00m"
+    ],
     "images": [
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749124916428-Cadeira_encosto_alto_imbuia.png",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749125112046-Cadeira_encosto_alto_cerejeira.png"
