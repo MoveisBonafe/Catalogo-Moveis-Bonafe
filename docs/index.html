@@ -1026,6 +1026,29 @@
             `).join('');
         }
 
+        function updateCategoryFilter() {
+            const categoryFilter = document.getElementById('categoryFilter');
+            const currentValue = categoryFilter.value;
+            
+            // Get unique categories from current products
+            const availableCategories = [...new Set(allProducts.map(p => p.category))].sort();
+            
+            // Clear and rebuild options
+            categoryFilter.innerHTML = '<option value="">Todas as categorias</option>';
+            
+            availableCategories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categoryFilter.appendChild(option);
+            });
+            
+            // Restore previous selection if still valid
+            if (availableCategories.includes(currentValue)) {
+                categoryFilter.value = currentValue;
+            }
+        }
+
         function filterProducts() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const categoryFilter = document.getElementById('categoryFilter').value;
@@ -1034,7 +1057,7 @@
             filteredProducts = allProducts.filter(product => {
                 const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
                                     product.description.toLowerCase().includes(searchTerm);
-                const matchesCategory = categoryFilter === 'all' || product.category === categoryFilter;
+                const matchesCategory = categoryFilter === '' || product.category === categoryFilter;
                 return matchesSearch && matchesCategory;
             });
 
@@ -1381,14 +1404,16 @@
             img.parentElement.innerHTML = '📷 Imagem não disponível';
         }
 
-        // Auto-refresh products every 2 seconds to sync with management changes
+        // Auto-refresh products to sync with management changes
         async function refreshProducts() {
             try {
                 const newProducts = await loadProducts();
                 if (JSON.stringify(newProducts) !== JSON.stringify(allProducts)) {
                     allProducts = newProducts;
                     filteredProducts = [...allProducts];
+                    updateCategoryFilter(); // Update categories dynamically
                     filterProducts();
+                    console.log('Products synchronized');
                 }
             } catch (error) {
                 console.log('Refresh failed, keeping current products');
@@ -1417,11 +1442,13 @@
             try {
                 allProducts = await loadProducts();
                 filteredProducts = [...allProducts];
+                updateCategoryFilter(); // Initialize category filter with available categories
                 renderProducts(filteredProducts);
             } catch (error) {
                 console.error('Error loading products:', error);
                 allProducts = [...sampleProducts];
                 filteredProducts = [...allProducts];
+                updateCategoryFilter(); // Initialize category filter even with sample data
                 renderProducts(filteredProducts);
             }
         }
