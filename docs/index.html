@@ -1476,19 +1476,21 @@
                     <defs>
                         <linearGradient id="whatsappGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" style="stop-color:#7ED321"/>
-                            <stop offset="30%" style="stop-color:#4ACA3A"/>
-                            <stop offset="70%" style="stop-color:#25D366"/>
-                            <stop offset="100%" style="stop-color:#1DA851"/>
+                            <stop offset="50%" style="stop-color:#4CAF50"/>
+                            <stop offset="100%" style="stop-color:#25D366"/>
                         </linearGradient>
                     </defs>
-                    <!-- Rounded square background -->
-                    <rect x="5" y="5" width="90" height="90" rx="18" ry="18" fill="url(#whatsappGradient)"/>
-                    <!-- White phone circle -->
-                    <circle cx="50" cy="48" r="28" fill="none" stroke="white" stroke-width="3.5"/>
-                    <!-- Phone handset -->
-                    <path d="M38 42 C38 38, 42 35, 46 36 C50 37, 54 40, 56 44 L52 48 C50 50, 48 52, 46 52 C44 52, 42 50, 40 48 Z" fill="white"/>
-                    <!-- Speech bubble tail -->
-                    <path d="M28 68 L20 76 C18 78, 22 78, 24 76 L32 68 C36 64, 40 68, 44 68" fill="white"/>
+                    <!-- Rounded square background like iOS -->
+                    <rect x="8" y="8" width="84" height="84" rx="18" ry="18" fill="url(#whatsappGradient)"/>
+                    <!-- White WhatsApp logo -->
+                    <g fill="white">
+                        <!-- Outer circle -->
+                        <circle cx="50" cy="50" r="26" fill="none" stroke="white" stroke-width="3"/>
+                        <!-- Phone handset -->
+                        <path d="M40 42 C38 40, 42 36, 45 38 C48 40, 52 44, 54 48 L50 52 C48 54, 46 54, 44 52 C42 50, 40 48, 38 46 Z"/>
+                        <!-- Speech bubble tail -->
+                        <path d="M30 66 L24 72 C22 74, 26 74, 28 72 L34 66 C38 62, 42 66, 46 66"/>
+                    </g>
                 </svg>
                 <span>Fale Conosco</span>
             </a>
