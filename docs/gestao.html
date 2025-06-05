@@ -553,8 +553,10 @@
                         Imagens serão mantidas em qualidade máxima. Formatos suportados: JPG, PNG, WebP
                     </small>
                         <button type="button" class="btn" onclick="uploadImages()">📤 Upload Imagens</button>
-                        <div id="imagesContainer" style="margin-top: 15px;"></div>
                         <div id="uploadStatus" style="margin-top: 10px; font-size: 0.9em;"></div>
+                        <div id="imagesContainer" style="margin-top: 15px;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 10px;" id="imagesList"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -939,7 +941,15 @@
                     // Use ArrayBuffer for maximum quality preservation
                     const arrayBuffer = await file.arrayBuffer();
                     const uint8Array = new Uint8Array(arrayBuffer);
-                    const base64Content = btoa(String.fromCharCode(...uint8Array));
+                    
+                    // Convert to base64 in chunks to avoid stack overflow
+                    let base64Content = '';
+                    const chunkSize = 8192;
+                    for (let i = 0; i < uint8Array.length; i += chunkSize) {
+                        const chunk = uint8Array.slice(i, i + chunkSize);
+                        base64Content += String.fromCharCode(...chunk);
+                    }
+                    base64Content = btoa(base64Content);
                     
                     // Clean filename for GitHub compatibility
                     const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
