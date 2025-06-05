@@ -587,8 +587,21 @@
             }
         ];
 
-        let allProducts = [...sampleProducts];
-        let filteredProducts = [...sampleProducts];
+        // Use localStorage to persist products between pages
+        function loadProducts() {
+            const savedProducts = localStorage.getItem('catalogProducts');
+            if (savedProducts) {
+                try {
+                    return JSON.parse(savedProducts);
+                } catch (e) {
+                    console.error('Error loading products from localStorage:', e);
+                }
+            }
+            return [...sampleProducts];
+        }
+
+        let allProducts = loadProducts();
+        let filteredProducts = [...allProducts];
 
         function renderProducts(products) {
             const container = document.getElementById('productsContainer');
@@ -819,6 +832,15 @@
         document.getElementById('productModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeProductModal();
+            }
+        });
+
+        // Refresh products when page becomes visible (returning from management)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                allProducts = loadProducts();
+                filteredProducts = [...allProducts];
+                filterProducts();
             }
         });
 
