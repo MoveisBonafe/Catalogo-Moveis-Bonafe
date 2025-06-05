@@ -650,6 +650,33 @@
     </div>
 
     <script>
+        // Global color system for all products - texturas amadeiradas e cores sólidas
+        const globalColors = [
+            // Texturas amadeiradas brasileiras
+            { name: "Carvalho Natural", hex: "#D2B48C", texture: "wood", category: "amadeirada" },
+            { name: "Mogno Escuro", hex: "#8B4513", texture: "wood", category: "amadeirada" },
+            { name: "Cerejeira", hex: "#C65353", texture: "wood", category: "amadeirada" },
+            { name: "Nogueira", hex: "#654321", texture: "wood", category: "amadeirada" },
+            { name: "Pinho Claro", hex: "#F5DEB3", texture: "wood", category: "amadeirada" },
+            { name: "Imbuia", hex: "#CD853F", texture: "wood", category: "amadeirada" },
+            { name: "Freijó", hex: "#DEB887", texture: "wood", category: "amadeirada" },
+            { name: "Jatobá", hex: "#A0522D", texture: "wood", category: "amadeirada" },
+            { name: "Eucalipto", hex: "#D2691E", texture: "wood", category: "amadeirada" },
+            { name: "Cedro Rosa", hex: "#CD5C5C", texture: "wood", category: "amadeirada" },
+            { name: "Angelim Pedra", hex: "#BC8F8F", texture: "wood", category: "amadeirada" },
+            { name: "Ipê", hex: "#8B7355", texture: "wood", category: "amadeirada" },
+            
+            // Cores sólidas neutras
+            { name: "Branco Puro", hex: "#FFFFFF", texture: "solid", category: "neutra" },
+            { name: "Preto Fosco", hex: "#2C2C2C", texture: "solid", category: "neutra" },
+            { name: "Cinza Claro", hex: "#D3D3D3", texture: "solid", category: "neutra" },
+            { name: "Cinza Médio", hex: "#808080", texture: "solid", category: "neutra" },
+            { name: "Cinza Escuro", hex: "#696969", texture: "solid", category: "neutra" },
+            { name: "Bege", hex: "#F5F5DC", texture: "solid", category: "neutra" },
+            { name: "Creme", hex: "#FFFDD0", texture: "solid", category: "neutra" },
+            { name: "Off White", hex: "#FAF0E6", texture: "solid", category: "neutra" }
+        ];
+
         // Sample products data
         const sampleProducts = [
             {
@@ -839,26 +866,32 @@
                             }
                         </div>
                     ` : ''}
-                    ${product.colors && product.colors.length > 0 ? `
+                    ${getProductColors(product).length > 0 ? `
                         <div class="colors">
                             <span class="color-label">Cores:</span>
                             <div class="color-dots">
-                                ${product.colors.slice(0, 4).map((color, index) => 
+                                ${getProductColors(product).slice(0, 4).map((color, index) => 
                                     `<div class="color-dot ${index === 0 ? 'active' : ''}" 
                                           style="background-color: ${color.hex}" 
                                           title="${color.name}"
                                           data-product-id="${product.id}"
                                           data-color-index="${index}"
-                                          onclick="switchToColorImage(${product.id}, ${index})"></div>`
+                                          data-color-name="${color.name}"
+                                          onclick="switchToColorImage(${product.id}, '${color.name}')"></div>`
                                 ).join('')}
-                                ${product.colors.length > 4 ? 
-                                    `<span style="font-size: 0.8em; color: #666;">+${product.colors.length - 4}</span>` : ''
+                                ${getProductColors(product).length > 4 ? 
+                                    `<span style="font-size: 0.8em; color: #666;">+${getProductColors(product).length - 4}</span>` : ''
                                 }
                             </div>
                         </div>
                     ` : ''}
                 </div>
             `).join('');
+            
+            // Re-initialize navigation after rendering
+            setTimeout(() => {
+                initializeCardImageNavigation();
+            }, 100);
         }
 
         // Update the existing renderProducts function to include navigation
@@ -1099,12 +1132,46 @@
 
                 // Touch events for swipe
                 gallery.addEventListener('touchstart', (e) => {
+                    e.stopPropagation();
                     touchStartX = e.changedTouches[0].screenX;
                 });
 
                 gallery.addEventListener('touchend', (e) => {
+                    e.stopPropagation();
                     touchEndX = e.changedTouches[0].screenX;
                     handleSwipe();
+                });
+
+                // Mouse events for desktop swipe simulation
+                let isMouseDown = false;
+                let mouseStartX = 0;
+
+                gallery.addEventListener('mousedown', (e) => {
+                    e.stopPropagation();
+                    isMouseDown = true;
+                    mouseStartX = e.clientX;
+                });
+
+                gallery.addEventListener('mouseup', (e) => {
+                    e.stopPropagation();
+                    if (isMouseDown) {
+                        const mouseEndX = e.clientX;
+                        const swipeDistance = mouseEndX - mouseStartX;
+                        const swipeThreshold = 50;
+                        
+                        if (Math.abs(swipeDistance) > swipeThreshold) {
+                            if (swipeDistance > 0 && currentIndex > 0) {
+                                switchImage(currentIndex - 1);
+                            } else if (swipeDistance < 0 && currentIndex < images.length - 1) {
+                                switchImage(currentIndex + 1);
+                            }
+                        }
+                    }
+                    isMouseDown = false;
+                });
+
+                gallery.addEventListener('mouseleave', () => {
+                    isMouseDown = false;
                 });
 
                 function switchImage(index) {
@@ -1137,19 +1204,43 @@
             });
         }
 
-        // Switch to specific color image
-        function switchToColorImage(productId, colorIndex) {
-            const container = document.querySelector(`[data-product-id="${productId}"]`);
-            const colorDots = document.querySelectorAll(`[data-product-id="${productId}"][data-color-index]`);
+        // Function to get colors for a product (global colors or product-specific)
+        function getProductColors(product) {
+            // If product has specific colors, use them; otherwise use global colors subset
+            if (product.colors && product.colors.length > 0) {
+                return product.colors;
+            }
             
-            if (container && container.switchImage) {
+            // Return a subset of global colors for products without specific colors
+            return globalColors.filter(color => color.category === 'amadeirada').slice(0, 6);
+        }
+
+        // Switch to specific color image based on color name
+        function switchToColorImage(productId, colorName) {
+            const container = document.querySelector(`[data-product-id="${productId}"]`);
+            const colorDots = document.querySelectorAll(`[data-product-id="${productId}"][data-color-name]`);
+            const product = [...allProducts, ...sampleProducts].find(p => p.id == productId);
+            
+            if (container && container.switchImage && product) {
                 // Update active color
                 colorDots.forEach(dot => dot.classList.remove('active'));
-                const selectedDot = document.querySelector(`[data-product-id="${productId}"][data-color-index="${colorIndex}"]`);
+                const selectedDot = document.querySelector(`[data-product-id="${productId}"][data-color-name="${colorName}"]`);
                 if (selectedDot) selectedDot.classList.add('active');
                 
-                // Switch to corresponding image (assuming color index matches image index)
-                container.switchImage(colorIndex);
+                // Find image that matches the color name (look for color name in image filename)
+                let imageIndex = 0;
+                if (product.images && product.images.length > 1) {
+                    const foundIndex = product.images.findIndex(img => 
+                        img.toLowerCase().includes(colorName.toLowerCase().replace(/\s+/g, '')) ||
+                        img.toLowerCase().includes(colorName.toLowerCase().split(' ')[0])
+                    );
+                    if (foundIndex !== -1) {
+                        imageIndex = foundIndex;
+                    }
+                }
+                
+                // Switch to the found image
+                container.switchImage(imageIndex);
             }
         }
 
@@ -1172,88 +1263,7 @@
             }
         }
 
-        // Re-initialize navigation when products are re-rendered
-        function renderProducts(products) {
-            const container = document.getElementById('productsContainer');
-            const loadingState = document.getElementById('loadingState');
-            const noProductsState = document.getElementById('noProductsState');
 
-            loadingState.style.display = 'none';
-            
-            if (products.length === 0) {
-                container.style.display = 'none';
-                noProductsState.style.display = 'block';
-                return;
-            }
-
-            noProductsState.style.display = 'none';
-            container.style.display = 'grid';
-            
-            container.innerHTML = products.map(product => `
-                <div class="product-card">
-                    ${product.images && product.images.length > 0 ? `
-                        <div class="product-image-container" data-product-id="${product.id}">
-                            <div class="product-image-gallery">
-                                ${product.images.map((img, index) => `
-                                    <img class="product-image ${index === 0 ? 'active' : ''}" 
-                                         src="${img}" alt="${product.name}" 
-                                         onload="this.parentElement.parentElement.classList.remove('no-image')"
-                                         onerror="handleImageError(this)">
-                                `).join('')}
-                            </div>
-                            ${product.images.length > 1 ? `
-                                <div class="image-nav-dots">
-                                    ${product.images.map((_, index) => `
-                                        <span class="nav-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-                            <div class="card-click-overlay" onclick="openProductModal(${product.id})"></div>
-                        </div>
-                    ` : `
-                        <div class="product-image no-image" onclick="openProductModal(${product.id})">
-                            📷 Sem imagem
-                        </div>
-                    `}
-                    <div class="product-header">
-                        <span class="category-badge">${product.category}</span>
-                    </div>
-                    <h3 class="product-name">${product.name}</h3>
-                    <p class="product-description">${product.description}</p>
-                    ${product.features && product.features.length > 0 ? `
-                        <div class="features">
-                            ${product.features.slice(0, 3).map(feature => 
-                                `<span class="feature-tag">${feature}</span>`
-                            ).join('')}
-                            ${product.features.length > 3 ? 
-                                `<span class="feature-tag">+${product.features.length - 3} mais</span>` : ''
-                            }
-                        </div>
-                    ` : ''}
-                    ${product.colors && product.colors.length > 0 ? `
-                        <div class="colors">
-                            <span class="color-label">Cores:</span>
-                            <div class="color-dots">
-                                ${product.colors.slice(0, 4).map((color, index) => 
-                                    `<div class="color-dot ${index === 0 ? 'active' : ''}" 
-                                          style="background-color: ${color.hex}" 
-                                          title="${color.name}"
-                                          data-product-id="${product.id}"
-                                          data-color-index="${index}"
-                                          onclick="switchToColorImage(${product.id}, ${index})"></div>`
-                                ).join('')}
-                                ${product.colors.length > 4 ? 
-                                    `<span style="font-size: 0.8em; color: #666;">+${product.colors.length - 4}</span>` : ''
-                                }
-                            </div>
-                        </div>
-                    ` : ''}
-                </div>
-            `).join('');
-            
-            // Re-initialize navigation after rendering
-            setTimeout(initializeCardImageNavigation, 100);
-        }
 
         initializeCatalog();
     </script>
