@@ -30,29 +30,6 @@
     ]
   },
   {
-    "id": 4,
-    "name": "Cadeira Ergonômica Office",
-    "description": "Cadeira de escritório com apoio lombar ajustável e rodízios silenciosos.",
-    "price": "R$ 899,00",
-    "category": "Cadeiras",
-    "colors": [
-      {
-        "name": "Preto",
-        "hex": "#000000"
-      },
-      {
-        "name": "Cinza",
-        "hex": "#808080"
-      }
-    ],
-    "features": [
-      "Ergonômica",
-      "Apoio lombar",
-      "Rodízios silenciosos",
-      "Altura regulável"
-    ]
-  },
-  {
     "id": 5,
     "name": "Estante Biblioteca 5 Prateleiras",
     "description": "Estante moderna com 5 prateleiras e compartimentos para livros e decoração.",
