@@ -15,109 +15,50 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Build project
-        run: npm run build
-        
       - name: Setup Pages
         uses: actions/configure-pages@v4
         
-      - name: Prepare GitHub Pages
+      - name: Prepare files
         run: |
-          # Copy build files to docs
-          cp -r dist/public/* docs/
+          # Create images directory if it doesn't exist
+          mkdir -p docs/images
           
-          # Fix asset paths for GitHub Pages
-          sed -i 's|src="/assets/|src="./assets/|g' docs/index.html
-          sed -i 's|href="/assets/|href="./assets/|g' docs/index.html
+          # Create products.json if it doesn't exist
+          if [ ! -f docs/products.json ]; then
+            echo "[]" > docs/products.json
+          fi
           
-          # Create gestao.html with correct paths
-          cat > docs/gestao.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="pt-BR">
-            <head>
-              <meta charset="UTF-8" />
-              <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <meta name="robots" content="noindex, nofollow" />
-              <title>Gestão - MóveisDesign</title>
-              <link rel="manifest" href="./manifest.json">
-              <script type="module" crossorigin src="./assets/index-4qAKNjl6.js"></script>
-              <link rel="stylesheet" crossorigin href="./assets/index-CUUzcTvG.css">
-            </head>
-            <body>
-              <div id="root"></div>
-              <script>
-                if (window.location.pathname.includes('gestao')) {
-                  history.replaceState(null, null, '/gestao');
-                }
-              </script>
-            </body>
-          </html>
-          EOF
+          # Validate required files
+          echo "Validating GitHub Pages files..."
+          ls -la docs/
           
-          # Update 404.html for SPA routing
-          cat > docs/404.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="pt-BR">
-            <head>
-              <meta charset="UTF-8" />
-              <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <title>MóveisDesign - Catálogo de Móveis</title>
-              <link rel="manifest" href="./manifest.json">
-              <script type="module" crossorigin src="./assets/index-4qAKNjl6.js"></script>
-              <link rel="stylesheet" crossorigin href="./assets/index-CUUzcTvG.css">
-            </head>
-            <body>
-              <div id="root"></div>
-              <script>
-                (function() {
-                  var redirect = sessionStorage.redirect;
-                  delete sessionStorage.redirect;
-                  if (redirect && redirect != location.href) {
-                    history.replaceState(null, null, redirect);
-                  }
-                })();
-              </script>
-            </body>
-          </html>
-          EOF
+          if [ -f docs/index.html ]; then
+            echo "✓ index.html found"
+          else
+            echo "✗ index.html missing"
+            exit 1
+          fi
           
-          # Create images directory
-          mkdir -p docs/images/produtos
+          if [ -f docs/gestao.html ]; then
+            echo "✓ gestao.html found"
+          else
+            echo "✗ gestao.html missing"
+            exit 1
+          fi
           
-          # Add proper HTML meta tags
-          sed -i 's|<html lang="en">|<html lang="pt-BR">|g' docs/index.html
-          sed -i 's|<title>.*</title>|<title>MóveisDesign - Catálogo de Móveis</title>|g' docs/index.html
+          echo "All files validated successfully"
           
-        
-      - name: Upload artifact
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
