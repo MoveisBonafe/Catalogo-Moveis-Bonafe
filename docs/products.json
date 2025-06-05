@@ -30,29 +30,6 @@
     ]
   },
   {
-    "id": 3,
-    "name": "Mesa de Jantar Extensível",
-    "description": "Mesa de jantar em madeira maciça com sistema de extensão para 8 pessoas.",
-    "price": "R$ 1.899,00",
-    "category": "Mesas",
-    "colors": [
-      {
-        "name": "Mogno",
-        "hex": "#CD853F"
-      },
-      {
-        "name": "Carvalho",
-        "hex": "#DEB887"
-      }
-    ],
-    "features": [
-      "Madeira maciça",
-      "Extensível",
-      "Para 8 pessoas",
-      "Acabamento verniz"
-    ]
-  },
-  {
     "id": 4,
     "name": "Cadeira Ergonômica Office",
     "description": "Cadeira de escritório com apoio lombar ajustável e rodízios silenciosos.",
