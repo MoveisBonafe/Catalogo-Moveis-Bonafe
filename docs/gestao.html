@@ -15,7 +15,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            background: linear-gradient(135deg, #FFF8E7 0%, #FFFBF0 100%);
+            background: white;
             color: #1A1A1A;
             min-height: 100vh;
         }
@@ -668,7 +668,24 @@
             }
         ];
 
-        let allProducts = [...sampleProducts];
+        // Use localStorage to persist products between pages
+        function loadProducts() {
+            const savedProducts = localStorage.getItem('catalogProducts');
+            if (savedProducts) {
+                try {
+                    return JSON.parse(savedProducts);
+                } catch (e) {
+                    console.error('Error loading products from localStorage:', e);
+                }
+            }
+            return [...sampleProducts];
+        }
+
+        function saveProducts() {
+            localStorage.setItem('catalogProducts', JSON.stringify(allProducts));
+        }
+
+        let allProducts = loadProducts();
         let editingProductId = null;
 
         function renderProducts() {
@@ -782,6 +799,7 @@
 
             if (confirm(`Tem certeza que deseja excluir "${product.name}"?`)) {
                 allProducts = allProducts.filter(p => p.id !== id);
+                saveProducts();
                 renderProducts();
             }
         }
@@ -1005,6 +1023,7 @@
                 allProducts.push(newProduct);
             }
 
+            saveProducts();
             renderProducts();
             closeModal();
             
