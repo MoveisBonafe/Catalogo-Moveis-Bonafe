@@ -2,15 +2,199 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MóveisDesign - Catálogo de Móveis</title>
-    <meta name="description" content="Catálogo completo de móveis com designs modernos e exclusivos. Explore nossa coleção de sofás, mesas, cadeiras e muito mais.">
-    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    <meta name="description" content="Catálogo completo de móveis de qualidade - sofás, poltronas, mesas, cadeiras e muito mais. Confira nossa coleção exclusiva." />
+    <meta property="og:title" content="MóveisDesign - Catálogo de Móveis" />
+    <meta property="og:description" content="Catálogo completo de móveis de qualidade - sofás, poltronas, mesas, cadeiras e muito mais." />
+    <meta property="og:type" content="website" />
     <link rel="manifest" href="./manifest.json">
-    <script type="module" crossorigin src="./assets/index-4qAKNjl6.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CUUzcTvG.css">
+    <style>
+      :root {
+        --primary: 45 100% 51%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 45 20% 96%;
+        --secondary-foreground: 45 8% 15%;
+        --muted: 45 10% 95%;
+        --muted-foreground: 45 4% 45%;
+        --accent: 45 15% 92%;
+        --accent-foreground: 45 8% 15%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 45 10% 89%;
+        --input: 45 10% 89%;
+        --ring: 45 100% 51%;
+        --background: 0 0% 100%;
+        --foreground: 45 8% 15%;
+        --card: 0 0% 100%;
+        --card-foreground: 45 8% 15%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 45 8% 15%;
+      }
+      
+      .dark {
+        --primary: 45 100% 51%;
+        --primary-foreground: 45 8% 15%;
+        --secondary: 45 8% 15%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 45 8% 15%;
+        --muted-foreground: 45 4% 65%;
+        --accent: 45 8% 15%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62% 30%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 45 8% 15%;
+        --input: 45 8% 15%;
+        --ring: 45 100% 51%;
+        --background: 45 8% 8%;
+        --foreground: 0 0% 98%;
+        --card: 45 8% 8%;
+        --card-foreground: 0 0% 98%;
+        --popover: 45 8% 8%;
+        --popover-foreground: 0 0% 98%;
+      }
+      
+      * {
+        border-color: hsl(var(--border));
+      }
+      
+      body {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-family: system-ui, -apple-system, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-size: 18px;
+        color: hsl(var(--muted-foreground));
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loading">Carregando catálogo...</div>
+    </div>
+    <script type="module">
+      // Configuração básica para SPA
+      const API_BASE = 'https://moveisdesign-api.herokuapp.com/api';
+      
+      // Dados dos produtos (temporário até API estar disponível)
+      const products = [
+        {
+          id: 1,
+          name: "Sofá Moderno Cinza",
+          description: "Sofá confortável de 3 lugares em tecido cinza, perfeito para salas modernas.",
+          category: "Sofás",
+          images: ["https://via.placeholder.com/400x300/f0f0f0/333?text=Sofá+Moderno"],
+          colors: ["cinza", "bege"],
+          specifications: { "Largura": "2.10m", "Profundidade": "0.90m", "Altura": "0.85m" }
+        },
+        {
+          id: 2,
+          name: "Mesa de Jantar Redonda",
+          description: "Mesa de jantar redonda em madeira maciça, ideal para 4 pessoas.",
+          category: "Mesas",
+          images: ["https://via.placeholder.com/400x300/d4af37/333?text=Mesa+Redonda"],
+          colors: ["carvalho", "mogno"],
+          specifications: { "Diâmetro": "1.20m", "Altura": "0.75m" }
+        }
+      ];
+      
+      // Renderização básica
+      function renderProducts() {
+        const root = document.getElementById('root');
+        root.innerHTML = `
+          <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+            <header style="text-align: center; margin-bottom: 40px;">
+              <h1 style="color: hsl(var(--primary)); margin: 0; font-size: 2.5rem;">MóveisDesign</h1>
+              <p style="color: hsl(var(--muted-foreground)); margin: 10px 0 0 0;">Catálogo de Móveis de Qualidade</p>
+            </header>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+              ${products.map(product => `
+                <div style="
+                  border: 1px solid hsl(var(--border)); 
+                  border-radius: 8px; 
+                  overflow: hidden; 
+                  background: hsl(var(--card));
+                  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                ">
+                  <img src="${product.images[0]}" alt="${product.name}" style="
+                    width: 100%; 
+                    height: 200px; 
+                    object-fit: cover;
+                  ">
+                  <div style="padding: 16px;">
+                    <h3 style="margin: 0 0 8px 0; color: hsl(var(--foreground));">${product.name}</h3>
+                    <p style="
+                      color: hsl(var(--muted-foreground)); 
+                      margin: 0 0 12px 0; 
+                      font-size: 14px;
+                      line-height: 1.4;
+                    ">${product.description}</p>
+                    <div style="
+                      background: hsl(var(--secondary)); 
+                      padding: 8px 12px; 
+                      border-radius: 4px; 
+                      font-size: 12px; 
+                      color: hsl(var(--secondary-foreground));
+                      display: inline-block;
+                    ">${product.category}</div>
+                    ${product.colors.length > 0 ? `
+                      <div style="margin-top: 12px;">
+                        <span style="font-size: 12px; color: hsl(var(--muted-foreground));">Cores disponíveis:</span>
+                        <div style="display: flex; gap: 4px; margin-top: 4px;">
+                          ${product.colors.map(color => `
+                            <span style="
+                              background: hsl(var(--accent)); 
+                              color: hsl(var(--accent-foreground));
+                              padding: 2px 8px; 
+                              border-radius: 12px; 
+                              font-size: 11px;
+                            ">${color}</span>
+                          `).join('')}
+                        </div>
+                      </div>
+                    ` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            
+            <footer style="
+              text-align: center; 
+              margin-top: 60px; 
+              padding: 20px; 
+              color: hsl(var(--muted-foreground)); 
+              font-size: 14px;
+            ">
+              <p>© 2024 MóveisDesign - Catálogo de Móveis</p>
+            </footer>
+          </div>
+        `;
+      }
+      
+      // Inicializar
+      renderProducts();
+      
+      // Detectar acesso à gestão
+      let adminKeySequence = '';
+      document.addEventListener('keydown', (e) => {
+        adminKeySequence += e.key.toLowerCase();
+        if (adminKeySequence.includes('admin')) {
+          window.location.href = './gestao.html';
+        }
+        if (adminKeySequence.length > 10) {
+          adminKeySequence = adminKeySequence.slice(-5);
+        }
+      });
+    </script>
   </body>
 </html>
