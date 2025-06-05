@@ -462,6 +462,9 @@
             min-height: 0;
             background: white;
             overflow: hidden;
+            cursor: pointer;
+            touch-action: pan-y;
+            user-select: none;
         }
         
         .gallery-image {
@@ -1090,8 +1093,6 @@
             const gallery = document.getElementById('imageGallery');
             const placeholder = document.getElementById('noImagesPlaceholder');
             
-            // Product name removed from modal header
-            
             // Setup colors
             setupModalColors();
             
@@ -1100,11 +1101,6 @@
 
             document.getElementById('productModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
-            
-            // Add touch events for swipe
-            const modal = document.getElementById('productModal');
-            modal.addEventListener('touchstart', handleTouchStart, false);
-            modal.addEventListener('touchend', handleTouchEnd, false);
         }
 
         function setupModalColors() {
@@ -1139,6 +1135,12 @@
             
             let imagesToShow = currentProduct.images || [];
             
+            // Remove existing touch events to prevent duplicates
+            gallery.removeEventListener('touchstart', handleModalTouchStart);
+            gallery.removeEventListener('touchend', handleModalTouchEnd);
+            galleryImage.removeEventListener('touchstart', handleModalTouchStart);
+            galleryImage.removeEventListener('touchend', handleModalTouchEnd);
+            
             // Se não há cores selecionadas ou imagens para a cor, usar navegação por imagem
             if (!currentProduct.colors || currentProduct.colors.length === 0) {
                 // Sem cores: navegar pelas imagens disponíveis
@@ -1147,60 +1149,53 @@
                     placeholder.style.display = 'none';
                     galleryImage.src = imagesToShow[currentImageIndex];
                     galleryImage.alt = 'Imagem do produto';
-                    
-                    // Adicionar eventos de swipe na galeria para produtos sem cores
-                    gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-                    gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
                 } else {
                     gallery.style.display = 'none';
                     placeholder.style.display = 'flex';
                 }
-                return;
-            }
-            
-            // Com cores: usar índice da cor para selecionar imagem
-            let imageIndex = Math.min(currentColorIndex, imagesToShow.length - 1);
-            
-            if (imagesToShow.length > 0 && imagesToShow[imageIndex]) {
-                gallery.style.display = 'flex';
-                placeholder.style.display = 'none';
-                galleryImage.src = imagesToShow[imageIndex];
-                galleryImage.alt = currentProduct.colors[currentColorIndex]?.name || 'Imagem do produto';
+            } else {
+                // Com cores: usar índice da cor para selecionar imagem
+                let imageIndex = Math.min(currentColorIndex, imagesToShow.length - 1);
                 
-                // Adicionar eventos de swipe na galeria
-                gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-                gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
-                
-                // Handle image loading errors
-                galleryImage.onerror = function() {
-                    this.style.display = 'none';
+                if (imagesToShow.length > 0 && imagesToShow[imageIndex]) {
+                    gallery.style.display = 'flex';
+                    placeholder.style.display = 'none';
+                    galleryImage.src = imagesToShow[imageIndex];
+                    galleryImage.alt = currentProduct.colors[currentColorIndex]?.name || 'Imagem do produto';
+                    
+                    // Handle image loading errors
+                    galleryImage.onerror = function() {
+                        this.style.display = 'none';
+                        gallery.style.display = 'none';
+                        placeholder.style.display = 'flex';
+                        placeholder.innerHTML = `
+                            <div style="text-align: center; padding: 40px;">
+                                <div style="font-size: 4em; margin-bottom: 20px; opacity: 0.3;">📷</div>
+                                <h3 style="color: #999; font-weight: 400;">Imagem não disponível</h3>
+                            </div>
+                        `;
+                    };
+                    
+                    galleryImage.onload = function() {
+                        this.style.display = 'block';
+                    };
+                } else {
                     gallery.style.display = 'none';
                     placeholder.style.display = 'flex';
                     placeholder.innerHTML = `
                         <div style="text-align: center; padding: 40px;">
                             <div style="font-size: 4em; margin-bottom: 20px; opacity: 0.3;">📷</div>
-                            <h3 style="color: #999; font-weight: 400;">Imagem não disponível</h3>
+                            <h3 style="color: #999; font-weight: 400;">Nenhuma imagem disponível</h3>
                         </div>
                     `;
-                };
-                
-                galleryImage.onload = function() {
-                    this.style.display = 'block';
-                };
-                
-                // Adicionar eventos de swipe na imagem
-                galleryImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
-                galleryImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
-            } else {
-                gallery.style.display = 'none';
-                placeholder.style.display = 'flex';
-                placeholder.innerHTML = `
-                    <div style="text-align: center; padding: 40px;">
-                        <div style="font-size: 4em; margin-bottom: 20px; opacity: 0.3;">📷</div>
-                        <h3 style="color: #999; font-weight: 400;">Nenhuma imagem disponível</h3>
-                    </div>
-                `;
+                }
             }
+
+            // Add swipe events to both gallery container and image for better touch coverage
+            gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+            gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+            galleryImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+            galleryImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
         }
 
         function closeProductModal() {
