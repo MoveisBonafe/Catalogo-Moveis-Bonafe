@@ -1147,6 +1147,10 @@
                     placeholder.style.display = 'none';
                     galleryImage.src = imagesToShow[currentImageIndex];
                     galleryImage.alt = 'Imagem do produto';
+                    
+                    // Adicionar eventos de swipe na galeria para produtos sem cores
+                    gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+                    gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
                 } else {
                     gallery.style.display = 'none';
                     placeholder.style.display = 'flex';
@@ -1162,6 +1166,10 @@
                 placeholder.style.display = 'none';
                 galleryImage.src = imagesToShow[imageIndex];
                 galleryImage.alt = currentProduct.colors[currentColorIndex]?.name || 'Imagem do produto';
+                
+                // Adicionar eventos de swipe na galeria
+                gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+                gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
                 
                 // Handle image loading errors
                 galleryImage.onerror = function() {
@@ -1179,6 +1187,10 @@
                 galleryImage.onload = function() {
                     this.style.display = 'block';
                 };
+                
+                // Adicionar eventos de swipe na imagem
+                galleryImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+                galleryImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
             } else {
                 gallery.style.display = 'none';
                 placeholder.style.display = 'flex';
@@ -1352,12 +1364,16 @@
         }
 
         function handleModalSwipe() {
-            const swipeThreshold = 50;
+            const swipeThreshold = 30; // Reduzido para detectar swipes menores
             const diff = modalTouchStartX - modalTouchEndX;
             
+            console.log('Swipe detectado:', { start: modalTouchStartX, end: modalTouchEndX, diff: diff, threshold: swipeThreshold });
+            
             if (Math.abs(diff) > swipeThreshold) {
+                console.log('Swipe válido detectado');
                 if (currentProduct.colors && currentProduct.colors.length > 1) {
                     // Com cores: navegar entre cores
+                    console.log('Navegando entre cores');
                     if (diff > 0) {
                         nextColor();
                     } else {
@@ -1365,12 +1381,15 @@
                     }
                 } else if (currentProduct.images && currentProduct.images.length > 1) {
                     // Sem cores: navegar entre imagens
+                    console.log('Navegando entre imagens');
                     if (diff > 0) {
                         nextImage();
                     } else {
                         previousImage();
                     }
                 }
+            } else {
+                console.log('Swipe não atingiu threshold');
             }
         }
 
