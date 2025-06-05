@@ -1,8 +1,8 @@
 [
   {
     "id": 2,
-    "name": "Poltrona Relax Premium",
-    "description": "Poltrona reclinÃ¡vel com sistema de massagem e aquecimento integrado.",
+    "name": "Cadeira Alta",
+    "description": "Poltrona reclinável com sistema de massagem e aquecimento integrado.",
     "price": "R$ 3.299,00",
     "category": "Poltronas",
     "colors": [
@@ -16,7 +16,7 @@
       }
     ],
     "features": [
-      "ReclinÃ¡vel",
+      "Reclinável",
       "Sistema de massagem"
     ],
     "images": [
@@ -26,8 +26,8 @@
   },
   {
     "id": 3,
-    "name": "Mesa de Jantar ExtensÃ­vel",
-    "description": "Mesa de jantar em madeira maciÃ§a com sistema de extensÃ£o para 8 pessoas.",
+    "name": "Mesa de Jantar Extensível",
+    "description": "Mesa de jantar em madeira maciça com sistema de extensão para 8 pessoas.",
     "price": "R$ 1.899,00",
     "category": "Mesas",
     "colors": [
@@ -41,16 +41,16 @@
       }
     ],
     "features": [
-      "Madeira maciÃ§a",
-      "ExtensÃ­vel",
+      "Madeira maciça",
+      "Extensível",
       "Para 8 pessoas",
       "Acabamento verniz"
     ]
   },
   {
     "id": 4,
-    "name": "Cadeira ErgonÃ´mica Office",
-    "description": "Cadeira de escritÃ³rio com apoio lombar ajustÃ¡vel e rodÃ­zios silenciosos.",
+    "name": "Cadeira Ergonômica Office",
+    "description": "Cadeira de escritório com apoio lombar ajustável e rodízios silenciosos.",
     "price": "R$ 899,00",
     "category": "Cadeiras",
     "colors": [
@@ -64,16 +64,16 @@
       }
     ],
     "features": [
-      "ErgonÃ´mica",
+      "Ergonômica",
       "Apoio lombar",
-      "RodÃ­zios silenciosos",
-      "Altura regulÃ¡vel"
+      "Rodízios silenciosos",
+      "Altura regulável"
     ]
   },
   {
     "id": 5,
     "name": "Estante Biblioteca 5 Prateleiras",
-    "description": "Estante moderna com 5 prateleiras e compartimentos para livros e decoraÃ§Ã£o.",
+    "description": "Estante moderna com 5 prateleiras e compartimentos para livros e decoração.",
     "price": "R$ 1.299,00",
     "category": "Estantes",
     "colors": [
@@ -89,14 +89,14 @@
     "features": [
       "5 prateleiras",
       "Design moderno",
-      "FÃ¡cil montagem",
+      "Fácil montagem",
       "MDF 18mm"
     ]
   },
   {
     "id": 6,
     "name": "Cama Box Queen Size",
-    "description": "Cama box queen com colchÃ£o de molas ensacadas e pillow top.",
+    "description": "Cama box queen com colchão de molas ensacadas e pillow top.",
     "price": "R$ 2.799,00",
     "category": "Camas",
     "colors": [
