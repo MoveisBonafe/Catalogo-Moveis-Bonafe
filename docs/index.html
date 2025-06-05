@@ -9,6 +9,9 @@
     <meta property="og:title" content="MóveisDesign - Catálogo de Móveis" />
     <meta property="og:description" content="Catálogo completo de móveis de qualidade - sofás, poltronas, mesas, cadeiras e muito mais." />
     <meta property="og:type" content="website" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <style>
       * {
         margin: 0;
@@ -62,6 +65,31 @@
         font-size: 1.2rem;
         color: #7f8c8d;
         font-weight: 300;
+      }
+      
+      .nav-buttons {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+      }
+      
+      .nav-button {
+        background: #f39c12;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+      
+      .nav-button:hover {
+        opacity: 0.8;
       }
       
       .search-filter {
@@ -210,6 +238,9 @@
       .color-dot.azul { background: #3b82f6; }
       .color-dot.verde { background: #10b981; }
       .color-dot.vermelho { background: #ef4444; }
+      .color-dot.carvalho { background: #deb887; }
+      .color-dot.mogno { background: #722f37; }
+      .color-dot.amarelo { background: #f1c40f; }
       
       .footer {
         text-align: center;
@@ -268,13 +299,22 @@
         .search-input {
           min-width: auto;
         }
+        
+        .nav-buttons {
+          position: static;
+          justify-content: center;
+          margin-top: 20px;
+        }
       }
     </style>
   </head>
   <body>
     <div class="container">
       <header class="header">
-        <h1>🛋️ MóveisDesign</h1>
+        <div class="nav-buttons">
+          <a href="./gestao.html" class="nav-button">Administração</a>
+        </div>
+        <h1>MóveisDesign</h1>
         <p>Catálogo Premium de Móveis de Qualidade</p>
       </header>
       
@@ -282,7 +322,7 @@
         <input 
           type="text" 
           class="search-input" 
-          placeholder="🔍 Pesquisar produtos..." 
+          placeholder="Pesquisar produtos..." 
           id="search-input"
         >
         <select class="filter-select" id="category-filter">
@@ -366,6 +406,24 @@
           image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&h=300&fit=crop&auto=format",
           colors: ["bege", "cinza", "branco"],
           specifications: { "Largura": "1.93m", "Profundidade": "2.03m", "Altura": "0.60m" }
+        },
+        {
+          id: 7,
+          name: "Mesa de Centro Glass Oval",
+          description: "Mesa de centro elegante com tampo em vidro temperado e base em aço inoxidável. Design minimalista que valoriza qualquer ambiente.",
+          category: "Mesas",
+          image: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&h=300&fit=crop&auto=format",
+          colors: ["transparente", "fumê"],
+          specifications: { "Largura": "1.20m", "Profundidade": "0.60m", "Altura": "0.40m" }
+        },
+        {
+          id: 8,
+          name: "Poltrona Bergère Clássica",
+          description: "Poltrona clássica francesa em madeira nobre com estofado em linho. Peça atemporal que adiciona sofisticação ao ambiente.",
+          category: "Poltronas",
+          image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&h=300&fit=crop&auto=format",
+          colors: ["bege", "azul", "verde"],
+          specifications: { "Largura": "0.75m", "Profundidade": "0.80m", "Altura": "1.05m" }
         }
       ];
       
