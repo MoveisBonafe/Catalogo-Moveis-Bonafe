@@ -7,20 +7,12 @@
     "category": "Cadeiras",
     "colors": [
       {
-        "name": "Cerejeira",
-        "hex": "#ffc852"
-      },
-      {
-        "name": "Mogno",
-        "hex": "#a92323"
-      },
-      {
-        "name": "Tabaco",
-        "hex": "#000000"
-      },
-      {
         "name": "Imbuia",
         "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
       }
     ],
     "features": [],
