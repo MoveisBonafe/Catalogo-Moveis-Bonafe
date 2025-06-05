@@ -1,3 +1,4 @@
+
 #!/usr/bin/env node
 /**
  * Build script for GitHub Pages docs folder
@@ -16,9 +17,32 @@ const requiredFiles = [
 
 let buildSuccess = true;
 
+// Validate HTML files
+const validateHTML = (filePath) => {
+    try {
+        const content = fs.readFileSync(filePath, 'utf8');
+        // Basic HTML validation
+        const hasDoctype = content.includes('<!DOCTYPE html>') || content.includes('<!doctype html>');
+        const hasHtmlTag = content.includes('<html') && content.includes('</html>');
+        const hasHead = content.includes('<head>') && content.includes('</head>');
+        const hasBody = content.includes('<body>') && content.includes('</body>');
+        
+        return hasDoctype && hasHtmlTag && hasHead && hasBody;
+    } catch (error) {
+        console.error(`Error reading ${filePath}:`, error.message);
+        return false;
+    }
+};
+
 requiredFiles.forEach(file => {
     if (fs.existsSync(file)) {
-        console.log(`✅ ${file}`);
+        console.log(`✅ ${file} exists`);
+        if (validateHTML(file)) {
+            console.log(`✅ ${file} - Valid HTML structure`);
+        } else {
+            console.log(`❌ ${file} - Invalid HTML structure`);
+            buildSuccess = false;
+        }
     } else {
         console.log(`❌ Missing: ${file}`);
         buildSuccess = false;
@@ -32,35 +56,31 @@ if (!fs.existsSync(imagesDir)) {
     console.log(`✅ Created: ${imagesDir}`);
 }
 
+// Create products directory if it doesn't exist
+const productsDir = 'docs/images/produtos';
+if (!fs.existsSync(productsDir)) {
+    fs.mkdirSync(productsDir, { recursive: true });
+    console.log(`✅ Created: ${productsDir}`);
+}
+
 // Create empty products.json if it doesn't exist
 const productsFile = 'docs/products.json';
 if (!fs.existsSync(productsFile)) {
     fs.writeFileSync(productsFile, '[]');
     console.log(`✅ Created: ${productsFile}`);
-}
-
-// Validate HTML files
-const validateHTML = (filePath) => {
+} else {
+    // Validate JSON
     try {
-        const content = fs.readFileSync(filePath, 'utf8');
-        if (content.includes('<!DOCTYPE html>') && content.includes('</html>')) {
-            return true;
-        }
-        return false;
+        const content = fs.readFileSync(productsFile, 'utf8');
+        JSON.parse(content);
+        console.log(`✅ ${productsFile} - Valid JSON`);
     } catch (error) {
-        return false;
+        console.log(`❌ ${productsFile} - Invalid JSON`);
+        // Fix invalid JSON
+        fs.writeFileSync(productsFile, '[]');
+        console.log(`✅ Fixed ${productsFile}`);
     }
-};
-
-requiredFiles.forEach(file => {
-    if (fs.existsSync(file)) {
-        if (validateHTML(file)) {
-            console.log(`✅ ${file} - Valid HTML`);
-        } else {
-            console.log(`⚠️  ${file} - HTML validation warning`);
-        }
-    }
-});
+}
 
 if (buildSuccess) {
     console.log('\n🎉 Build completed successfully!');
@@ -68,9 +88,8 @@ if (buildSuccess) {
     console.log('\n🚀 Next steps:');
     console.log('   1. Commit changes to GitHub');
     console.log('   2. GitHub Pages will automatically deploy from docs/ folder');
-    console.log('   3. Access your site at: https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/');
     process.exit(0);
 } else {
-    console.log('\n❌ Build failed - missing required files');
+    console.log('\n❌ Build failed - please fix the issues above');
     process.exit(1);
 }

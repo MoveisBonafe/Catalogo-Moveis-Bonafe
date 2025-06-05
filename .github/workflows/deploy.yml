@@ -1,3 +1,4 @@
+
 name: Deploy to GitHub Pages
 
 on:
@@ -24,38 +25,68 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+        
       - name: Setup Pages
         uses: actions/configure-pages@v4
         
-      - name: Prepare files
+      - name: Prepare and validate files
         run: |
-          # Create images directory if it doesn't exist
-          mkdir -p docs/images
+          echo "🔧 Preparing GitHub Pages files..."
+          
+          # Create directories if they don't exist
+          mkdir -p docs/images/produtos
           
           # Create products.json if it doesn't exist
           if [ ! -f docs/products.json ]; then
             echo "[]" > docs/products.json
+            echo "✅ Created products.json"
           fi
           
           # Validate required files
-          echo "Validating GitHub Pages files..."
-          ls -la docs/
+          echo "📋 Validating required files..."
           
           if [ -f docs/index.html ]; then
-            echo "✓ index.html found"
+            echo "✅ index.html found"
+            # Check if HTML is valid
+            if head -10 docs/index.html | grep -q "<!DOCTYPE\|<!doctype"; then
+              echo "✅ index.html has DOCTYPE"
+            else
+              echo "⚠️ index.html missing DOCTYPE"
+            fi
           else
-            echo "✗ index.html missing"
+            echo "❌ index.html missing"
             exit 1
           fi
           
           if [ -f docs/gestao.html ]; then
-            echo "✓ gestao.html found"
+            echo "✅ gestao.html found"
+            # Check file size (should not be too small)
+            size=$(wc -c < docs/gestao.html)
+            if [ $size -gt 1000 ]; then
+              echo "✅ gestao.html appears complete ($size bytes)"
+            else
+              echo "⚠️ gestao.html seems small ($size bytes)"
+            fi
           else
-            echo "✗ gestao.html missing"
+            echo "❌ gestao.html missing"
             exit 1
           fi
           
-          echo "All files validated successfully"
+          # Validate JSON
+          if command -v node >/dev/null 2>&1; then
+            node -e "try { JSON.parse(require('fs').readFileSync('docs/products.json', 'utf8')); console.log('✅ products.json is valid JSON'); } catch(e) { console.log('❌ products.json invalid:', e.message); process.exit(1); }"
+          fi
+          
+          echo "📁 Directory structure:"
+          ls -la docs/
+          echo "🖼️ Images directory:"
+          ls -la docs/images/ || echo "No images directory"
+          
+          echo "✅ All validations passed!"
           
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
