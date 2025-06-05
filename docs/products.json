@@ -17,6 +17,10 @@
       {
         "name": "Tabaco",
         "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#b80000"
       }
     ],
     "features": [
@@ -25,7 +29,9 @@
     ],
     "images": [
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749124916428-Cadeira_encosto_alto_imbuia.png",
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749125112046-Cadeira_encosto_alto_cerejeira.png"
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749125112046-Cadeira_encosto_alto_cerejeira.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749145667539-Cadeira_encosto_alto_tabaco.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749145705491-Cadeira_encosto_baixo_mogno.png"
     ]
   }
 ]
