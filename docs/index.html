@@ -47,7 +47,17 @@
         .logo {
             font-size: 2.5em;
             font-weight: bold;
-            color: #333;
+            background: linear-gradient(45deg, #1a1a1a, #ffd700, #ffb347, #ffd700, #1a1a1a);
+            background-size: 300% 300%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .subtitle {
@@ -371,10 +381,10 @@
         }
         
         .image-gallery {
-            max-width: 85vw;
-            max-height: 85vh;
-            width: auto;
-            height: auto;
+            width: 80vw;
+            max-width: 600px;
+            height: 80vh;
+            max-height: 700px;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -382,7 +392,7 @@
             border-radius: 20px;
             margin: auto;
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.8);
         }
         
         .gallery-image-container {
@@ -390,15 +400,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             width: 100%;
             min-height: 0;
             background: white;
+            overflow: hidden;
         }
         
         .gallery-image {
-            max-width: 100%;
-            max-height: 100%;
+            max-width: calc(100% - 10px);
+            max-height: calc(100% - 10px);
             width: auto;
             height: auto;
             object-fit: contain;
@@ -408,33 +419,26 @@
         }
         
         .modal-header {
-            width: 100%;
-            padding: 25px 30px 20px;
+            padding: 20px 25px 15px;
             background: white;
             border-bottom: 1px solid #dee2e6;
             text-align: center;
-        }
-        
-        .modal-product-title {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #2c3e50;
-            margin: 0 0 8px 0;
+            border-radius: 20px 20px 0 0;
         }
         
         .modal-color-name {
-            font-size: 1.2em;
-            color: #6c757d;
-            font-weight: 500;
-            font-style: italic;
+            font-size: 1.3em;
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 0;
         }
         
         .modal-footer {
-            width: 100%;
-            padding: 20px;
+            padding: 15px 25px 20px;
             background: white;
             border-top: 1px solid #dee2e6;
             text-align: center;
+            border-radius: 0 0 20px 20px;
         }
         
         .modal-colors {
@@ -696,7 +700,6 @@
             <span class="close" onclick="closeProductModal()">&times;</span>
             <div class="image-gallery" id="imageGallery">
                 <div class="modal-header">
-                    <div class="modal-product-title" id="modalProductName"></div>
                     <div class="modal-color-name" id="modalColorName"></div>
                 </div>
                 <div class="gallery-image-container">
