@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MóveisDesign - Catálogo de Móveis</title>
+    <meta name="description" content="Catálogo completo de móveis de qualidade - sofás, poltronas, mesas, cadeiras e muito mais. Confira nossa coleção exclusiva." />
+    <meta property="og:title" content="MóveisDesign - Catálogo de Móveis" />
+    <meta property="og:description" content="Catálogo completo de móveis de qualidade - sofás, poltronas, mesas, cadeiras e muito mais." />
+    <meta property="og:type" content="website" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #fef9e7 0%, #f8f3d3 100%);
+        color: #2d3748;
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .header {
+        text-align: center;
+        margin-bottom: 50px;
+        padding: 40px 20px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #f1c40f, #f39c12, #e67e22);
+      }
+      
+      .header h1 {
+        font-size: 3rem;
+        color: #f39c12;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .header p {
+        font-size: 1.2rem;
+        color: #7f8c8d;
+        font-weight: 300;
+      }
+      
+      .nav-buttons {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+      }
+      
+      .nav-button {
+        background: #f39c12;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+      
+      .nav-button:hover {
+        opacity: 0.8;
+      }
+      
+      .search-filter {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      
+      .search-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 12px 15px;
+        border: 2px solid #ecf0f1;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+      }
+      
+      .search-input:focus {
+        outline: none;
+        border-color: #f39c12;
+      }
+      
+      .filter-select {
+        padding: 12px 15px;
+        border: 2px solid #ecf0f1;
+        border-radius: 10px;
+        background: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: border-color 0.3s;
+      }
+      
+      .filter-select:focus {
+        outline: none;
+        border-color: #f39c12;
+      }
+      
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+      }
+      
+      .product-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+      }
+      
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      }
+      
+      .product-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      
+      .product-card:hover .product-image {
+        transform: scale(1.05);
+      }
+      
+      .product-content {
+        padding: 25px;
+      }
+      
+      .product-category {
+        display: inline-block;
+        background: linear-gradient(135deg, #f1c40f, #f39c12);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 15px;
+      }
+      
+      .product-name {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 10px;
+        line-height: 1.3;
+      }
+      
+      .product-description {
+        color: #64748b;
+        margin-bottom: 20px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      
+      .product-colors {
+        margin-bottom: 15px;
+      }
+      
+      .colors-label {
+        font-size: 12px;
+        color: #94a3b8;
+        margin-bottom: 8px;
+        display: block;
+        font-weight: 500;
+      }
+      
+      .color-dots {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      
+      .color-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #e2e8f0;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      
+      .color-dot:hover {
+        transform: scale(1.1);
+      }
+      
+      .color-dot.branco { background: #ffffff; }
+      .color-dot.preto { background: #1a1a1a; }
+      .color-dot.cinza { background: #6b7280; }
+      .color-dot.bege { background: #f5f5dc; }
+      .color-dot.marrom { background: #8b4513; }
+      .color-dot.azul { background: #3b82f6; }
+      .color-dot.verde { background: #10b981; }
+      .color-dot.vermelho { background: #ef4444; }
+      .color-dot.carvalho { background: #deb887; }
+      .color-dot.mogno { background: #722f37; }
+      .color-dot.amarelo { background: #f1c40f; }
+      
+      .footer {
+        text-align: center;
+        padding: 40px 20px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        margin-top: 50px;
+      }
+      
+      .footer p {
+        color: #94a3b8;
+        font-size: 14px;
+      }
+      
+      .admin-hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(243, 156, 18, 0.9);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 25px;
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+      }
+      
+      .admin-hint.show {
+        opacity: 1;
+      }
+      
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #94a3b8;
+        font-size: 18px;
+      }
+      
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+        
+        .products-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        
+        .search-filter {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        
+        .search-input {
+          min-width: auto;
+        }
+        
+        .nav-buttons {
+          position: static;
+          justify-content: center;
+          margin-top: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="nav-buttons">
+          <a href="./gestao.html" class="nav-button">Administração</a>
+        </div>
+        <h1>MóveisDesign</h1>
+        <p>Catálogo Premium de Móveis de Qualidade</p>
+      </header>
+      
+      <div class="search-filter">
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Pesquisar produtos..." 
+          id="search-input"
+        >
+        <select class="filter-select" id="category-filter">
+          <option value="">Todas as Categorias</option>
+          <option value="Sofás">Sofás</option>
+          <option value="Poltronas">Poltronas</option>
+          <option value="Mesas">Mesas</option>
+          <option value="Cadeiras">Cadeiras</option>
+          <option value="Estantes">Estantes</option>
+          <option value="Camas">Camas</option>
+        </select>
+      </div>
+      
+      <div class="products-grid" id="products-container">
+        <div class="loading">Carregando produtos...</div>
+      </div>
+      
+      <footer class="footer">
+        <p>© 2024 MóveisDesign - Móveis de Qualidade Premium</p>
+        <p style="margin-top: 5px; font-size: 12px;">Catálogo sempre atualizado com as últimas tendências</p>
+      </footer>
+    </div>
+    
+    <div class="admin-hint" id="admin-hint">
+      Digite "admin" para acessar a gestão
+    </div>
+
+    <script>
+      // Dados dos produtos com informações reais
+      const products = [
+        {
+          id: 1,
+          name: "Sofá Moderno Reclinável 3 Lugares",
+          description: "Sofá premium em couro sintético com sistema de reclinação elétrica, perfeito para momentos de relaxamento. Estrutura robusta em madeira maciça.",
+          category: "Sofás",
+          image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop&auto=format",
+          colors: ["cinza", "preto", "bege"],
+          specifications: { "Largura": "2.20m", "Profundidade": "1.00m", "Altura": "0.95m" }
+        },
+        {
+          id: 2,
+          name: "Mesa de Jantar Extensível Carvalho",
+          description: "Mesa elegante em madeira de carvalho maciço com sistema extensível para até 8 pessoas. Acabamento premium com verniz protetor.",
+          category: "Mesas",
+          image: "https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=400&h=300&fit=crop&auto=format",
+          colors: ["carvalho", "mogno"],
+          specifications: { "Largura": "1.40m-2.00m", "Profundidade": "0.90m", "Altura": "0.75m" }
+        },
+        {
+          id: 3,
+          name: "Poltrona Charles Eames Executiva",
+          description: "Réplica premium da icônica poltrona Charles Eames, em couro legítimo com base giratória cromada. Ideal para escritórios sofisticados.",
+          category: "Poltronas",
+          image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&auto=format",
+          colors: ["preto", "branco", "marrom"],
+          specifications: { "Largura": "0.85m", "Profundidade": "0.85m", "Altura": "1.10m" }
+        },
+        {
+          id: 4,
+          name: "Estante Industrial Ferro e Madeira",
+          description: "Estante moderna com design industrial, combinando ferro tratado e prateleiras em madeira maciça. Perfeita para ambientes contemporâneos.",
+          category: "Estantes",
+          image: "https://images.unsplash.com/photo-1549497538-303791108f95?w=400&h=300&fit=crop&auto=format",
+          colors: ["preto", "cinza"],
+          specifications: { "Largura": "1.80m", "Profundidade": "0.40m", "Altura": "2.00m" }
+        },
+        {
+          id: 5,
+          name: "Conjunto 6 Cadeiras Veludo Premium",
+          description: "Conjunto de 6 cadeiras estofadas em veludo premium com pés em madeira nobre. Design contemporâneo com máximo conforto.",
+          category: "Cadeiras",
+          image: "https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=400&h=300&fit=crop&auto=format",
+          colors: ["azul", "verde", "bege", "cinza"],
+          specifications: { "Largura": "0.50m", "Profundidade": "0.55m", "Altura": "0.85m" }
+        },
+        {
+          id: 6,
+          name: "Cama Box King Size Molas Ensacadas",
+          description: "Cama box king size com sistema de molas ensacadas individuais, proporcionando o máximo conforto e durabilidade. Cabeceira estofada inclusa.",
+          category: "Camas",
+          image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&h=300&fit=crop&auto=format",
+          colors: ["bege", "cinza", "branco"],
+          specifications: { "Largura": "1.93m", "Profundidade": "2.03m", "Altura": "0.60m" }
+        },
+        {
+          id: 7,
+          name: "Mesa de Centro Glass Oval",
+          description: "Mesa de centro elegante com tampo em vidro temperado e base em aço inoxidável. Design minimalista que valoriza qualquer ambiente.",
+          category: "Mesas",
+          image: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&h=300&fit=crop&auto=format",
+          colors: ["transparente", "fumê"],
+          specifications: { "Largura": "1.20m", "Profundidade": "0.60m", "Altura": "0.40m" }
+        },
+        {
+          id: 8,
+          name: "Poltrona Bergère Clássica",
+          description: "Poltrona clássica francesa em madeira nobre com estofado em linho. Peça atemporal que adiciona sofisticação ao ambiente.",
+          category: "Poltronas",
+          image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&h=300&fit=crop&auto=format",
+          colors: ["bege", "azul", "verde"],
+          specifications: { "Largura": "0.75m", "Profundidade": "0.80m", "Altura": "1.05m" }
+        }
+      ];
+      
+      let filteredProducts = products;
+      
+      // Renderizar produtos
+      function renderProducts(productsToRender = filteredProducts) {
+        const container = document.getElementById('products-container');
+        
+        if (productsToRender.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+              <p style="font-size: 18px; color: #94a3b8;">Nenhum produto encontrado</p>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = productsToRender.map(product => `
+          <div class="product-card">
+            <img src="${product.image}" alt="${product.name}" class="product-image" 
+                 onerror="this.src='https://via.placeholder.com/400x300/f39c12/ffffff?text=Produto'">
+            <div class="product-content">
+              <span class="product-category">${product.category}</span>
+              <h3 class="product-name">${product.name}</h3>
+              <p class="product-description">${product.description}</p>
+              
+              ${product.colors.length > 0 ? `
+                <div class="product-colors">
+                  <span class="colors-label">Cores disponíveis:</span>
+                  <div class="color-dots">
+                    ${product.colors.map(color => `
+                      <div class="color-dot ${color}" title="${color}"></div>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ''}
+              
+              ${Object.keys(product.specifications).length > 0 ? `
+                <div style="margin-top: 15px; padding: 10px; background: #f8fafc; border-radius: 8px;">
+                  <span style="font-size: 12px; color: #64748b; font-weight: 500;">Dimensões:</span>
+                  <div style="font-size: 12px; color: #475569; margin-top: 3px;">
+                    ${Object.entries(product.specifications).map(([key, value]) => 
+                      `${key}: ${value}`
+                    ).join(' • ')}
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+      
+      // Filtros e busca
+      function filterProducts() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        const selectedCategory = document.getElementById('category-filter').value;
+        
+        filteredProducts = products.filter(product => {
+          const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                               product.description.toLowerCase().includes(searchTerm);
+          const matchesCategory = !selectedCategory || product.category === selectedCategory;
+          
+          return matchesSearch && matchesCategory;
+        });
+        
+        renderProducts(filteredProducts);
+      }
+      
+      // Event listeners
+      document.getElementById('search-input').addEventListener('input', filterProducts);
+      document.getElementById('category-filter').addEventListener('change', filterProducts);
+      
+      // Sistema de acesso à gestão
+      let adminKeySequence = '';
+      let adminHintTimeout;
+      
+      document.addEventListener('keydown', (e) => {
+        adminKeySequence += e.key.toLowerCase();
+        
+        // Mostrar dica após alguns caracteres
+        if (adminKeySequence.length >= 2) {
+          const hint = document.getElementById('admin-hint');
+          hint.classList.add('show');
+          
+          clearTimeout(adminHintTimeout);
+          adminHintTimeout = setTimeout(() => {
+            hint.classList.remove('show');
+          }, 3000);
+        }
+        
+        // Verificar se digitou "admin"
+        if (adminKeySequence.includes('admin')) {
+          window.location.href = './gestao.html';
+        }
+        
+        // Limpar sequência se ficar muito longa
+        if (adminKeySequence.length > 10) {
+          adminKeySequence = adminKeySequence.slice(-5);
+        }
+      });
+      
+      // Inicializar
+      document.addEventListener('DOMContentLoaded', () => {
+        renderProducts();
+      });
+      
+      // Renderizar produtos imediatamente
+      renderProducts();
+    </script>
+  </body>
+</html>
