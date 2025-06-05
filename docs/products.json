@@ -30,29 +30,6 @@
     ]
   },
   {
-    "id": 5,
-    "name": "Estante Biblioteca 5 Prateleiras",
-    "description": "Estante moderna com 5 prateleiras e compartimentos para livros e decoração.",
-    "price": "R$ 1.299,00",
-    "category": "Estantes",
-    "colors": [
-      {
-        "name": "Branco",
-        "hex": "#FFFFFF"
-      },
-      {
-        "name": "Amadeirado",
-        "hex": "#DEB887"
-      }
-    ],
-    "features": [
-      "5 prateleiras",
-      "Design moderno",
-      "Fácil montagem",
-      "MDF 18mm"
-    ]
-  },
-  {
     "id": 6,
     "name": "Cama Box Queen Size",
     "description": "Cama box queen com colchão de molas ensacadas e pillow top.",
