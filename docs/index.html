@@ -1136,8 +1136,16 @@
             let imagesToShow = currentProduct.images || [];
             
             // Remove existing touch events to prevent duplicates
+            const imageContainer = gallery.querySelector('.gallery-image-container');
+            
             gallery.removeEventListener('touchstart', handleModalTouchStart);
             gallery.removeEventListener('touchend', handleModalTouchEnd);
+            
+            if (imageContainer) {
+                imageContainer.removeEventListener('touchstart', handleModalTouchStart);
+                imageContainer.removeEventListener('touchend', handleModalTouchEnd);
+            }
+            
             galleryImage.removeEventListener('touchstart', handleModalTouchStart);
             galleryImage.removeEventListener('touchend', handleModalTouchEnd);
             
@@ -1191,9 +1199,17 @@
                 }
             }
 
-            // Add swipe events to both gallery container and image for better touch coverage
+            // Add swipe events to gallery container, image container, and image for complete touch coverage
+            const imageContainer = gallery.querySelector('.gallery-image-container');
+            
             gallery.addEventListener('touchstart', handleModalTouchStart, { passive: true });
             gallery.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+            
+            if (imageContainer) {
+                imageContainer.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+                imageContainer.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+            }
+            
             galleryImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
             galleryImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
         }
