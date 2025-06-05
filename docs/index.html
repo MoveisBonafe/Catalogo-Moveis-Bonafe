@@ -1046,16 +1046,11 @@
 
         function setupModalColors() {
             const colorsContainer = document.getElementById('modalColors');
-            const colorNameDisplay = document.getElementById('modalColorName');
             
             if (!currentProduct.colors || currentProduct.colors.length === 0) {
                 colorsContainer.style.display = 'none';
-                colorNameDisplay.textContent = '';
                 return;
             }
-            
-            // Update color name display
-            colorNameDisplay.textContent = currentProduct.colors[currentColorIndex]?.name || '';
             
             colorsContainer.style.display = 'flex';
             colorsContainer.innerHTML = currentProduct.colors.map((color, index) => 
