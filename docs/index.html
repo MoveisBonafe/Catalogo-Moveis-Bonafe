@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Móveis Bonafé - Catálogo</title>
+    <meta name="description" content="Catálogo completo de móveis de qualidade - sofás, poltronas, mesas, cadeiras e muito mais da Móveis Bonafé.">
+    <meta property="og:title" content="Móveis Bonafé - Catálogo">
+    <meta property="og:description" content="Catálogo completo de móveis de qualidade - sofás, poltronas, mesas, cadeiras e muito mais.">
+    <meta property="og:type" content="website">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #FFF8E7 0%, #FFFBF0 100%);
+            color: #1A1A1A;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            border-bottom: 3px solid #F2C41B;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #F2C41B;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+        
+        .btn {
+            background: #F2C41B;
+            color: #1A1A1A;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #E6B800;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(242, 196, 27, 0.3);
+        }
+        
+        .search-section {
+            background: white;
+            padding: 30px 0;
+            border-bottom: 1px solid #E6D5A8;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #E6D5A8;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #FFFBF0;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #F2C41B;
+            box-shadow: 0 0 0 3px rgba(242, 196, 27, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #A3A3A3;
+        }
+        
+        .filter-select {
+            padding: 15px;
+            border: 2px solid #E6D5A8;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+            min-width: 150px;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #F2C41B;
+        }
+        
+        .main-content {
+            padding: 40px 0;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #E6D5A8;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            border-color: #F2C41B;
+        }
+        
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .category-badge {
+            background: #FFF8E7;
+            color: #8B6914;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            border: 1px solid #E6D5A8;
+        }
+        
+        .price {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #F2C41B;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .product-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1A1A1A;
+        }
+        
+        .product-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-tag {
+            background: #F8F9FA;
+            color: #495057;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            border: 1px solid #DEE2E6;
+        }
+        
+        .colors {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .color-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .color-dots {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #E6D5A8;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .color-dot:hover {
+            transform: scale(1.2);
+            border-color: #F2C41B;
+        }
+        
+        .footer {
+            background: white;
+            border-top: 3px solid #F2C41B;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #E6D5A8;
+            border-top: 4px solid #F2C41B;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .no-products {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                text-align: center;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <h1 class="logo">Móveis Bonafé</h1>
+                    <p class="subtitle">Catálogo de Móveis</p>
+                </div>
+                <button class="btn" onclick="accessAdmin()">Gestão</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Buscar produtos..." id="searchInput">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <select class="filter-select" id="categoryFilter">
+                    <option value="all">Todas as Categorias</option>
+                    <option value="Sofás">Sofás</option>
+                    <option value="Poltronas">Poltronas</option>
+                    <option value="Mesas">Mesas</option>
+                    <option value="Cadeiras">Cadeiras</option>
+                    <option value="Estantes">Estantes</option>
+                    <option value="Camas">Camas</option>
+                    <option value="Guarda-roupas">Guarda-roupas</option>
+                    <option value="Decoração">Decoração</option>
+                </select>
+                <select class="filter-select" id="sortFilter">
+                    <option value="name">Ordenar por Nome</option>
+                    <option value="category">Ordenar por Categoria</option>
+                    <option value="price">Ordenar por Preço</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <div id="loadingState" class="loading">
+                <div class="spinner"></div>
+                <p>Carregando produtos...</p>
+            </div>
+            <div id="productsContainer" class="products-grid" style="display: none;"></div>
+            <div id="noProductsState" class="no-products" style="display: none;">
+                <h3>Nenhum produto encontrado</h3>
+                <p>Tente ajustar os filtros de busca</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Móveis Bonafé - Catálogo de Móveis</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample products data
+        const sampleProducts = [
+            {
+                id: 1,
+                name: "Sofá Moderno 3 Lugares",
+                description: "Sofá confortável com design moderno, estofado em tecido de alta qualidade.",
+                price: "R$ 2.499,00",
+                category: "Sofás",
+                colors: [
+                    { name: "Cinza Claro", hex: "#D3D3D3" },
+                    { name: "Azul Marinho", hex: "#000080" }
+                ],
+                features: ["3 lugares", "Estofado em tecido", "Estrutura em madeira", "Almofadas soltas"]
+            },
+            {
+                id: 2,
+                name: "Poltrona Relax Premium",
+                description: "Poltrona reclinável com sistema de massagem e aquecimento integrado.",
+                price: "R$ 3.299,00",
+                category: "Poltronas",
+                colors: [
+                    { name: "Couro Marrom", hex: "#8B4513" },
+                    { name: "Preto", hex: "#000000" }
+                ],
+                features: ["Reclinável", "Sistema de massagem", "Aquecimento", "Couro sintético"]
+            },
+            {
+                id: 3,
+                name: "Mesa de Jantar Extensível",
+                description: "Mesa de jantar em madeira maciça com sistema de extensão para 8 pessoas.",
+                price: "R$ 1.899,00",
+                category: "Mesas",
+                colors: [
+                    { name: "Mogno", hex: "#CD853F" },
+                    { name: "Carvalho", hex: "#DEB887" }
+                ],
+                features: ["Madeira maciça", "Extensível", "Para 8 pessoas", "Acabamento verniz"]
+            },
+            {
+                id: 4,
+                name: "Cadeira Ergonômica Office",
+                description: "Cadeira de escritório com apoio lombar ajustável e rodízios silenciosos.",
+                price: "R$ 899,00",
+                category: "Cadeiras",
+                colors: [
+                    { name: "Preto", hex: "#000000" },
+                    { name: "Cinza", hex: "#808080" }
+                ],
+                features: ["Ergonômica", "Apoio lombar", "Rodízios silenciosos", "Altura regulável"]
+            },
+            {
+                id: 5,
+                name: "Estante Biblioteca 5 Prateleiras",
+                description: "Estante moderna com 5 prateleiras e compartimentos para livros e decoração.",
+                price: "R$ 1.299,00",
+                category: "Estantes",
+                colors: [
+                    { name: "Branco", hex: "#FFFFFF" },
+                    { name: "Amadeirado", hex: "#DEB887" }
+                ],
+                features: ["5 prateleiras", "Design moderno", "Fácil montagem", "MDF 18mm"]
+            },
+            {
+                id: 6,
+                name: "Cama Box Queen Size",
+                description: "Cama box queen com colchão de molas ensacadas e pillow top.",
+                price: "R$ 2.799,00",
+                category: "Camas",
+                colors: [
+                    { name: "Bege", hex: "#F5F5DC" },
+                    { name: "Cinza Escuro", hex: "#2F4F4F" }
+                ],
+                features: ["Queen size", "Molas ensacadas", "Pillow top", "Base box"]
+            }
+        ];
+
+        let allProducts = [...sampleProducts];
+        let filteredProducts = [...sampleProducts];
+
+        function renderProducts(products) {
+            const container = document.getElementById('productsContainer');
+            const loadingState = document.getElementById('loadingState');
+            const noProductsState = document.getElementById('noProductsState');
+
+            loadingState.style.display = 'none';
+            
+            if (products.length === 0) {
+                container.style.display = 'none';
+                noProductsState.style.display = 'block';
+                return;
+            }
+
+            noProductsState.style.display = 'none';
+            container.style.display = 'grid';
+            
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-header">
+                        <span class="category-badge">${product.category}</span>
+                        <span class="price">${product.price}</span>
+                    </div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    ${product.features && product.features.length > 0 ? `
+                        <div class="features">
+                            ${product.features.slice(0, 4).map(feature => 
+                                `<span class="feature-tag">${feature}</span>`
+                            ).join('')}
+                            ${product.features.length > 4 ? 
+                                `<span class="feature-tag">+${product.features.length - 4} mais</span>` : ''
+                            }
+                        </div>
+                    ` : ''}
+                    ${product.colors && product.colors.length > 0 ? `
+                        <div class="colors">
+                            <span class="color-label">Cores:</span>
+                            <div class="color-dots">
+                                ${product.colors.slice(0, 5).map(color => 
+                                    `<div class="color-dot" style="background-color: ${color.hex}" title="${color.name}"></div>`
+                                ).join('')}
+                                ${product.colors.length > 5 ? 
+                                    `<span style="font-size: 0.8em; color: #666;">+${product.colors.length - 5}</span>` : ''
+                                }
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const sortFilter = document.getElementById('sortFilter').value;
+
+            filteredProducts = allProducts.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                                    product.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = categoryFilter === 'all' || product.category === categoryFilter;
+                return matchesSearch && matchesCategory;
+            });
+
+            // Sort products
+            filteredProducts.sort((a, b) => {
+                switch (sortFilter) {
+                    case 'name':
+                        return a.name.localeCompare(b.name);
+                    case 'category':
+                        return a.category.localeCompare(b.category);
+                    case 'price':
+                        return a.price.localeCompare(b.price);
+                    default:
+                        return 0;
+                }
+            });
+
+            renderProducts(filteredProducts);
+        }
+
+        function accessAdmin() {
+            const password = prompt("Digite a senha para acessar a gestão:");
+            if (password === "admin") {
+                window.location.href = "./gestao.html";
+            } else if (password !== null) {
+                alert("Senha incorreta!");
+            }
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterProducts);
+        document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+        document.getElementById('sortFilter').addEventListener('change', filterProducts);
+
+        // Initialize
+        setTimeout(() => {
+            renderProducts(filteredProducts);
+        }, 1000);
+    </script>
+</body>
+</html>

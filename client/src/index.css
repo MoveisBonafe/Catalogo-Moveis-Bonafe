@@ -1,0 +1,102 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --background: 48 95% 97%; /* #FFFBF0 - Creme claro */
+  --foreground: 24 9% 10%; /* #1A1A1A - Preto suave */
+  --card: 0 0% 100%; /* #FFFFFF - Branco */
+  --card-foreground: 24 9% 10%; /* #1A1A1A */
+  --popover: 0 0% 100%; /* #FFFFFF */
+  --popover-foreground: 24 9% 10%; /* #1A1A1A */
+  --primary: 45 93% 47%; /* #F2C41B - Amarelo Bonafé */
+  --primary-foreground: 24 9% 10%; /* #1A1A1A */
+  --secondary: 48 95% 95%; /* #FFF8E7 - Amarelo muito claro */
+  --secondary-foreground: 24 9% 10%; /* #1A1A1A */
+  --muted: 48 95% 95%; /* #FFF8E7 */
+  --muted-foreground: 24 5% 64%; /* #A3A3A3 */
+  --accent: 45 93% 47%; /* #F2C41B */
+  --accent-foreground: 24 9% 10%; /* #1A1A1A */
+  --destructive: 0 84% 60%; /* #FF4444 */
+  --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+  --border: 45 43% 85%; /* #E6D5A8 - Amarelo acinzentado */
+  --input: 45 43% 85%; /* #E6D5A8 */
+  --ring: 45 93% 47%; /* #F2C41B */
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 24 9% 10%; /* #1A1A1A */
+  --foreground: 0 0% 98%; /* #FAFAFA */
+  --card: 24 9% 10%; /* #1A1A1A */
+  --card-foreground: 0 0% 98%; /* #FAFAFA */
+  --popover: 24 9% 10%; /* #1A1A1A */
+  --popover-foreground: 0 0% 98%; /* #FAFAFA */
+  --primary: 45 93% 47%; /* #F2C41B */
+  --primary-foreground: 24 9% 10%; /* #1A1A1A */
+  --secondary: 24 5% 18%; /* #2E2E2E */
+  --secondary-foreground: 0 0% 98%; /* #FAFAFA */
+  --muted: 24 5% 18%; /* #2E2E2E */
+  --muted-foreground: 0 0% 64%; /* #A3A3A3 */
+  --accent: 45 93% 47%; /* #F2C41B */
+  --accent-foreground: 24 9% 10%; /* #1A1A1A */
+  --destructive: 0 84% 60%; /* #FF4444 */
+  --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+  --border: 24 5% 18%; /* #2E2E2E */
+  --input: 24 5% 18%; /* #2E2E2E */
+  --ring: 45 93% 47%; /* #F2C41B */
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Utilities */
+.text-bonafe-yellow {
+  color: hsl(var(--primary));
+}
+
+.bg-bonafe-yellow {
+  background-color: hsl(var(--primary));
+}
+
+.border-bonafe-yellow {
+  border-color: hsl(var(--primary));
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
