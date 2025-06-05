@@ -30,50 +30,10 @@
         }
         
         .header {
-            background: 
-                radial-gradient(ellipse at top, rgba(205, 133, 63, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom, rgba(101, 67, 33, 0.4) 0%, transparent 50%),
-                repeating-linear-gradient(
-                    90deg,
-                    #8B4513 0px,
-                    #A0522D 1px,
-                    #654321 2px,
-                    #722F37 3px,
-                    #8B4513 4px,
-                    #CD853F 5px,
-                    #A0522D 6px,
-                    #5D4037 7px
-                ),
-                linear-gradient(180deg, #8B4513 0%, #654321 50%, #5D4037 100%);
-            background-size: 100% 100%, 100% 100%, 8px 100%, 100% 100%;
-            box-shadow: 0 2px 10px rgba(101, 67, 33, 0.4);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px 0;
-            position: relative;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent 0px,
-                    rgba(101, 67, 33, 0.2) 0.5px,
-                    transparent 1px,
-                    rgba(139, 69, 19, 0.15) 1.5px,
-                    transparent 2px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent 0px,
-                    rgba(205, 133, 63, 0.1) 0.5px,
-                    transparent 1px
-                );
-            pointer-events: none;
+            border-bottom: 1px solid #E0E0E0;
         }
         
         .header-content {
@@ -87,18 +47,13 @@
         .logo {
             font-size: 2.5em;
             font-weight: bold;
-            background: linear-gradient(135deg, #FFD700, #FFF8DC);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: #333;
         }
         
         .subtitle {
-            color: #FFF8DC;
+            color: #666;
             font-size: 1.1em;
             margin-top: 5px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         
         .btn {
@@ -416,23 +371,24 @@
         }
         
         .image-gallery {
-            max-width: 90vw;
-            max-height: 85vh;
+            max-width: 85vw;
+            max-height: 80vh;
             position: relative;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             background: white;
             border-radius: 16px;
             margin: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 30px;
+            padding: 20px;
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
         
         .gallery-image {
-            max-width: 100%;
-            max-height: 100%;
+            max-width: calc(100% - 40px);
+            max-height: calc(100% - 80px);
             width: auto;
             height: auto;
             object-fit: contain;
@@ -441,38 +397,57 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         
-        .gallery-nav {
+        .modal-product-info {
+            margin-top: 15px;
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid #E0E0E0;
+        }
+        
+        .modal-product-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .modal-colors {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .modal-color-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #E0E0E0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .modal-color-dot:hover {
+            transform: scale(1.1);
+            border-color: #333;
+        }
+        
+        .modal-color-dot.active {
+            border-color: #007AFF;
+            border-width: 3px;
+        }
+        
+        .modal-color-dot.active::after {
+            content: '✓';
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .gallery-nav:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .gallery-prev {
-            left: -25px;
-        }
-        
-        .gallery-next {
-            right: -25px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
         
         .gallery-counter {
@@ -612,9 +587,10 @@
             <span class="close" onclick="closeProductModal()">&times;</span>
             <div class="image-gallery" id="imageGallery">
                 <img id="galleryImage" class="gallery-image" src="" alt="">
-                <button class="gallery-nav gallery-prev" id="prevBtn" onclick="previousImage()">‹</button>
-                <button class="gallery-nav gallery-next" id="nextBtn" onclick="nextImage()">›</button>
-                <div class="gallery-counter" id="galleryCounter">1 / 1</div>
+                <div class="modal-product-info">
+                    <div class="modal-product-name" id="modalProductName"></div>
+                    <div class="modal-colors" id="modalColors"></div>
+                </div>
             </div>
             <div class="no-images-placeholder" id="noImagesPlaceholder" style="display: none;">
                 📷 Nenhuma imagem disponível
@@ -632,8 +608,8 @@
                 images: [],
                 category: "Sofás",
                 colors: [
-                    { name: "Cinza Claro", hex: "#D3D3D3" },
-                    { name: "Azul Marinho", hex: "#000080" }
+                    { name: "Cinza Claro", hex: "#D3D3D3", images: [] },
+                    { name: "Azul Marinho", hex: "#000080", images: [] }
                 ],
                 features: ["3 lugares", "Estofado em tecido", "Estrutura em madeira", "Almofadas soltas"]
             },
@@ -843,93 +819,114 @@
             renderProducts(filteredProducts);
         }
 
-        let currentImages = [];
+        let currentProduct = null;
+        let currentColorIndex = 0;
         let currentImageIndex = 0;
 
         function openProductModal(productId) {
-            const product = allProducts.find(p => p.id === productId);
-            if (!product) return;
+            currentProduct = allProducts.find(p => p.id === productId);
+            if (!currentProduct) return;
 
-            currentImages = product.images || [];
+            currentColorIndex = 0;
             currentImageIndex = 0;
 
             const gallery = document.getElementById('imageGallery');
             const placeholder = document.getElementById('noImagesPlaceholder');
-            const galleryImage = document.getElementById('galleryImage');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const counter = document.getElementById('galleryCounter');
+            
+            // Set product name
+            document.getElementById('modalProductName').textContent = currentProduct.name;
+            
+            // Setup colors
+            setupModalColors();
+            
+            // Show first color's images or fallback
+            showColorImages();
 
-            if (currentImages.length > 0) {
+            document.getElementById('productModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Add touch events for swipe
+            const modal = document.getElementById('productModal');
+            modal.addEventListener('touchstart', handleTouchStart, false);
+            modal.addEventListener('touchend', handleTouchEnd, false);
+        }
+
+        function setupModalColors() {
+            const colorsContainer = document.getElementById('modalColors');
+            if (!currentProduct.colors || currentProduct.colors.length === 0) {
+                colorsContainer.style.display = 'none';
+                return;
+            }
+            
+            colorsContainer.style.display = 'flex';
+            colorsContainer.innerHTML = currentProduct.colors.map((color, index) => 
+                `<div class="modal-color-dot ${index === currentColorIndex ? 'active' : ''}" 
+                      style="background-color: ${color.hex}" 
+                      onclick="selectColor(${index})"
+                      title="${color.name}"></div>`
+            ).join('');
+        }
+
+        function selectColor(colorIndex) {
+            currentColorIndex = colorIndex;
+            currentImageIndex = 0;
+            setupModalColors(); // Update active state
+            showColorImages();
+        }
+
+        function showColorImages() {
+            const gallery = document.getElementById('imageGallery');
+            const placeholder = document.getElementById('noImagesPlaceholder');
+            const galleryImage = document.getElementById('galleryImage');
+            
+            let imagesToShow = [];
+            
+            // Get images for current color or fallback to general images
+            if (currentProduct.colors && currentProduct.colors[currentColorIndex] && currentProduct.colors[currentColorIndex].images) {
+                imagesToShow = currentProduct.colors[currentColorIndex].images;
+            }
+            
+            if (imagesToShow.length === 0 && currentProduct.images) {
+                imagesToShow = currentProduct.images;
+            }
+            
+            if (imagesToShow.length > 0) {
                 gallery.style.display = 'flex';
                 placeholder.style.display = 'none';
-                
-                showCurrentImage();
-                updateNavigationButtons();
-                updateCounter();
+                galleryImage.src = imagesToShow[currentImageIndex] || '';
+                galleryImage.alt = `${currentProduct.name} - ${currentProduct.colors[currentColorIndex]?.name || 'Imagem'}`;
             } else {
                 gallery.style.display = 'none';
                 placeholder.style.display = 'flex';
             }
-
-            document.getElementById('productModal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
 
         function closeProductModal() {
             document.getElementById('productModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restore scrolling
-        }
-
-        function showCurrentImage() {
-            if (currentImages.length === 0) return;
+            document.body.style.overflow = 'auto';
             
-            const galleryImage = document.getElementById('galleryImage');
-            galleryImage.src = currentImages[currentImageIndex];
-            galleryImage.alt = `Imagem ${currentImageIndex + 1}`;
-            galleryImage.onerror = function() {
-                this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjhGOUZBIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgZmlsbD0iIzY2NiIgZm9udC1zaXplPSIxNCIgZm9udC1mYW1pbHk9IkFyaWFsIj7imJYgSW1hZ2VtIG7Do28gZGlzcG9uw612ZWw8L3RleHQ+Cjwvc3ZnPg==';
-                this.onerror = null;
-            };
+            // Remove touch event listeners
+            const modal = document.getElementById('productModal');
+            modal.removeEventListener('touchstart', handleTouchStart);
+            modal.removeEventListener('touchend', handleTouchEnd);
         }
 
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
+        function nextColor() {
+            if (!currentProduct.colors || currentProduct.colors.length <= 1) return;
             
-            if (currentImages.length <= 1) {
-                prevBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
-            } else {
-                prevBtn.style.display = 'flex';
-                nextBtn.style.display = 'flex';
-            }
+            currentColorIndex = currentColorIndex < currentProduct.colors.length - 1 ? currentColorIndex + 1 : 0;
+            currentImageIndex = 0;
+            setupModalColors();
+            showColorImages();
         }
 
-        function updateCounter() {
-            const counter = document.getElementById('galleryCounter');
-            if (currentImages.length > 1) {
-                counter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
-                counter.style.display = 'block';
-            } else {
-                counter.style.display = 'none';
-            }
-        }
-
-        function previousImage() {
-            if (currentImages.length <= 1) return;
+        function previousColor() {
+            if (!currentProduct.colors || currentProduct.colors.length <= 1) return;
             
-            currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : currentImages.length - 1;
-            showCurrentImage();
-            updateCounter();
-        }
-
-        function nextImage() {
-            if (currentImages.length <= 1) return;
-            
-            currentImageIndex = currentImageIndex < currentImages.length - 1 ? currentImageIndex + 1 : 0;
-            showCurrentImage();
-            updateCounter();
+            currentColorIndex = currentColorIndex > 0 ? currentColorIndex - 1 : currentProduct.colors.length - 1;
+            currentImageIndex = 0;
+            setupModalColors();
+            showColorImages();
         }
 
         // Touch/swipe support for mobile
@@ -1048,34 +1045,11 @@
         initializeCatalog();
     </script>
 
-    <footer style="
-        background: 
-            radial-gradient(ellipse at top, rgba(205, 133, 63, 0.3) 0%, transparent 50%),
-            radial-gradient(ellipse at bottom, rgba(101, 67, 33, 0.4) 0%, transparent 50%),
-            repeating-linear-gradient(
-                90deg,
-                #8B4513 0px,
-                #A0522D 1px,
-                #654321 2px,
-                #722F37 3px,
-                #8B4513 4px,
-                #CD853F 5px,
-                #A0522D 6px,
-                #5D4037 7px
-            ),
-            linear-gradient(180deg, #8B4513 0%, #654321 50%, #5D4037 100%);
-        background-size: 100% 100%, 100% 100%, 8px 100%, 100% 100%;
-        color: #FFF8DC; 
-        text-align: center; 
-        padding: 40px 0; 
-        margin-top: 60px; 
-        box-shadow: 0 -2px 10px rgba(101, 67, 33, 0.4);
-        position: relative;
-    ">
-        <div class="container" style="position: relative; z-index: 2;">
-            <h3 style="background: linear-gradient(135deg, #FFD700, #FFF8DC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 15px; font-size: 1.5em; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Móveis Bonafé</h3>
-            <p style="margin: 5px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">Qualidade e tradição em móveis</p>
-            <p style="margin: 5px 0; opacity: 0.9; text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">© 2024 Móveis Bonafé. Todos os direitos reservados.</p>
+    <footer style="background: white; color: #333; text-align: center; padding: 40px 0; margin-top: 60px; border-top: 1px solid #E0E0E0;">
+        <div class="container">
+            <h3 style="color: #333; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Móveis Bonafé</h3>
+            <p style="margin: 5px 0;">Qualidade e tradição em móveis</p>
+            <p style="margin: 5px 0; opacity: 0.8;">© 2024 Móveis Bonafé. Todos os direitos reservados.</p>
         </div>
     </footer>
 </body>
