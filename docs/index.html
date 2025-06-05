@@ -498,6 +498,40 @@
             border-radius: 0 0 20px 20px;
         }
         
+        .social-sharing {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: transform 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .social-btn.whatsapp { background: #25D366; }
+        .social-btn.facebook { background: #1877F2; }
+        .social-btn.instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .social-btn.pinterest { background: #BD081C; }
+        .social-btn.twitter { background: #1DA1F2; }
+        
         .modal-colors {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -767,6 +801,23 @@
                 <div class="modal-footer">
                     <div class="modal-colors" id="modalColors"></div>
                     <div class="swipe-indicator">← Deslize para trocar cores →</div>
+                    <div class="social-sharing">
+                        <a href="#" class="social-btn whatsapp" onclick="shareOnWhatsApp()" title="Compartilhar no WhatsApp">
+                            📱
+                        </a>
+                        <a href="#" class="social-btn facebook" onclick="shareOnFacebook()" title="Compartilhar no Facebook">
+                            📘
+                        </a>
+                        <a href="#" class="social-btn instagram" onclick="shareOnInstagram()" title="Compartilhar no Instagram">
+                            📷
+                        </a>
+                        <a href="#" class="social-btn pinterest" onclick="shareOnPinterest()" title="Compartilhar no Pinterest">
+                            📌
+                        </a>
+                        <a href="#" class="social-btn twitter" onclick="shareOnTwitter()" title="Compartilhar no Twitter">
+                            🐦
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="no-images-placeholder" id="noImagesPlaceholder" style="display: none;">
@@ -1076,13 +1127,24 @@
             const galleryImage = document.getElementById('galleryImage');
             
             let imagesToShow = currentProduct.images || [];
-            let imageIndex = 0;
             
-            // Se há cores e imagens, usar o índice da cor para selecionar a imagem
-            if (currentProduct.colors && currentProduct.colors.length > 0 && imagesToShow.length > 0) {
-                // Usar o índice da cor atual, limitado ao número de imagens disponíveis
-                imageIndex = Math.min(currentColorIndex, imagesToShow.length - 1);
+            // Se não há cores selecionadas ou imagens para a cor, usar navegação por imagem
+            if (!currentProduct.colors || currentProduct.colors.length === 0) {
+                // Sem cores: navegar pelas imagens disponíveis
+                if (imagesToShow.length > 0 && imagesToShow[currentImageIndex]) {
+                    gallery.style.display = 'flex';
+                    placeholder.style.display = 'none';
+                    galleryImage.src = imagesToShow[currentImageIndex];
+                    galleryImage.alt = 'Imagem do produto';
+                } else {
+                    gallery.style.display = 'none';
+                    placeholder.style.display = 'flex';
+                }
+                return;
             }
+            
+            // Com cores: usar índice da cor para selecionar imagem
+            let imageIndex = Math.min(currentColorIndex, imagesToShow.length - 1);
             
             if (imagesToShow.length > 0 && imagesToShow[imageIndex]) {
                 gallery.style.display = 'flex';
@@ -1258,6 +1320,93 @@
             return false; // Sem swipe
         }
 
+        // Social sharing functions
+        function shareOnWhatsApp() {
+            const productUrl = window.location.href;
+            const text = `Confira este móvel: ${currentProduct.name}\n${currentProduct.description}\n${productUrl}`;
+            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const productUrl = window.location.href;
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnInstagram() {
+            // Instagram não permite compartilhamento direto via URL, então copiamos o texto
+            const text = `${currentProduct.name} - ${currentProduct.description}\nVeja mais em: ${window.location.href}`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Texto copiado! Cole no Instagram para compartilhar.');
+            });
+        }
+
+        function shareOnPinterest() {
+            const productUrl = window.location.href;
+            const imageUrl = currentProduct.images && currentProduct.images.length > 0 ? currentProduct.images[0] : '';
+            const description = `${currentProduct.name} - ${currentProduct.description}`;
+            const url = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(productUrl)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(description)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnTwitter() {
+            const productUrl = window.location.href;
+            const text = `Confira este móvel: ${currentProduct.name} ${productUrl}`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        // Modal touch/swipe events
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function handleTouchStart(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }
+
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (currentProduct.colors && currentProduct.colors.length > 0) {
+                    // Com cores: navegar entre cores
+                    if (diff > 0) {
+                        nextColor();
+                    } else {
+                        previousColor();
+                    }
+                } else {
+                    // Sem cores: navegar entre imagens
+                    if (diff > 0) {
+                        nextImage();
+                    } else {
+                        previousImage();
+                    }
+                }
+            }
+        }
+
+        function nextImage() {
+            if (currentProduct.images && currentProduct.images.length > 1) {
+                currentImageIndex = (currentImageIndex + 1) % currentProduct.images.length;
+                showColorImages();
+            }
+        }
+
+        function previousImage() {
+            if (currentProduct.images && currentProduct.images.length > 1) {
+                currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : currentProduct.images.length - 1;
+                showColorImages();
+            }
+        }
+
         // Event listeners
         document.getElementById('searchInput').addEventListener('input', filterProducts);
         document.getElementById('categoryFilter').addEventListener('change', filterProducts);
@@ -1265,6 +1414,8 @@
         
         // Modal touch/swipe events
         document.addEventListener('keydown', handleKeyPress);
+        document.getElementById('productModal').addEventListener('touchstart', handleTouchStart);
+        document.getElementById('productModal').addEventListener('touchend', handleTouchEnd);
         
         // Close modal when clicking outside the image
         document.getElementById('productModal').addEventListener('click', function(e) {
