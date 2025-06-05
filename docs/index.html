@@ -344,6 +344,12 @@
             border-color: #F2C41B;
         }
         
+        .color-dot.selected {
+            border: 3px solid #F2C41B;
+            transform: scale(1.15);
+            box-shadow: 0 0 0 2px rgba(242, 196, 27, 0.3);
+        }
+        
         .footer {
             background: white;
             border-top: 3px solid #F2C41B;
@@ -1195,26 +1201,28 @@
         let productTouchEndX = {};
 
         function handleProductTouchStart(event, productId) {
-            event.stopPropagation();
             productTouchStartX[productId] = event.changedTouches[0].screenX;
         }
 
         function handleProductTouchEnd(event, productId) {
-            event.stopPropagation();
             productTouchEndX[productId] = event.changedTouches[0].screenX;
-            handleProductSwipe(productId);
+            const swipeDetected = handleProductSwipe(productId);
+            if (swipeDetected) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
         }
 
         function handleProductSwipe(productId) {
             const product = allProducts.find(p => p.id === productId);
-            if (!product || !product.images || product.images.length <= 1) return;
+            if (!product || !product.images || product.images.length <= 1) return false;
 
             const swipeThreshold = 50;
             const swipeDistance = productTouchEndX[productId] - productTouchStartX[productId];
             
             if (Math.abs(swipeDistance) > swipeThreshold) {
                 const imageContainer = document.querySelector(`[data-product-id="${productId}"]`);
-                if (!imageContainer) return;
+                if (!imageContainer) return false;
 
                 let currentImageIndex = parseInt(imageContainer.dataset.currentImage) || 0;
 
@@ -1236,7 +1244,24 @@
                     indicator.textContent = `${currentImageIndex + 1}/${product.images.length}`;
                     indicator.style.display = 'block';
                 }
+
+                // Atualizar cor selecionada baseada na imagem
+                if (product.colors && product.colors.length > 0) {
+                    const productCard = imageContainer.closest('.product-card');
+                    const colorDots = productCard.querySelectorAll('.color-dot');
+                    
+                    // Remover seleção anterior
+                    colorDots.forEach(dot => dot.classList.remove('selected'));
+                    
+                    // Selecionar cor correspondente à imagem (assumindo que as cores seguem a ordem das imagens)
+                    const colorIndex = Math.min(currentImageIndex, product.colors.length - 1);
+                    if (colorDots[colorIndex]) {
+                        colorDots[colorIndex].classList.add('selected');
+                    }
+                }
+                return true; // Swipe detectado
             }
+            return false; // Sem swipe
         }
 
         // Event listeners
