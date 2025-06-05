@@ -1435,15 +1435,21 @@
         async function refreshProducts() {
             try {
                 const newProducts = await loadProducts();
-                if (JSON.stringify(newProducts) !== JSON.stringify(allProducts)) {
+                const currentHash = JSON.stringify(allProducts);
+                const newHash = JSON.stringify(newProducts);
+                
+                if (currentHash !== newHash) {
+                    console.log('Products updated, refreshing catalog');
                     allProducts = newProducts;
                     filteredProducts = [...allProducts];
                     updateCategoryFilter(); // Update categories dynamically
                     filterProducts();
-                    console.log('Products synchronized');
+                    console.log('Products synchronized successfully');
+                } else {
+                    console.log('No product changes detected');
                 }
             } catch (error) {
-                console.log('Refresh failed, keeping current products');
+                console.error('Refresh failed:', error);
             }
         }
 
@@ -1456,13 +1462,20 @@
 
         // Listen for storage changes for instant sync
         window.addEventListener('storage', function(e) {
-            if (e.key === 'catalogUpdate') {
+            if (e.key === 'catalogProducts' || e.key === 'catalogUpdate') {
+                console.log('Storage change detected, refreshing products');
                 refreshProducts();
             }
         });
 
-        // Check for product updates every 2 seconds as backup
-        setInterval(refreshProducts, 2000);
+        // Listen for focus events (returning from management page)
+        window.addEventListener('focus', function() {
+            console.log('Page focused, checking for updates');
+            refreshProducts();
+        });
+
+        // Check for product updates every 3 seconds as backup
+        setInterval(refreshProducts, 3000);
 
         // Initialize
         async function initializeCatalog() {
