@@ -371,83 +371,197 @@
         }
         
         .image-gallery {
-            max-width: 85vw;
-            max-height: 80vh;
+            max-width: 90vw;
+            max-height: 85vh;
+            width: auto;
+            height: auto;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             margin: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+        
+        .gallery-image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            width: 100%;
+            min-height: 0;
         }
         
         .gallery-image {
-            max-width: calc(100% - 40px);
-            max-height: calc(100% - 80px);
+            max-width: 100%;
+            max-height: 100%;
             width: auto;
             height: auto;
             object-fit: contain;
             transition: all 0.3s ease;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
         
-        .modal-product-info {
-            margin-top: 15px;
+        .modal-header {
+            width: 100%;
+            padding: 25px 30px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-bottom: 1px solid #dee2e6;
             text-align: center;
-            padding: 15px 0;
-            border-top: 1px solid #E0E0E0;
         }
         
-        .modal-product-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
+        .modal-product-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0 0 8px 0;
+        }
+        
+        .modal-color-name {
+            font-size: 1.2em;
+            color: #6c757d;
+            font-weight: 500;
+            font-style: italic;
+        }
+        
+        .modal-footer {
+            width: 100%;
+            padding: 20px 30px 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 1px solid #dee2e6;
         }
         
         .modal-colors {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .modal-color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 12px;
+        }
+        
+        .modal-color-item:hover {
+            background: rgba(0, 123, 255, 0.1);
+        }
+        
+        .modal-color-item.active {
+            background: rgba(0, 123, 255, 0.15);
         }
         
         .modal-color-dot {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            border: 2px solid #E0E0E0;
-            cursor: pointer;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             position: relative;
+            margin-bottom: 6px;
         }
         
-        .modal-color-dot:hover {
-            transform: scale(1.1);
-            border-color: #333;
+        .modal-color-item:hover .modal-color-dot {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
         
-        .modal-color-dot.active {
+        .modal-color-item.active .modal-color-dot {
             border-color: #007AFF;
-            border-width: 3px;
+            border-width: 4px;
+            transform: scale(1.1);
         }
         
-        .modal-color-dot.active::after {
+        .modal-color-item.active .modal-color-dot::after {
             content: '✓';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
-            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-color-label {
+            font-size: 0.85em;
+            color: #495057;
+            font-weight: 500;
+            text-align: center;
+            max-width: 70px;
+            line-height: 1.2;
+            word-wrap: break-word;
+        }
+        
+        .swipe-indicator {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #6c757d;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 12px;
+            border-radius: 12px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .image-gallery {
+                max-width: 95vw;
+                max-height: 90vh;
+            }
+            
+            .modal-header {
+                padding: 20px 20px 15px;
+            }
+            
+            .modal-product-title {
+                font-size: 1.5em;
+            }
+            
+            .modal-color-name {
+                font-size: 1em;
+            }
+            
+            .modal-footer {
+                padding: 15px 20px 20px;
+            }
+            
+            .modal-colors {
+                gap: 12px;
+            }
+            
+            .modal-color-dot {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .modal-color-label {
+                font-size: 0.75em;
+                max-width: 60px;
+            }
+            
+            .gallery-image-container {
+                padding: 20px;
+            }
+            
+            .swipe-indicator {
+                display: block;
+            }
         }
         
         .gallery-counter {
@@ -586,9 +700,15 @@
         <div class="modal-content">
             <span class="close" onclick="closeProductModal()">&times;</span>
             <div class="image-gallery" id="imageGallery">
-                <img id="galleryImage" class="gallery-image" src="" alt="">
-                <div class="modal-product-info">
-                    <div class="modal-product-name" id="modalProductName"></div>
+                <div class="modal-header">
+                    <div class="modal-product-title" id="modalProductName"></div>
+                    <div class="modal-color-name" id="modalColorName"></div>
+                </div>
+                <div class="gallery-image-container">
+                    <img id="galleryImage" class="gallery-image" src="" alt="">
+                    <div class="swipe-indicator">← Deslize para trocar cores →</div>
+                </div>
+                <div class="modal-footer">
                     <div class="modal-colors" id="modalColors"></div>
                 </div>
             </div>
@@ -853,17 +973,24 @@
 
         function setupModalColors() {
             const colorsContainer = document.getElementById('modalColors');
+            const colorNameDisplay = document.getElementById('modalColorName');
+            
             if (!currentProduct.colors || currentProduct.colors.length === 0) {
                 colorsContainer.style.display = 'none';
+                colorNameDisplay.textContent = '';
                 return;
             }
             
+            // Update color name display
+            colorNameDisplay.textContent = currentProduct.colors[currentColorIndex]?.name || '';
+            
             colorsContainer.style.display = 'flex';
             colorsContainer.innerHTML = currentProduct.colors.map((color, index) => 
-                `<div class="modal-color-dot ${index === currentColorIndex ? 'active' : ''}" 
-                      style="background-color: ${color.hex}" 
-                      onclick="selectColor(${index})"
-                      title="${color.name}"></div>`
+                `<div class="modal-color-item ${index === currentColorIndex ? 'active' : ''}" 
+                      onclick="selectColor(${index})">
+                    <div class="modal-color-dot" style="background-color: ${color.hex}"></div>
+                    <div class="modal-color-label">${color.name}</div>
+                </div>`
             ).join('');
         }
 
@@ -890,14 +1017,39 @@
                 imagesToShow = currentProduct.images;
             }
             
-            if (imagesToShow.length > 0) {
+            if (imagesToShow.length > 0 && imagesToShow[currentImageIndex]) {
                 gallery.style.display = 'flex';
                 placeholder.style.display = 'none';
-                galleryImage.src = imagesToShow[currentImageIndex] || '';
+                galleryImage.src = imagesToShow[currentImageIndex];
                 galleryImage.alt = `${currentProduct.name} - ${currentProduct.colors[currentColorIndex]?.name || 'Imagem'}`;
+                
+                // Handle image loading errors
+                galleryImage.onerror = function() {
+                    this.style.display = 'none';
+                    gallery.style.display = 'none';
+                    placeholder.style.display = 'flex';
+                    placeholder.innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 4em; margin-bottom: 20px;">📷</div>
+                            <h3 style="color: #666; margin-bottom: 10px;">Imagem não disponível</h3>
+                            <p style="color: #999;">${currentProduct.name}</p>
+                        </div>
+                    `;
+                };
+                
+                galleryImage.onload = function() {
+                    this.style.display = 'block';
+                };
             } else {
                 gallery.style.display = 'none';
                 placeholder.style.display = 'flex';
+                placeholder.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <div style="font-size: 4em; margin-bottom: 20px;">📷</div>
+                        <h3 style="color: #666; margin-bottom: 10px;">Nenhuma imagem disponível</h3>
+                        <p style="color: #999;">${currentProduct.name}</p>
+                    </div>
+                `;
             }
         }
 
