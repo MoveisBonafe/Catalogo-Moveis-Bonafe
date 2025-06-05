@@ -1,1 +1,119 @@
-[]
+[
+  {
+    "id": 2,
+    "name": "Poltrona Relax Premium",
+    "description": "Poltrona reclinável com sistema de massagem e aquecimento integrado.",
+    "price": "R$ 3.299,00",
+    "category": "Poltronas",
+    "colors": [
+      {
+        "name": "Couro Marrom",
+        "hex": "#8b4513"
+      },
+      {
+        "name": "Preto",
+        "hex": "#000000"
+      }
+    ],
+    "features": [
+      "Reclinável",
+      "Sistema de massagem"
+    ],
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749093824758-imagem_2025-06-05_002343155.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/docs/images/1749098371899-imagem_2025-06-05_013929976.png"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Mesa de Jantar Extensível",
+    "description": "Mesa de jantar em madeira maciça com sistema de extensão para 8 pessoas.",
+    "price": "R$ 1.899,00",
+    "category": "Mesas",
+    "colors": [
+      {
+        "name": "Mogno",
+        "hex": "#CD853F"
+      },
+      {
+        "name": "Carvalho",
+        "hex": "#DEB887"
+      }
+    ],
+    "features": [
+      "Madeira maciça",
+      "Extensível",
+      "Para 8 pessoas",
+      "Acabamento verniz"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Cadeira Ergonômica Office",
+    "description": "Cadeira de escritório com apoio lombar ajustável e rodízios silenciosos.",
+    "price": "R$ 899,00",
+    "category": "Cadeiras",
+    "colors": [
+      {
+        "name": "Preto",
+        "hex": "#000000"
+      },
+      {
+        "name": "Cinza",
+        "hex": "#808080"
+      }
+    ],
+    "features": [
+      "Ergonômica",
+      "Apoio lombar",
+      "Rodízios silenciosos",
+      "Altura regulável"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Estante Biblioteca 5 Prateleiras",
+    "description": "Estante moderna com 5 prateleiras e compartimentos para livros e decoração.",
+    "price": "R$ 1.299,00",
+    "category": "Estantes",
+    "colors": [
+      {
+        "name": "Branco",
+        "hex": "#FFFFFF"
+      },
+      {
+        "name": "Amadeirado",
+        "hex": "#DEB887"
+      }
+    ],
+    "features": [
+      "5 prateleiras",
+      "Design moderno",
+      "Fácil montagem",
+      "MDF 18mm"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Cama Box Queen Size",
+    "description": "Cama box queen com colchão de molas ensacadas e pillow top.",
+    "price": "R$ 2.799,00",
+    "category": "Camas",
+    "colors": [
+      {
+        "name": "Bege",
+        "hex": "#F5F5DC"
+      },
+      {
+        "name": "Cinza Escuro",
+        "hex": "#2F4F4F"
+      }
+    ],
+    "features": [
+      "Queen size",
+      "Molas ensacadas",
+      "Pillow top",
+      "Base box"
+    ]
+  }
+]
