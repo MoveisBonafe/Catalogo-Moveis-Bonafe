@@ -890,10 +890,13 @@
 
         // Load products from GitHub - automatic synchronization for all devices
         async function loadProductsFromGitHub() {
-            // Try multiple sources for maximum reliability
+            // Force reload to ensure latest data
+            const timestamp = new Date().getTime();
             const sources = [
-                // Direct GitHub Pages URL (fastest when available)
-                'https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/products.json',
+                // Direct GitHub Pages URL with cache busting
+                `https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/products.json?t=${timestamp}`,
+                // Local fallback with cache busting
+                `./products.json?t=${timestamp}`,
                 // GitHub API as fallback
                 'https://api.github.com/repos/MoveisBonafe/Catalogo-Moveis-Bonafe/contents/docs/products.json'
             ];
@@ -1431,8 +1434,11 @@
             <h3 style="background: linear-gradient(45deg, #1a1a1a, #ffd700, #ffb347, #ffd700, #1a1a1a); background-size: 300% 300%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 6s ease-in-out infinite; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Móveis Bonafé</h3>
             <p style="margin: 5px 0;">Qualidade e tradição em móveis</p>
             
-            <a href="https://wa.me/5514997181108" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; margin: 20px 0; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 211, 102, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'">
-                <span style="font-size: 1.2em;">📱</span>
+            <a href="https://wa.me/5514997181108" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: #F2C41B; color: #1A1A1A; padding: 12px 24px; border-radius: 25px; text-decoration: none; margin: 20px 0; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(242, 196, 27, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(242, 196, 27, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(242, 196, 27, 0.3)'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.56-.01-.188 0-.495.074-.754.371-.26.297-.99.967-.99 2.357 0 1.39 1.014 2.734 1.156 2.922.142.188 2.002 3.058 4.851 4.287.678.292 1.207.466 1.621.596.682.217 1.303.186 1.793.113.547-.082 1.759-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.546 20.2c-.19.475.302.967.777.777l3.032-.892A9.958 9.958 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+                </svg>
                 <span>Fale Conosco</span>
             </a>
             
