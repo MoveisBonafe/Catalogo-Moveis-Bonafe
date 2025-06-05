@@ -995,35 +995,18 @@
             }
         }
 
-        async function loadGitHubToken() {
+        function loadGitHubToken() {
             const savedToken = localStorage.getItem('githubToken');
             if (savedToken) {
                 document.getElementById('githubToken').value = savedToken;
                 document.getElementById('tokenStatus').innerHTML = '<span style="color: blue;">Token carregado do armazenamento local</span>';
             } else {
-                // Auto-configurar token se disponível no ambiente
-                const envToken = await getEnvironmentToken();
-                if (envToken) {
-                    localStorage.setItem('githubToken', envToken);
-                    document.getElementById('githubToken').value = envToken;
-                    document.getElementById('tokenStatus').innerHTML = '<span style="color: green;">✓ Token configurado automaticamente</span>';
-                } else {
-                    document.getElementById('tokenStatus').innerHTML = '<span style="color: orange;">⚠ Configure o token GitHub para sincronização automática</span>';
-                }
+                document.getElementById('tokenStatus').innerHTML = '<span style="color: orange;">⚠ Configure o token GitHub para sincronização automática</span>';
             }
         }
         
-        async function getEnvironmentToken() {
-            // Verificar se há token disponível no servidor
-            try {
-                const response = await fetch('/api/github-token');
-                if (response.ok) {
-                    const data = await response.json();
-                    return data.token;
-                }
-            } catch (error) {
-                console.log('No server token available');
-            }
+        function getEnvironmentToken() {
+            // Simplificado para evitar problemas de build
             return null;
         }
 
