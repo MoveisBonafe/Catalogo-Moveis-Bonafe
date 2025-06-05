@@ -2,7 +2,7 @@
   {
     "id": 2,
     "name": "Cadeira Alta",
-    "description": "Medidas:\n\nLargura: 0,44m\nAltura: 1,00m",
+    "description": "Medidas:\nAltura:      1,00m\nLargura:     0,44m\nComprimento: 0,44m\nPeso:        5,50kg",
     "price": "R$ 3.299,00",
     "category": "Cadeiras",
     "colors": [
@@ -31,7 +31,7 @@
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749124916428-Cadeira_encosto_alto_imbuia.png",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749125112046-Cadeira_encosto_alto_cerejeira.png",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749145667539-Cadeira_encosto_alto_tabaco.png",
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749145705491-Cadeira_encosto_baixo_mogno.png"
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749148756635-Cadeira_encosto_alto_mogno.png"
     ]
   }
 ]
