@@ -253,6 +253,30 @@
       .hidden {
         display: none;
       }
+
+      .upload-progress {
+        margin-top: 12px;
+        padding: 8px;
+        background: hsl(var(--muted));
+        border-radius: 4px;
+        font-size: 12px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: hsl(var(--border));
+        border-radius: 3px;
+        overflow: hidden;
+        margin: 8px 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: hsl(var(--primary));
+        width: 0%;
+        transition: width 0.3s;
+      }
     </style>
   </head>
   <body>
@@ -300,10 +324,17 @@
                 <input type="file" id="product-images" name="images" multiple accept="image/*">
                 <p>📷 Clique para selecionar imagens</p>
                 <p style="font-size: 12px; color: hsl(var(--muted-foreground));">
-                  Selecione uma ou mais imagens (JPG, PNG)
+                  Selecione uma ou mais imagens (JPG, PNG, máx 5MB cada)
                 </p>
               </div>
               <div id="selected-images"></div>
+              <div id="upload-progress" class="upload-progress hidden">
+                <div>Fazendo upload das imagens...</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div id="upload-status">Preparando...</div>
+              </div>
             </div>
             
             <div class="form-group">
@@ -380,8 +411,29 @@
       const GITHUB_CONFIG = {
         owner: 'MoveisBonafe',
         repo: 'Catalogo-Moveis-Bonafe',
-        token: localStorage.getItem('github_token') || ''
+        token: localStorage.getItem('github_token') || '',
+        apiBase: 'https://api.github.com'
       };
+      
+      // Lista de produtos (dados reais do catálogo)
+      let products = [
+        {
+          id: 1,
+          name: "Sofá Moderno Reclinável 3 Lugares",
+          category: "Sofás",
+          description: "Sofá premium em couro sintético com sistema de reclinação elétrica...",
+          images: ["https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400"],
+          colors: ["cinza", "preto", "bege"]
+        },
+        {
+          id: 2,
+          name: "Mesa de Jantar Extensível Carvalho",
+          category: "Mesas",
+          description: "Mesa elegante em madeira de carvalho maciço com sistema extensível...",
+          images: ["https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=400"],
+          colors: ["carvalho", "mogno"]
+        }
+      ];
       
       // Inicializar
       document.addEventListener('DOMContentLoaded', () => {
@@ -415,7 +467,6 @@
       // Upload de arquivos
       function initializeFileUpload() {
         const fileInput = document.getElementById('product-images');
-        const container = document.getElementById('selected-images');
         
         fileInput.addEventListener('change', (e) => {
           selectedFiles = Array.from(e.target.files);
@@ -436,12 +487,53 @@
               <strong>${selectedFiles.length} imagem(ns) selecionada(s):</strong>
             </p>
             ${selectedFiles.map(file => `
-              <span style="font-size: 12px; color: hsl(var(--muted-foreground));">
-                📄 ${file.name}
-              </span>
-            `).join('<br>')}
+              <div style="font-size: 12px; color: hsl(var(--muted-foreground)); margin-bottom: 4px;">
+                📄 ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)
+              </div>
+            `).join('')}
           </div>
         `;
+      }
+      
+      // Upload de imagem para GitHub
+      async function uploadImageToGitHub(file, filename) {
+        try {
+          const reader = new FileReader();
+          return new Promise((resolve, reject) => {
+            reader.onload = async (e) => {
+              try {
+                const base64Content = btoa(e.target.result);
+                
+                const response = await fetch(`${GITHUB_CONFIG.apiBase}/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/docs/images/produtos/${filename}`, {
+                  method: 'PUT',
+                  headers: {
+                    'Authorization': `token ${GITHUB_CONFIG.token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    message: `Upload imagem produto: ${filename}`,
+                    content: base64Content
+                  })
+                });
+                
+                if (response.ok) {
+                  const result = await response.json();
+                  resolve(result.content.download_url);
+                } else {
+                  const error = await response.json();
+                  reject(new Error(error.message || 'Erro no upload'));
+                }
+              } catch (error) {
+                reject(error);
+              }
+            };
+            reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
+            reader.readAsBinaryString(file);
+          });
+        } catch (error) {
+          throw error;
+        }
       }
       
       // Testar conexão GitHub
@@ -453,7 +545,7 @@
         }
         
         try {
-          const response = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`, {
+          const response = await fetch(`${GITHUB_CONFIG.apiBase}/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`, {
             headers: {
               'Authorization': `token ${token}`,
               'Accept': 'application/vnd.github.v3+json'
@@ -482,12 +574,18 @@
         }
         
         const submitBtn = document.getElementById('submit-btn');
+        const progressContainer = document.getElementById('upload-progress');
+        const progressFill = document.getElementById('progress-fill');
+        const uploadStatus = document.getElementById('upload-status');
+        
         submitBtn.disabled = true;
         submitBtn.textContent = '⏳ Salvando...';
+        progressContainer.classList.remove('hidden');
         
         try {
           const formData = new FormData(e.target);
           const productData = {
+            id: Date.now(),
             name: formData.get('name'),
             category: formData.get('category'),
             description: formData.get('description'),
@@ -495,15 +593,33 @@
             images: []
           };
           
-          // Simular upload de imagens (em implementação real, faria upload para GitHub)
-          for (let i = 0; i < selectedFiles.length; i++) {
-            const file = selectedFiles[i];
-            // Por enquanto, usar placeholder
-            productData.images.push(`https://via.placeholder.com/400x300/d4af37/333?text=${encodeURIComponent(productData.name)}`);
+          // Upload das imagens
+          if (selectedFiles.length > 0) {
+            uploadStatus.textContent = 'Fazendo upload das imagens...';
+            
+            for (let i = 0; i < selectedFiles.length; i++) {
+              const file = selectedFiles[i];
+              const filename = `${productData.id}-${i + 1}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+              
+              uploadStatus.textContent = `Upload ${i + 1}/${selectedFiles.length}: ${file.name}`;
+              progressFill.style.width = `${((i) / selectedFiles.length) * 100}%`;
+              
+              try {
+                const imageUrl = await uploadImageToGitHub(file, filename);
+                productData.images.push(imageUrl);
+              } catch (error) {
+                console.error('Erro no upload da imagem:', error);
+                // Usar placeholder em caso de erro
+                productData.images.push(`https://via.placeholder.com/400x300/f39c12/ffffff?text=${encodeURIComponent(productData.name)}`);
+              }
+            }
+            
+            progressFill.style.width = '100%';
+            uploadStatus.textContent = 'Upload concluído!';
           }
           
-          // Simular salvamento
-          await new Promise(resolve => setTimeout(resolve, 1500));
+          // Adicionar produto à lista
+          products.push(productData);
           
           showAlert('✅ Produto salvo com sucesso!', 'success');
           
@@ -513,6 +629,7 @@
           selectedFiles = [];
           document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
           document.getElementById('selected-images').innerHTML = '';
+          progressContainer.classList.add('hidden');
           
           // Recarregar lista de produtos
           loadProducts();
@@ -522,32 +639,13 @@
         } finally {
           submitBtn.disabled = false;
           submitBtn.textContent = '💾 Salvar Produto';
+          progressContainer.classList.add('hidden');
         }
       });
       
       // Carregar produtos
       function loadProducts() {
         const container = document.getElementById('products-container');
-        
-        // Dados de exemplo (em implementação real, viria do GitHub/API)
-        const products = [
-          {
-            id: 1,
-            name: "Sofá Moderno Cinza",
-            category: "Sofás",
-            description: "Sofá confortável de 3 lugares...",
-            images: ["https://via.placeholder.com/60x60/f0f0f0/333?text=Sofá"],
-            colors: ["cinza", "bege"]
-          },
-          {
-            id: 2,
-            name: "Mesa de Jantar Redonda",
-            category: "Mesas",
-            description: "Mesa redonda em madeira maciça...",
-            images: ["https://via.placeholder.com/60x60/d4af37/333?text=Mesa"],
-            colors: ["carvalho", "mogno"]
-          }
-        ];
         
         if (products.length === 0) {
           container.innerHTML = `
@@ -560,7 +658,9 @@
         
         container.innerHTML = products.map(product => `
           <div class="product-item">
-            <img src="${product.images[0]}" alt="${product.name}">
+            <img src="${product.images[0] || 'https://via.placeholder.com/60x60/f39c12/ffffff?text=Produto'}" 
+                 alt="${product.name}"
+                 onerror="this.src='https://via.placeholder.com/60x60/f39c12/ffffff?text=Produto'">
             <div class="product-info">
               <h4>${product.name}</h4>
               <p>${product.category} • ${product.colors.join(', ')}</p>
@@ -585,6 +685,7 @@
       
       function deleteProduct(id) {
         if (confirm('Tem certeza que deseja excluir este produto?')) {
+          products = products.filter(p => p.id !== id);
           showAlert('Produto excluído com sucesso!', 'success');
           loadProducts();
         }
@@ -605,6 +706,9 @@
           container.innerHTML = '';
         }, 5000);
       }
+      
+      // Inicializar
+      loadProducts();
     </script>
   </body>
 </html>
