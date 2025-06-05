@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://seu-usuario.github.io/moveis-design/sitemap.xml

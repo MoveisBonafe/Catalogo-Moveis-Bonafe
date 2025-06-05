@@ -1,19 +1,31 @@
-import { pgTable, text, serial, integer, json } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, jsonb, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const products = pgTable("products", {
-  id: serial("id").primaryKey(),
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   name: text("name").notNull(),
   description: text("description").notNull(),
+  price: text("price").notNull(),
   category: text("category").notNull(),
   images: text("images").array().notNull().default([]),
-  colors: text("colors").array().notNull().default([]),
-  specifications: json("specifications").$type<Record<string, string>>(),
+  colors: jsonb("colors").notNull().default([]),
+  features: text("features").array().notNull().default([]),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const insertProductSchema = createInsertSchema(products).omit({
-  id: true,
+export const insertProductSchema = z.object({
+  name: z.string().min(1),
+  description: z.string().min(1),
+  price: z.string().min(1),
+  category: z.string().min(1),
+  images: z.array(z.string()).default([]),
+  colors: z.array(z.object({
+    name: z.string(),
+    value: z.string(),
+    hex: z.string()
+  })).default([]),
+  features: z.array(z.string()).default([])
 });
 
 export type InsertProduct = z.infer<typeof insertProductSchema>;
@@ -25,7 +37,9 @@ export const categories = [
   "Mesas",
   "Cadeiras",
   "Estantes",
-  "Camas"
+  "Camas",
+  "Guarda-roupas",
+  "Decoração"
 ] as const;
 
 export type Category = typeof categories[number];
