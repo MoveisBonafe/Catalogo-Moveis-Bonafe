@@ -1000,14 +1000,7 @@
             if (savedToken) {
                 document.getElementById('githubToken').value = savedToken;
                 document.getElementById('tokenStatus').innerHTML = '<span style="color: blue;">Token carregado do armazenamento local</span>';
-            } else {
-                document.getElementById('tokenStatus').innerHTML = '<span style="color: orange;">⚠ Configure o token GitHub para sincronização automática</span>';
             }
-        }
-        
-        function getEnvironmentToken() {
-            // Simplificado para evitar problemas de build
-            return null;
         }
 
         let currentProductImages = [];
