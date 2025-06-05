@@ -28,28 +28,5 @@
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749124916428-Cadeira_encosto_alto_imbuia.png",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749125112046-Cadeira_encosto_alto_cerejeira.png"
     ]
-  },
-  {
-    "id": 6,
-    "name": "Cama Box Queen Size",
-    "description": "Cama box queen com colchão de molas ensacadas e pillow top.",
-    "price": "R$ 2.799,00",
-    "category": "Camas",
-    "colors": [
-      {
-        "name": "Bege",
-        "hex": "#F5F5DC"
-      },
-      {
-        "name": "Cinza Escuro",
-        "hex": "#2F4F4F"
-      }
-    ],
-    "features": [
-      "Queen size",
-      "Molas ensacadas",
-      "Pillow top",
-      "Base box"
-    ]
   }
 ]
