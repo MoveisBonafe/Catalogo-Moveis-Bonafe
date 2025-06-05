@@ -948,9 +948,9 @@
             
             if (Math.abs(swipeDistance) > swipeThreshold) {
                 if (swipeDistance > 0) {
-                    previousImage(); // Swipe right = previous
+                    previousColor(); // Swipe right = previous color
                 } else {
-                    nextImage(); // Swipe left = next
+                    nextColor(); // Swipe left = next color
                 }
             }
         }
@@ -964,10 +964,10 @@
                         closeProductModal();
                         break;
                     case 'ArrowLeft':
-                        previousImage();
+                        previousColor();
                         break;
                     case 'ArrowRight':
-                        nextImage();
+                        nextColor();
                         break;
                 }
             }
