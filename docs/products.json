@@ -2,7 +2,7 @@
   {
     "id": 2,
     "name": "Cadeira Alta",
-    "description": "Medidas:\nAltura:      1,00m\nLargura:     0,44m\nComprimento: 0,44m\nPeso:        5,50kg",
+    "description": "AMedidas:\nAltura:      1,00m\nLargura:     0,44m\nComprimento: 0,44m\nPeso:        5,50kg",
     "price": "R$ 3.299,00",
     "category": "Cadeiras",
     "colors": [
