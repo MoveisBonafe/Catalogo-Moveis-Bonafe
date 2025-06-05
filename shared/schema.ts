@@ -7,9 +7,9 @@ export const products = pgTable("products", {
   name: text("name").notNull(),
   description: text("description").notNull(),
   category: text("category").notNull(),
-  images: json("images").$type<string[]>().notNull().default([]),
-  colors: json("colors").$type<string[]>().notNull().default([]),
-  specifications: json("specifications").$type<Record<string, string>>().default({}),
+  images: text("images").array().notNull().default([]),
+  colors: text("colors").array().notNull().default([]),
+  specifications: json("specifications").$type<Record<string, string>>(),
 });
 
 export const insertProductSchema = createInsertSchema(products).omit({

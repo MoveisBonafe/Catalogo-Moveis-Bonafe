@@ -98,8 +98,8 @@ export class MemStorage implements IStorage {
     const product: Product = { 
       ...insertProduct, 
       id,
-      images: insertProduct.images || [],
-      colors: insertProduct.colors || [],
+      images: Array.isArray(insertProduct.images) ? insertProduct.images : [],
+      colors: Array.isArray(insertProduct.colors) ? insertProduct.colors : [],
       specifications: insertProduct.specifications || null
     };
     this.products.set(id, product);
@@ -110,7 +110,13 @@ export class MemStorage implements IStorage {
     const existing = this.products.get(id);
     if (!existing) return undefined;
     
-    const updated: Product = { ...existing, ...updateProduct };
+    const updated: Product = { 
+      ...existing, 
+      ...updateProduct,
+      images: Array.isArray(updateProduct.images) ? updateProduct.images : existing.images,
+      colors: Array.isArray(updateProduct.colors) ? updateProduct.colors : existing.colors,
+      specifications: updateProduct.specifications !== undefined ? updateProduct.specifications : existing.specifications
+    };
     this.products.set(id, updated);
     return updated;
   }
