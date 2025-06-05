@@ -52,7 +52,7 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientShift 3s ease-in-out infinite;
+            animation: gradientShift 6s ease-in-out infinite;
         }
         
         @keyframes gradientShift {
@@ -287,8 +287,8 @@
         }
         
         .view-btn {
-            background: linear-gradient(135deg, #007AFF, #0056CC);
-            color: white;
+            background: linear-gradient(135deg, #F2C41B, #FFD700);
+            color: #1A1A1A;
             border: none;
             padding: 6px 12px;
             border-radius: 6px;
@@ -297,16 +297,16 @@
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 122, 255, 0.3);
+            box-shadow: 0 2px 4px rgba(242, 196, 27, 0.3);
             display: flex;
             align-items: center;
             gap: 4px;
         }
         
         .view-btn:hover {
-            background: linear-gradient(135deg, #0056CC, #003D99);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
             transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 122, 255, 0.4);
+            box-shadow: 0 4px 8px rgba(242, 196, 27, 0.4);
         }
         
         .view-btn-solo {
@@ -944,7 +944,7 @@
                                     }
                                 </div>
                                 <button class="view-btn" onclick="event.stopPropagation(); openProductModal(${product.id})" title="Ver produto">
-                                    👁️ Ver
+                                    👁️ Ver Produto
                                 </button>
                             </div>
                         </div>
@@ -1000,8 +1000,7 @@
             const gallery = document.getElementById('imageGallery');
             const placeholder = document.getElementById('noImagesPlaceholder');
             
-            // Set product name
-            document.getElementById('modalProductName').textContent = currentProduct.name;
+            // Product name removed from modal header
             
             // Setup colors
             setupModalColors();
@@ -1244,7 +1243,7 @@
 
     <footer style="background: white; color: #333; text-align: center; padding: 40px 0; margin-top: 60px; border-top: 1px solid #E0E0E0;">
         <div class="container">
-            <h3 style="color: #333; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Móveis Bonafé</h3>
+            <h3 style="background: linear-gradient(45deg, #1a1a1a, #ffd700, #ffb347, #ffd700, #1a1a1a); background-size: 300% 300%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 6s ease-in-out infinite; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Móveis Bonafé</h3>
             <p style="margin: 5px 0;">Qualidade e tradição em móveis</p>
             <p style="margin: 5px 0; opacity: 0.8;">© 2024 Móveis Bonafé. Todos os direitos reservados.</p>
         </div>
