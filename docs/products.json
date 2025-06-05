@@ -13,6 +13,10 @@
       {
         "name": "Cerejeira",
         "hex": "#ffc852"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
       }
     ],
     "features": [],
