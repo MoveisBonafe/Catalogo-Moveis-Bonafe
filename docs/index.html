@@ -733,56 +733,7 @@
             }
         }
 
-        .social-sharing {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-            padding: 10px 0;
-        }
 
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .social-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .social-btn.whatsapp {
-            background: #25D366;
-            color: white;
-        }
-
-        .social-btn.facebook {
-            background: #1877F2;
-            color: white;
-        }
-
-        .social-btn.instagram {
-            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-            color: white;
-        }
-
-        .social-btn.pinterest {
-            background: #E60023;
-            color: white;
-        }
-
-        .social-btn.twitter {
-            background: #1DA1F2;
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -852,23 +803,6 @@
                 <div class="modal-footer">
                     <div class="modal-colors" id="modalColors"></div>
                     <div class="swipe-indicator">← Deslize para trocar cores →</div>
-                    <div class="social-sharing">
-                        <a href="#" class="social-btn whatsapp" onclick="shareOnWhatsApp()" title="Compartilhar no WhatsApp">
-                            📱
-                        </a>
-                        <a href="#" class="social-btn facebook" onclick="shareOnFacebook()" title="Compartilhar no Facebook">
-                            📘
-                        </a>
-                        <a href="#" class="social-btn instagram" onclick="shareOnInstagram()" title="Compartilhar no Instagram">
-                            📷
-                        </a>
-                        <a href="#" class="social-btn pinterest" onclick="shareOnPinterest()" title="Compartilhar no Pinterest">
-                            📌
-                        </a>
-                        <a href="#" class="social-btn twitter" onclick="shareOnTwitter()" title="Compartilhar no Twitter">
-                            🐦
-                        </a>
-                    </div>
                 </div>
             </div>
             <div class="no-images-placeholder" id="noImagesPlaceholder" style="display: none;">
@@ -1371,42 +1305,7 @@
             return false; // Sem swipe
         }
 
-        // Social sharing functions
-        function shareOnWhatsApp() {
-            const productUrl = window.location.href;
-            const text = `Confira este móvel: ${currentProduct.name}\n${currentProduct.description}\n${productUrl}`;
-            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-        }
 
-        function shareOnFacebook() {
-            const productUrl = window.location.href;
-            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`;
-            window.open(url, '_blank');
-        }
-
-        function shareOnInstagram() {
-            // Instagram não permite compartilhamento direto via URL, então copiamos o texto
-            const text = `${currentProduct.name} - ${currentProduct.description}\nVeja mais em: ${window.location.href}`;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Texto copiado! Cole no Instagram para compartilhar.');
-            });
-        }
-
-        function shareOnPinterest() {
-            const productUrl = window.location.href;
-            const imageUrl = currentProduct.images && currentProduct.images.length > 0 ? currentProduct.images[0] : '';
-            const description = `${currentProduct.name} - ${currentProduct.description}`;
-            const url = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(productUrl)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(description)}`;
-            window.open(url, '_blank');
-        }
-
-        function shareOnTwitter() {
-            const productUrl = window.location.href;
-            const text = `Confira este móvel: ${currentProduct.name} ${productUrl}`;
-            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-        }
 
         // Modal touch/swipe events (using existing variables)
         function handleModalTouchStart(e) {
