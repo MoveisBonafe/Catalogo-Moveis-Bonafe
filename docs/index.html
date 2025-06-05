@@ -877,12 +877,16 @@
         }
 
         // Auto-refresh products every 2 seconds to sync with management changes
-        function refreshProducts() {
-            const newProducts = loadProducts();
-            if (JSON.stringify(newProducts) !== JSON.stringify(allProducts)) {
-                allProducts = newProducts;
-                filteredProducts = [...allProducts];
-                filterProducts();
+        async function refreshProducts() {
+            try {
+                const newProducts = await loadProducts();
+                if (JSON.stringify(newProducts) !== JSON.stringify(allProducts)) {
+                    allProducts = newProducts;
+                    filteredProducts = [...allProducts];
+                    filterProducts();
+                }
+            } catch (error) {
+                console.log('Refresh failed, keeping current products');
             }
         }
 
