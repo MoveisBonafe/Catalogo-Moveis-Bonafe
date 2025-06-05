@@ -1075,21 +1075,19 @@
             const placeholder = document.getElementById('noImagesPlaceholder');
             const galleryImage = document.getElementById('galleryImage');
             
-            let imagesToShow = [];
+            let imagesToShow = currentProduct.images || [];
+            let imageIndex = 0;
             
-            // Get images for current color or fallback to general images
-            if (currentProduct.colors && currentProduct.colors[currentColorIndex] && currentProduct.colors[currentColorIndex].images) {
-                imagesToShow = currentProduct.colors[currentColorIndex].images;
+            // Se há cores e imagens, usar o índice da cor para selecionar a imagem
+            if (currentProduct.colors && currentProduct.colors.length > 0 && imagesToShow.length > 0) {
+                // Usar o índice da cor atual, limitado ao número de imagens disponíveis
+                imageIndex = Math.min(currentColorIndex, imagesToShow.length - 1);
             }
             
-            if (imagesToShow.length === 0 && currentProduct.images) {
-                imagesToShow = currentProduct.images;
-            }
-            
-            if (imagesToShow.length > 0 && imagesToShow[currentImageIndex]) {
+            if (imagesToShow.length > 0 && imagesToShow[imageIndex]) {
                 gallery.style.display = 'flex';
                 placeholder.style.display = 'none';
-                galleryImage.src = imagesToShow[currentImageIndex];
+                galleryImage.src = imagesToShow[imageIndex];
                 galleryImage.alt = currentProduct.colors[currentColorIndex]?.name || 'Imagem do produto';
                 
                 // Handle image loading errors
