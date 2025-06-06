@@ -946,7 +946,7 @@
                         if (source.includes('api.github.com')) {
                             // GitHub API response needs decoding
                             const data = await response.json();
-                            const decodedContent = atob(data.content);
+                            const decodedContent = decodeURIComponent(escape(atob(data.content)));
                             products = JSON.parse(decodedContent);
                         } else {
                             // Direct JSON response

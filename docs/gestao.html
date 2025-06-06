@@ -1101,7 +1101,8 @@
                     
                     if (response.ok) {
                         const data = await response.json();
-                        const products = JSON.parse(atob(data.content));
+                        const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                        const products = JSON.parse(decodedContent);
                         // Save to localStorage for offline access
                         localStorage.setItem('catalogProducts', JSON.stringify(products));
                         console.log('Produtos carregados do GitHub');
