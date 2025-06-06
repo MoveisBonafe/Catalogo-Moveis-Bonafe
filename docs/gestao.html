@@ -1267,13 +1267,14 @@
         }
 
         function openAddModal() {
+            populateProductForm();
             editingProductId = null;
             document.getElementById('modalTitle').textContent = 'Adicionar Produto';
             document.getElementById('productForm').reset();
             clearColors();
             clearFeatures();
-            addColor(); // Add one color by default
             addFeature(); // Add one feature by default
+            displayProductImages([]);
             document.getElementById('productModal').style.display = 'block';
         }
 
@@ -1281,6 +1282,7 @@
             const product = allProducts.find(p => p.id === id);
             if (!product) return;
 
+            populateProductForm();
             editingProductId = id;
             document.getElementById('modalTitle').textContent = 'Editar Produto';
             
@@ -1292,14 +1294,12 @@
             // Load images
             displayProductImages(product.images || []);
 
-            // Clear and populate colors
+            // Clear and populate colors using new system
             clearColors();
             if (product.colors && product.colors.length > 0) {
                 product.colors.forEach(color => {
-                    addColor(color.name, color.hex);
+                    addColorToProduct(color.name, color.hex);
                 });
-            } else {
-                addColor();
             }
 
             // Clear and populate features
@@ -1329,33 +1329,6 @@
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
             editingProductId = null;
-        }
-
-        function addColor(name = '', hex = '#000000') {
-            const container = document.getElementById('colorsContainer');
-            const colorId = Date.now() + Math.random();
-            
-            const colorDiv = document.createElement('div');
-            colorDiv.className = 'color-item';
-            colorDiv.innerHTML = `
-                <input type="text" class="color-input" placeholder="Nome da cor" value="${name}">
-                <input type="color" class="color-input" value="${hex}" style="max-width: 60px;">
-                <div class="color-preview" style="background-color: ${hex};"></div>
-                <button type="button" class="remove-color" onclick="removeColor(this)">✖</button>
-            `;
-            
-            // Update preview when color changes
-            const colorInput = colorDiv.querySelector('input[type="color"]');
-            const preview = colorDiv.querySelector('.color-preview');
-            colorInput.addEventListener('change', (e) => {
-                preview.style.backgroundColor = e.target.value;
-            });
-            
-            container.appendChild(colorDiv);
-        }
-
-        function removeColor(button) {
-            button.parentElement.remove();
         }
 
         function clearColors() {
