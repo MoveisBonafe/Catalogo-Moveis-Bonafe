@@ -399,5 +399,35 @@
       "MDP",
       "Infantil"
     ]
+  },
+  {
+    "id": 1749247844906,
+    "name": "Mesa 75x75",
+    "description": "Medidas:\nAltura: 80cm\nComprimento: 75cm\nLargura: 75cm\nPeso: 15kg",
+    "category": "Mesas",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749247766392-imagem_2025-06-06_190925088.png"
+    ],
+    "colors": [
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP"
+    ]
   }
 ]
