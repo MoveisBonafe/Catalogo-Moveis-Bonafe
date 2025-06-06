@@ -235,5 +235,34 @@
     "features": [
       "MDF"
     ]
+  },
+  {
+    "id": 1749209857851,
+    "name": "Cama Paris Solteiro",
+    "description": "Medidas:\nAltura: 94cm\nLargura: 80cm/90cm\nComprimento: 190cm",
+    "category": "Camas",
+    "images": [],
+    "colors": [
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP",
+      "Dupla Furação"
+    ]
   }
 ]
