@@ -504,5 +504,35 @@
     "features": [
       "MDP"
     ]
+  },
+  {
+    "id": 1749248881778,
+    "name": "Mesa 1,10x0,45",
+    "description": "Medidas:\nAltura: 80cm\nLargura: 45cm\nComprimento: 110cm\nPeso: 11kg",
+    "category": "Mesas",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749248835106-imagem_2025-06-06_192714029.png"
+    ],
+    "colors": [
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP"
+    ]
   }
 ]
