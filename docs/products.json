@@ -148,7 +148,12 @@
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749175558115-imagem_2025-06-05_230557142.png",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749175564068-imagem_2025-06-05_230603108.png"
     ],
-    "colors": [],
+    "colors": [
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      }
+    ],
     "features": [
       "MDP"
     ]
