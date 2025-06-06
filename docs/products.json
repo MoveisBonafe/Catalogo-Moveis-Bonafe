@@ -136,5 +136,21 @@
       "Infantil",
       "MDP"
     ]
+  },
+  {
+    "id": 1749175586710,
+    "name": "Banqueta 50cm",
+    "description": "Medidas:\nAltura: 0,50m\nLargura: 0,30m\nComprimento: 0,30m\nPeso: 2,00kg",
+    "category": "Banquetas",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749175426223-imagem_2025-06-05_230344092.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749175547699-imagem_2025-06-05_230545350.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749175558115-imagem_2025-06-05_230557142.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749175564068-imagem_2025-06-05_230603108.png"
+    ],
+    "colors": [],
+    "features": [
+      "MDP"
+    ]
   }
 ]
