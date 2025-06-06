@@ -338,5 +338,35 @@
       "MDP",
       "Dupla Furação"
     ]
+  },
+  {
+    "id": 1749229012453,
+    "name": "Mesa 70x45",
+    "description": "Medidas:\nAltura: 80cm\nLargura: 45cm\nComprimento: 70cm",
+    "category": "Mesas",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228949721-imagem_2025-06-06_135548764.png"
+    ],
+    "colors": [
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP"
+    ]
   }
 ]
