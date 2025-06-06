@@ -1331,6 +1331,56 @@
             editingProductId = null;
         }
 
+        // Add modal click handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Product modal
+            const productModal = document.getElementById('productModal');
+            const productModalContent = productModal.querySelector('.modal-content');
+            
+            productModal.addEventListener('click', function(e) {
+                if (e.target === productModal) {
+                    // Don't close when clicking outside - only close with X button
+                    e.stopPropagation();
+                }
+            });
+            
+            productModalContent.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            // Category modal
+            const categoryModal = document.getElementById('categoryModal');
+            if (categoryModal) {
+                const categoryModalContent = categoryModal.querySelector('.modal-content');
+                
+                categoryModal.addEventListener('click', function(e) {
+                    if (e.target === categoryModal) {
+                        e.stopPropagation();
+                    }
+                });
+                
+                categoryModalContent.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+
+            // Standard color modal
+            const standardColorModal = document.getElementById('standardColorModal');
+            if (standardColorModal) {
+                const standardColorModalContent = standardColorModal.querySelector('.modal-content');
+                
+                standardColorModal.addEventListener('click', function(e) {
+                    if (e.target === standardColorModal) {
+                        e.stopPropagation();
+                    }
+                });
+                
+                standardColorModalContent.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+
         function clearColors() {
             document.getElementById('colorsContainer').innerHTML = '';
         }
