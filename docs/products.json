@@ -477,7 +477,12 @@
     "name": "Mesa 80x80",
     "description": "Medidas:\nAltura: 80cm\nLargura: 80cm\nComprimento: 80cm\nPeso:",
     "category": "Mesas",
-    "images": [],
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749248459023-0_80_x_0_80_Imbuia.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749248459993-80_x_80_mogno.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749248461068-80_x_80_tabaco.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749248462004-80_x_80cerejeria.jpg"
+    ],
     "colors": [
       {
         "name": "Imbuia",
