@@ -206,10 +206,32 @@
   {
     "id": 1749209221604,
     "name": "Cadeira Restaurante",
-    "description": "Medidas:",
+    "description": "Medidas:\nAltura:95cm\nLargura:40cm\nComprimento:40cm\nPeso:5,50kg",
     "category": "Cadeiras",
-    "images": [],
-    "colors": [],
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749209375075-imagem_2025-06-06_082931631.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749209384610-imagem_2025-06-06_082943656.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749209393828-imagem_2025-06-06_082952615.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749209404239-imagem_2025-06-06_083001615.png"
+    ],
+    "colors": [
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
     "features": [
       "MDF"
     ]
