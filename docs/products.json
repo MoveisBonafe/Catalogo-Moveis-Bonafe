@@ -304,5 +304,39 @@
       "MDP",
       "Não requer montagem"
     ]
+  },
+  {
+    "id": 1749228371237,
+    "name": "Cama Beliche Paris",
+    "description": "Medidas:\nAltura: 164cm\nLargura: 80/90cm\nComprimento: 190cm\nPeso: 46kg",
+    "category": "Camas",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228267358-imagem_2025-06-06_134425714.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228274996-imagem_2025-06-06_134433389.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228282275-imagem_2025-06-06_134441056.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228289662-imagem_2025-06-06_134448603.png"
+    ],
+    "colors": [
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP",
+      "Dupla Furação"
+    ]
   }
 ]
