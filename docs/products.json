@@ -202,5 +202,16 @@
     "features": [
       "MDP"
     ]
+  },
+  {
+    "id": 1749209221604,
+    "name": "Cadeira Restaurante",
+    "description": "Medidas:",
+    "category": "Cadeiras",
+    "images": [],
+    "colors": [],
+    "features": [
+      "MDF"
+    ]
   }
 ]
