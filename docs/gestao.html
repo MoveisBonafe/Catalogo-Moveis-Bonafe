@@ -713,6 +713,7 @@
         .draggable-item {
             cursor: move;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .draggable-item:hover {
@@ -723,6 +724,47 @@
         .draggable-item.dragging {
             opacity: 0.5;
             transform: rotate(5deg);
+        }
+
+        .drag-handle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 20px;
+            height: 20px;
+            background: rgba(242, 196, 27, 0.9);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            cursor: grab;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .draggable-item:hover .drag-handle {
+            opacity: 1;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .reorder-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .draggable-item:hover .reorder-controls {
+            opacity: 1;
         }
 
         .drop-zone {
@@ -1229,8 +1271,9 @@
             emptyState.style.display = 'none';
             container.style.display = 'grid';
             
-            container.innerHTML = allProducts.map(product => `
-                <div class="product-card">
+            container.innerHTML = allProducts.map((product, index) => `
+                <div class="product-card draggable-item" draggable="true" data-product-id="${product.id}" data-product-index="${index}">
+                    <div class="drag-handle" title="Arrastar para reordenar">⋮⋮</div>
                     <div class="product-header">
                         <span class="category-badge">${product.category}</span>
                     </div>
@@ -1263,8 +1306,15 @@
                         <button class="btn" onclick="editProduct(${product.id})">✏️ Editar</button>
                         <button class="btn btn-danger" onclick="deleteProduct(${product.id})">🗑️ Excluir</button>
                     </div>
+                    <div class="reorder-controls">
+                        <button type="button" class="reorder-btn" onclick="moveProductUp(${index})" title="Mover para cima">↑</button>
+                        <button type="button" class="reorder-btn" onclick="moveProductDown(${index})" title="Mover para baixo">↓</button>
+                    </div>
                 </div>
             `).join('');
+            
+            // Setup drag and drop after rendering
+            setupProductDragAndDrop();
         }
 
         function openAddModal() {
@@ -2399,6 +2449,91 @@
             }
             
             modal.style.display = 'block';
+        }
+
+        // Product reordering functions
+        function setupProductDragAndDrop() {
+            const container = document.getElementById('productsContainer');
+            const draggableItems = container.querySelectorAll('.draggable-item');
+            
+            draggableItems.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('drop', handleDrop);
+            });
+        }
+
+        function handleDragStart(e) {
+            this.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', this.dataset.productId);
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const draggedId = e.dataTransfer.getData('text/plain');
+            const draggedElement = document.querySelector(`[data-product-id="${draggedId}"]`);
+            const dropTarget = e.currentTarget;
+            
+            if (draggedElement && draggedElement !== dropTarget) {
+                const container = document.getElementById('productsContainer');
+                const afterElement = getDragAfterElement(container, e.clientY);
+                
+                // Update the products array order
+                const draggedIndex = parseInt(draggedElement.dataset.productIndex);
+                const dropIndex = parseInt(dropTarget.dataset.productIndex);
+                
+                // Move item in array
+                const movedProduct = allProducts.splice(draggedIndex, 1)[0];
+                allProducts.splice(dropIndex, 0, movedProduct);
+                
+                // Save and re-render
+                saveProducts();
+                renderProducts();
+            }
+        }
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.draggable-item:not(.dragging)')];
+            
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        function moveProductUp(index) {
+            if (index > 0) {
+                // Swap products in array
+                [allProducts[index], allProducts[index - 1]] = [allProducts[index - 1], allProducts[index]];
+                saveProducts();
+                renderProducts();
+            }
+        }
+
+        function moveProductDown(index) {
+            if (index < allProducts.length - 1) {
+                // Swap products in array
+                [allProducts[index], allProducts[index + 1]] = [allProducts[index + 1], allProducts[index]];
+                saveProducts();
+                renderProducts();
+            }
         }
 
         // Add to existing initialization
