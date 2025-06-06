@@ -368,5 +368,35 @@
     "features": [
       "MDP"
     ]
+  },
+  {
+    "id": 1749229282389,
+    "name": "Mesa 70x45 Infantil",
+    "description": "Medidas:\nAltura: 60cm\nLargura: 45cm\nComprimento: 70cm\nPeso: 8,00kg",
+    "category": "Mesas",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749229262927-imagem_2025-06-06_140101986.png"
+    ],
+    "colors": [
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP"
+    ]
   }
 ]
