@@ -412,20 +412,23 @@
     "description": "Medidas:\nAltura: 80cm\nComprimento: 75cm\nLargura: 75cm\nPeso: 15kg",
     "category": "Mesas",
     "images": [
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749247766392-imagem_2025-06-06_190925088.png"
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749248330887-75_x_75_cerejeira.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749248331848-75_x_75_mogno.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749247766392-imagem_2025-06-06_190925088.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749248332622-75_x_75_tabaco.jpg"
     ],
     "colors": [
       {
-        "name": "Imbuia",
-        "hex": "#8c5b17"
+        "name": "Tabaco",
+        "hex": "#000000"
       },
       {
         "name": "Cerejeira",
         "hex": "#ffc852"
       },
       {
-        "name": "Tabaco",
-        "hex": "#000000"
+        "name": "Imbuia",
+        "hex": "#8c5b17"
       },
       {
         "name": "Mogno",
