@@ -33,5 +33,19 @@
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749162414722-imagem_2025-06-05_192651880.png",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749162434935-imagem_2025-06-05_192713519.png"
     ]
+  },
+  {
+    "id": 1749172730609,
+    "name": "Cadeira Comum",
+    "description": "Medidas:\nAltura: 0,90m\nLargura: 0,38m",
+    "category": "Cadeiras",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749172725671-imagem_2025-06-05_221715940.png"
+    ],
+    "colors": [],
+    "features": [
+      "Encosto Baixo",
+      "MDP"
+    ]
   }
 ]
