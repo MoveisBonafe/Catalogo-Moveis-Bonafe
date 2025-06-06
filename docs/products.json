@@ -40,12 +40,26 @@
     "description": "Medidas:\nAltura: 0,90m\nLargura: 0,38m\nComprimento: 0,38m \nPeso: 5,00kg",
     "category": "Cadeiras",
     "images": [
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749172725671-imagem_2025-06-05_221715940.png"
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749172725671-imagem_2025-06-05_221715940.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749172885779-imagem_2025-06-05_222124670.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749172902462-imagem_2025-06-05_222140496.png"
     ],
     "colors": [
       {
         "name": "Cerejeira",
         "hex": "#ffc852"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#000000"
+      },
+      {
+        "name": "Imbuia",
+        "hex": "#000000"
       }
     ],
     "features": [
