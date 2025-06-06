@@ -396,7 +396,8 @@
       }
     ],
     "features": [
-      "MDP"
+      "MDP",
+      "Infantil"
     ]
   }
 ]
