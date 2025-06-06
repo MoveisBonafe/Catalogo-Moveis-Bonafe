@@ -194,6 +194,114 @@
             border-radius: 50%;
             border: 2px solid #E6D5A8;
         }
+
+        .color-dot-large {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            margin: 0 auto;
+        }
+
+        /* Drag and Drop Styles */
+        .reorder-item {
+            position: relative;
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: move;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .reorder-item:hover {
+            border-color: #2c5282;
+            box-shadow: 0 2px 8px rgba(44, 82, 130, 0.1);
+        }
+
+        .reorder-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .reorder-controls {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: flex;
+            gap: 2px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .reorder-item:hover .reorder-controls {
+            opacity: 1;
+        }
+
+        .reorder-btn {
+            background: #2c5282;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .reorder-btn:hover {
+            background: #1a365d;
+        }
+
+        .reorder-btn:last-child {
+            background: #dc3545;
+        }
+
+        .reorder-btn:last-child:hover {
+            background: #c82333;
+        }
+
+        .image-reorder-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .color-reorder-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .standard-color-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .standard-color-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-actions-inline button {
+            padding: 4px 8px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
         
         .actions {
             display: flex;
@@ -1346,7 +1454,7 @@
             });
         }
 
-        function displayProductImages(images) {
+        function displayProductImagesOriginal(images) {
             currentProductImages = [...images];
             const container = document.getElementById('imagesList');
             
@@ -1358,10 +1466,21 @@
             container.innerHTML = images.map((url, index) => `
                 <div style="position: relative; background: white; border-radius: 8px; overflow: hidden; border: 2px solid #E0E0E0;">
                     <img src="${url}" alt="Imagem ${index + 1}" style="width: 100%; height: 120px; object-fit: cover; display: block;">
-                    <button onclick="removeProductImage(${index})" style="position: absolute; top: 5px; right: 5px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; cursor: pointer; font-weight: bold;">×</button>
+                    <button onclick="removeProductImageOriginal(${index})" style="position: absolute; top: 5px; right: 5px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; cursor: pointer; font-weight: bold;">×</button>
                     <div style="padding: 8px; text-align: center; font-size: 12px; color: #666;">Imagem ${index + 1}</div>
                 </div>
             `).join('');
+        }
+
+        function addFeatureWithValue(featureText) {
+            const container = document.getElementById('featuresContainer');
+            const featureDiv = document.createElement('div');
+            featureDiv.className = 'feature-item';
+            featureDiv.innerHTML = `
+                <input type="text" class="feature-input" value="${featureText}" placeholder="Digite uma característica">
+                <button type="button" class="remove-feature" onclick="removeFeature(this)">Remover</button>
+            `;
+            container.appendChild(featureDiv);
         }
 
         function removeProductImage(index) {
@@ -1928,11 +2047,330 @@
             document.getElementById('totalStandardColors').textContent = allStandardColors.length;
         }
 
+        // Enhanced Product Form Functions
+        function populateProductForm() {
+            populateCategorySelect();
+            populateStandardColorSelect();
+        }
+
+        function populateCategorySelect() {
+            const select = document.getElementById('productCategory');
+            const defaultOptions = [
+                { name: 'Sofás', slug: 'sofas', displayName: 'Sofás' },
+                { name: 'Poltronas', slug: 'poltronas', displayName: 'Poltronas' },
+                { name: 'Mesas', slug: 'mesas', displayName: 'Mesas' },
+                { name: 'Cadeiras', slug: 'cadeiras', displayName: 'Cadeiras' },
+                { name: 'Estantes', slug: 'estantes', displayName: 'Estantes' },
+                { name: 'Camas', slug: 'camas', displayName: 'Camas' },
+                { name: 'Guarda-roupas', slug: 'guarda-roupas', displayName: 'Guarda-roupas' },
+                { name: 'Decoração', slug: 'decoracao', displayName: 'Decoração' }
+            ];
+            
+            // Clear existing options except first
+            select.innerHTML = '<option value="">Selecione uma categoria</option>';
+            
+            // Add default categories
+            defaultOptions.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.name;
+                option.textContent = cat.displayName;
+                select.appendChild(option);
+            });
+            
+            // Add custom categories
+            allCategories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.name;
+                option.textContent = cat.displayName;
+                select.appendChild(option);
+            });
+        }
+
+        function populateStandardColorSelect() {
+            const select = document.getElementById('standardColorSelect');
+            select.innerHTML = '<option value="">Selecione uma cor padrão para adicionar</option>';
+            
+            allStandardColors.forEach(color => {
+                const option = document.createElement('option');
+                option.value = color.id;
+                option.textContent = `${color.name} (${color.hex})`;
+                select.appendChild(option);
+            });
+        }
+
+        function addStandardColor() {
+            const select = document.getElementById('standardColorSelect');
+            const colorId = select.value;
+            
+            if (!colorId) return;
+            
+            const standardColor = allStandardColors.find(c => c.id === colorId);
+            if (!standardColor) return;
+            
+            // Check if color already exists
+            const existingColors = getCurrentProductColors();
+            if (existingColors.some(c => c.hex === standardColor.hex)) {
+                alert('Esta cor já foi adicionada ao produto');
+                return;
+            }
+            
+            addColorToProduct(standardColor.name, standardColor.hex);
+            select.value = '';
+        }
+
+        function addCustomColor() {
+            const name = prompt('Nome da cor:');
+            if (!name) return;
+            
+            const hex = prompt('Código da cor (ex: #FF0000):');
+            if (!hex || !hex.match(/^#[0-9A-Fa-f]{6}$/)) {
+                alert('Código de cor inválido. Use o formato #RRGGBB');
+                return;
+            }
+            
+            addColorToProduct(name, hex);
+        }
+
+        function addColorToProduct(name, hex) {
+            const container = document.getElementById('colorsContainer');
+            const colorId = Date.now().toString();
+            
+            const colorDiv = document.createElement('div');
+            colorDiv.className = 'reorder-item';
+            colorDiv.draggable = true;
+            colorDiv.dataset.colorId = colorId;
+            colorDiv.innerHTML = `
+                <div class="color-dot-large" style="background-color: ${hex}; margin-bottom: 5px;"></div>
+                <div style="font-size: 0.8em; font-weight: 500;">${name}</div>
+                <div style="font-size: 0.7em; color: #666;">${hex}</div>
+                <div class="reorder-controls">
+                    <button type="button" class="reorder-btn" onclick="moveColorUp(this)" title="Mover para cima">↑</button>
+                    <button type="button" class="reorder-btn" onclick="moveColorDown(this)" title="Mover para baixo">↓</button>
+                    <button type="button" class="reorder-btn" onclick="removeColor(this)" title="Remover">×</button>
+                </div>
+            `;
+            
+            setupColorDragAndDrop(colorDiv);
+            container.appendChild(colorDiv);
+        }
+
+        function getCurrentProductColors() {
+            const container = document.getElementById('colorsContainer');
+            const colorElements = container.querySelectorAll('.reorder-item');
+            
+            return Array.from(colorElements).map(el => {
+                const name = el.querySelector('div:nth-child(2)').textContent;
+                const hex = el.querySelector('div:nth-child(3)').textContent;
+                return { name, hex };
+            });
+        }
+
+        function setupColorDragAndDrop(element) {
+            element.addEventListener('dragstart', function(e) {
+                this.classList.add('dragging');
+                e.dataTransfer.setData('text/plain', this.dataset.colorId);
+            });
+            
+            element.addEventListener('dragend', function() {
+                this.classList.remove('dragging');
+            });
+            
+            element.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+            
+            element.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const draggedId = e.dataTransfer.getData('text/plain');
+                const draggedElement = document.querySelector(`[data-color-id="${draggedId}"]`);
+                
+                if (draggedElement && draggedElement !== this) {
+                    const container = this.parentElement;
+                    const afterElement = getDragAfterElement(container, e.clientY);
+                    
+                    if (afterElement == null) {
+                        container.appendChild(draggedElement);
+                    } else {
+                        container.insertBefore(draggedElement, afterElement);
+                    }
+                }
+            });
+        }
+
+        function setupImageDragAndDrop() {
+            const container = document.getElementById('imagesList');
+            
+            container.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+            
+            container.addEventListener('drop', function(e) {
+                e.preventDefault();
+                // Handle image reordering
+            });
+        }
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.reorder-item:not(.dragging)')];
+            
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        function moveColorUp(button) {
+            const colorItem = button.closest('.reorder-item');
+            const prevItem = colorItem.previousElementSibling;
+            
+            if (prevItem) {
+                colorItem.parentElement.insertBefore(colorItem, prevItem);
+            }
+        }
+
+        function moveColorDown(button) {
+            const colorItem = button.closest('.reorder-item');
+            const nextItem = colorItem.nextElementSibling;
+            
+            if (nextItem) {
+                colorItem.parentElement.insertBefore(nextItem, colorItem);
+            }
+        }
+
+        function removeColor(button) {
+            if (confirm('Remover esta cor do produto?')) {
+                button.closest('.reorder-item').remove();
+            }
+        }
+
+        function moveImageUp(button) {
+            const imageItem = button.closest('.reorder-item');
+            const prevItem = imageItem.previousElementSibling;
+            
+            if (prevItem) {
+                // Update currentProductImages array
+                const container = imageItem.parentElement;
+                const items = Array.from(container.children);
+                const currentIndex = items.indexOf(imageItem);
+                
+                if (currentIndex > 0) {
+                    // Swap in array
+                    [currentProductImages[currentIndex], currentProductImages[currentIndex - 1]] = 
+                    [currentProductImages[currentIndex - 1], currentProductImages[currentIndex]];
+                    
+                    // Move in DOM
+                    container.insertBefore(imageItem, prevItem);
+                }
+            }
+        }
+
+        function moveImageDown(button) {
+            const imageItem = button.closest('.reorder-item');
+            const nextItem = imageItem.nextElementSibling;
+            
+            if (nextItem) {
+                // Update currentProductImages array
+                const container = imageItem.parentElement;
+                const items = Array.from(container.children);
+                const currentIndex = items.indexOf(imageItem);
+                
+                if (currentIndex < items.length - 1) {
+                    // Swap in array
+                    [currentProductImages[currentIndex], currentProductImages[currentIndex + 1]] = 
+                    [currentProductImages[currentIndex + 1], currentProductImages[currentIndex]];
+                    
+                    // Move in DOM
+                    container.insertBefore(nextItem, imageItem);
+                }
+            }
+        }
+
+        function removeProductImage(index) {
+            currentProductImages.splice(index, 1);
+            displayProductImages(currentProductImages);
+        }
+
+        // Override displayProductImages to include reorder controls
+        function displayProductImages(images) {
+            currentProductImages = [...images];
+            const container = document.getElementById('imagesList');
+            
+            if (images.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center; padding: 20px; grid-column: 1 / -1;">Nenhuma imagem adicionada</p>';
+                return;
+            }
+            
+            container.innerHTML = images.map((url, index) => `
+                <div class="reorder-item" draggable="true">
+                    <img src="${url}" alt="Imagem ${index + 1}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px;">
+                    <div style="padding: 5px; text-align: center; font-size: 11px; color: #666;">Imagem ${index + 1}</div>
+                    <div class="reorder-controls">
+                        <button type="button" class="reorder-btn" onclick="moveImageUp(this)" title="Mover para cima">↑</button>
+                        <button type="button" class="reorder-btn" onclick="moveImageDown(this)" title="Mover para baixo">↓</button>
+                        <button type="button" class="reorder-btn" onclick="removeProductImage(${index})" title="Remover">×</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         // Initialize management data
         function initializeManagement() {
             loadCategories();
             loadStandardColors();
             updateStats();
+        }
+
+        // Enhanced openAddModal function
+        function openAddModal(productId = null) {
+            populateProductForm();
+            
+            // Rest of existing openAddModal logic...
+            editingProductId = productId;
+            const modal = document.getElementById('productModal');
+            const title = document.getElementById('modalTitle');
+            const form = document.getElementById('productForm');
+            
+            if (productId) {
+                const product = allProducts.find(p => p.id === productId);
+                if (product) {
+                    title.textContent = 'Editar Produto';
+                    document.getElementById('productName').value = product.name;
+                    document.getElementById('productDescription').value = product.description;
+                    document.getElementById('productCategory').value = product.category;
+                    
+                    // Load existing colors
+                    document.getElementById('colorsContainer').innerHTML = '';
+                    if (product.colors) {
+                        product.colors.forEach(color => {
+                            addColorToProduct(color.name, color.hex);
+                        });
+                    }
+                    
+                    // Load existing features
+                    clearFeatures();
+                    if (product.features) {
+                        product.features.forEach(feature => {
+                            addFeatureWithValue(feature);
+                        });
+                    }
+                    
+                    displayProductImages(product.images || []);
+                }
+            } else {
+                title.textContent = 'Adicionar Produto';
+                form.reset();
+                document.getElementById('colorsContainer').innerHTML = '';
+                clearFeatures();
+                displayProductImages([]);
+            }
+            
+            modal.style.display = 'block';
         }
 
         // Add to existing initialization
