@@ -1086,6 +1086,35 @@
             }
         ];
 
+        // Function to fix UTF-8 encoding issues
+        function fixUTF8(str) {
+            if (typeof str !== 'string') return str;
+            return str
+                .replace(/Dupla Furao/g, 'Dupla Furação')
+                .replace(/Dupla Furaço/g, 'Dupla Furação')
+                .replace(/Furao/g, 'Furação')
+                .replace(/Furaço/g, 'Furação')
+                .replace(/FuraÃÂÃÂo/g, 'Furação')
+                .replace(/ÃÂ/g, '')
+                .replace(/Â/g, '')
+                .replace(/�/g, 'ç');
+        }
+
+        // Function to fix UTF-8 encoding in product data
+        function fixProductEncoding(products) {
+            return products.map(product => ({
+                ...product,
+                name: fixUTF8(product.name),
+                description: fixUTF8(product.description),
+                category: fixUTF8(product.category),
+                features: product.features ? product.features.map(f => fixUTF8(f)) : [],
+                colors: product.colors ? product.colors.map(c => ({
+                    ...c,
+                    name: fixUTF8(c.name)
+                })) : []
+            }));
+        }
+
         // Load products from GitHub first, then localStorage as fallback
         async function loadProducts() {
             const token = localStorage.getItem('githubToken');
@@ -1101,7 +1130,9 @@
                     
                     if (response.ok) {
                         const data = await response.json();
-                        const products = JSON.parse(atob(data.content));
+                        let products = JSON.parse(atob(data.content));
+                        // Fix UTF-8 encoding issues
+                        products = fixProductEncoding(products);
                         // Save to localStorage for offline access
                         localStorage.setItem('catalogProducts', JSON.stringify(products));
                         console.log('Produtos carregados do GitHub');
@@ -1118,12 +1149,15 @@
             const savedProducts = localStorage.getItem('catalogProducts');
             if (savedProducts) {
                 try {
-                    return JSON.parse(savedProducts);
+                    let products = JSON.parse(savedProducts);
+                    // Fix UTF-8 encoding issues
+                    products = fixProductEncoding(products);
+                    return products;
                 } catch (e) {
                     console.error('Error loading products from localStorage:', e);
                 }
             }
-            return [...sampleProducts];
+            return fixProductEncoding([...sampleProducts]);
         }
 
         async function saveProducts() {

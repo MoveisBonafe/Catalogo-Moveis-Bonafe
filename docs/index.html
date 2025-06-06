@@ -900,7 +900,9 @@
             // Fix specific words and characters that are commonly corrupted
             return str
                 .replace(/Dupla Furao/g, 'Dupla Furação')
+                .replace(/Dupla Furaço/g, 'Dupla Furação')
                 .replace(/Furao/g, 'Furação')
+                .replace(/Furaço/g, 'Furação')
                 .replace(/cao/g, 'ção')
                 .replace(/sao/g, 'são')
                 .replace(/nao/g, 'não')
