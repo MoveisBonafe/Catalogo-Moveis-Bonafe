@@ -536,6 +536,156 @@
             color: #856404;
             font-size: 0.9em;
         }
+
+        .management-section {
+            background: white;
+            border: 2px solid #E6D5A8;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #F2C41B;
+            margin-bottom: 15px;
+        }
+
+        .category-actions, .color-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .category-list, .standard-color-list {
+            margin-top: 15px;
+        }
+
+        .category-item, .standard-color-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: #FFFBF0;
+            border: 1px solid #E6D5A8;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            font-weight: 500;
+            color: #1A1A1A;
+        }
+
+        .category-actions-inline {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.8em;
+            border-radius: 4px;
+        }
+
+        .standard-color-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-dot-large {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #E6D5A8;
+        }
+
+        .draggable-item {
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+
+        .draggable-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .draggable-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .drop-zone {
+            min-height: 40px;
+            border: 2px dashed #E6D5A8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            margin: 5px 0;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #F2C41B;
+            background: #FFFBF0;
+            color: #F2C41B;
+        }
+
+        .image-reorder-container, .color-reorder-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .reorder-item {
+            position: relative;
+            border: 2px solid #E6D5A8;
+            border-radius: 8px;
+            padding: 8px;
+            background: white;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+
+        .reorder-item:hover {
+            border-color: #F2C41B;
+            transform: scale(1.05);
+        }
+
+        .reorder-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.95) rotate(5deg);
+        }
+
+        .reorder-controls {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: flex;
+            gap: 2px;
+        }
+
+        .reorder-btn {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reorder-btn:hover {
+            background: rgba(0,0,0,0.9);
+        }
         
         @media (max-width: 768px) {
             .header-content {
@@ -634,9 +784,35 @@
                 </div>
             </div>
 
+            <!-- Category Management Section -->
+            <div class="management-section">
+                <h3 class="section-title">📂 Gerenciar Categorias</h3>
+                <div class="category-actions">
+                    <button class="btn" onclick="openCategoryModal()">➕ Nova Categoria</button>
+                    <button class="btn btn-secondary" onclick="toggleCategoryList()">📋 Ver Categorias</button>
+                </div>
+                <div id="categoryList" class="category-list" style="display: none;">
+                    <div id="categoryContainer"></div>
+                </div>
+            </div>
+
+            <!-- Standard Colors Section -->
+            <div class="management-section">
+                <h3 class="section-title">🎨 Cores Padrão</h3>
+                <div class="color-actions">
+                    <button class="btn" onclick="openStandardColorModal()">➕ Nova Cor</button>
+                    <button class="btn btn-secondary" onclick="toggleStandardColorList()">🎨 Ver Cores</button>
+                </div>
+                <div id="standardColorList" class="standard-color-list" style="display: none;">
+                    <div id="standardColorContainer"></div>
+                </div>
+            </div>
+
             <div class="stats">
                 <h3 class="stats-title">📊 Estatísticas</h3>
                 <p>Total de produtos: <strong id="totalProducts">0</strong></p>
+                <p>Categorias: <strong id="totalCategories">0</strong></p>
+                <p>Cores padrão: <strong id="totalStandardColors">0</strong></p>
             </div>
 
             <div id="loadingState" class="loading">
@@ -682,7 +858,7 @@
                         <button type="button" class="btn" onclick="uploadImages()">📤 Upload Imagens</button>
                         <div id="uploadStatus" style="margin-top: 10px; font-size: 0.9em;"></div>
                         <div id="imagesContainer" style="margin-top: 15px;">
-                            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 10px;" id="imagesList"></div>
+                            <div class="image-reorder-container" id="imagesList"></div>
                         </div>
                     </div>
                 </div>
@@ -691,22 +867,21 @@
                     <label class="form-label">Categoria:</label>
                     <select id="productCategory" class="form-select" required>
                         <option value="">Selecione uma categoria</option>
-                        <option value="Sofás">Sofás</option>
-                        <option value="Poltronas">Poltronas</option>
-                        <option value="Mesas">Mesas</option>
-                        <option value="Cadeiras">Cadeiras</option>
-                        <option value="Estantes">Estantes</option>
-                        <option value="Camas">Camas</option>
-                        <option value="Guarda-roupas">Guarda-roupas</option>
-                        <option value="Decoração">Decoração</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Cores Disponíveis:</label>
                     <div class="colors-section">
-                        <div id="colorsContainer"></div>
-                        <button type="button" class="btn" onclick="addColor()">➕ Adicionar Cor</button>
+                        <div style="margin-bottom: 10px;">
+                            <label class="form-label" style="font-size: 0.9em;">Cores Padrão:</label>
+                            <select id="standardColorSelect" class="form-select" style="margin-bottom: 10px;">
+                                <option value="">Selecione uma cor padrão para adicionar</option>
+                            </select>
+                            <button type="button" class="btn btn-secondary" onclick="addStandardColor()" style="margin-right: 10px;">➕ Adicionar Cor Padrão</button>
+                            <button type="button" class="btn" onclick="addCustomColor()">🎨 Nova Cor Personalizada</button>
+                        </div>
+                        <div class="color-reorder-container" id="colorsContainer"></div>
                     </div>
                 </div>
 
@@ -1432,6 +1607,342 @@
         setTimeout(() => {
             renderProducts();
         }, 1000);
+    </script>
+
+    <!-- Modal para gerenciar categoria -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="categoryModalTitle">Nova Categoria</h2>
+                <span class="close" onclick="closeCategoryModal()">&times;</span>
+            </div>
+            <form id="categoryForm">
+                <div class="form-group">
+                    <label class="form-label">Nome da Categoria:</label>
+                    <input type="text" id="categoryName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Slug (URL amigável):</label>
+                    <input type="text" id="categorySlug" class="form-input" required>
+                    <small style="color: #666;">Ex: moveis-sala, decoracao, etc.</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nome de Exibição:</label>
+                    <input type="text" id="categoryDisplayName" class="form-input" required>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn">Salvar Categoria</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeCategoryModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para cor padrão -->
+    <div id="standardColorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="standardColorModalTitle">Nova Cor Padrão</h2>
+                <span class="close" onclick="closeStandardColorModal()">&times;</span>
+            </div>
+            <form id="standardColorForm">
+                <div class="form-group">
+                    <label class="form-label">Nome da Cor:</label>
+                    <input type="text" id="standardColorName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Código da Cor:</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="color" id="standardColorHex" class="form-input" style="width: 60px; height: 40px;" required>
+                        <input type="text" id="standardColorHexText" class="form-input" placeholder="#FFFFFF" required>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn">Salvar Cor</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeStandardColorModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global variables for management
+        let allCategories = [];
+        let allStandardColors = [];
+        let editingCategoryId = null;
+        let editingStandardColorId = null;
+
+        // Category Management Functions
+        function openCategoryModal(categoryId = null) {
+            editingCategoryId = categoryId;
+            const modal = document.getElementById('categoryModal');
+            const title = document.getElementById('categoryModalTitle');
+            const form = document.getElementById('categoryForm');
+            
+            if (categoryId) {
+                const category = allCategories.find(c => c.id === categoryId);
+                if (category) {
+                    title.textContent = 'Editar Categoria';
+                    document.getElementById('categoryName').value = category.name;
+                    document.getElementById('categorySlug').value = category.slug;
+                    document.getElementById('categoryDisplayName').value = category.displayName;
+                }
+            } else {
+                title.textContent = 'Nova Categoria';
+                form.reset();
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').style.display = 'none';
+            editingCategoryId = null;
+        }
+
+        function toggleCategoryList() {
+            const list = document.getElementById('categoryList');
+            list.style.display = list.style.display === 'none' ? 'block' : 'none';
+            if (list.style.display === 'block') {
+                renderCategories();
+            }
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoryContainer');
+            
+            if (allCategories.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center;">Nenhuma categoria personalizada criada</p>';
+                return;
+            }
+            
+            container.innerHTML = allCategories.map(category => `
+                <div class="category-item">
+                    <div>
+                        <div class="category-name">${category.displayName || category.name}</div>
+                        <small style="color: #666;">${category.slug}</small>
+                    </div>
+                    <div class="category-actions-inline">
+                        <button class="btn btn-small" onclick="openCategoryModal('${category.id}')">✏️ Editar</button>
+                        <button class="btn btn-small btn-danger" onclick="deleteCategory('${category.id}')">🗑️ Excluir</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteCategory(categoryId) {
+            if (confirm('Tem certeza que deseja excluir esta categoria?')) {
+                allCategories = allCategories.filter(c => c.id !== categoryId);
+                saveCategories();
+                renderCategories();
+                updateStats();
+            }
+        }
+
+        // Standard Color Management Functions
+        function openStandardColorModal(colorId = null) {
+            editingStandardColorId = colorId;
+            const modal = document.getElementById('standardColorModal');
+            const title = document.getElementById('standardColorModalTitle');
+            const form = document.getElementById('standardColorForm');
+            
+            if (colorId) {
+                const color = allStandardColors.find(c => c.id === colorId);
+                if (color) {
+                    title.textContent = 'Editar Cor Padrão';
+                    document.getElementById('standardColorName').value = color.name;
+                    document.getElementById('standardColorHex').value = color.hex;
+                    document.getElementById('standardColorHexText').value = color.hex;
+                }
+            } else {
+                title.textContent = 'Nova Cor Padrão';
+                form.reset();
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        function closeStandardColorModal() {
+            document.getElementById('standardColorModal').style.display = 'none';
+            editingStandardColorId = null;
+        }
+
+        function toggleStandardColorList() {
+            const list = document.getElementById('standardColorList');
+            list.style.display = list.style.display === 'none' ? 'block' : 'none';
+            if (list.style.display === 'block') {
+                renderStandardColors();
+            }
+        }
+
+        function renderStandardColors() {
+            const container = document.getElementById('standardColorContainer');
+            
+            if (allStandardColors.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center;">Nenhuma cor padrão criada</p>';
+                return;
+            }
+            
+            container.innerHTML = allStandardColors.map(color => `
+                <div class="standard-color-item">
+                    <div class="standard-color-preview">
+                        <div class="color-dot-large" style="background-color: ${color.hex}"></div>
+                        <div>
+                            <div style="font-weight: 500;">${color.name}</div>
+                            <small style="color: #666;">${color.hex}</small>
+                        </div>
+                    </div>
+                    <div class="category-actions-inline">
+                        <button class="btn btn-small" onclick="openStandardColorModal('${color.id}')">✏️ Editar</button>
+                        <button class="btn btn-small btn-danger" onclick="deleteStandardColor('${color.id}')">🗑️ Excluir</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteStandardColor(colorId) {
+            if (confirm('Tem certeza que deseja excluir esta cor padrão?')) {
+                allStandardColors = allStandardColors.filter(c => c.id !== colorId);
+                saveStandardColors();
+                renderStandardColors();
+                updateStats();
+            }
+        }
+
+        // Form submissions
+        document.getElementById('categoryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('categoryName').value.trim();
+            const slug = document.getElementById('categorySlug').value.trim();
+            const displayName = document.getElementById('categoryDisplayName').value.trim();
+            
+            if (!name || !slug || !displayName) return;
+            
+            const categoryData = {
+                id: editingCategoryId || Date.now().toString(),
+                name,
+                slug,
+                displayName
+            };
+            
+            if (editingCategoryId) {
+                const index = allCategories.findIndex(c => c.id === editingCategoryId);
+                if (index >= 0) {
+                    allCategories[index] = categoryData;
+                }
+            } else {
+                allCategories.push(categoryData);
+            }
+            
+            saveCategories();
+            renderCategories();
+            updateStats();
+            closeCategoryModal();
+        });
+
+        document.getElementById('standardColorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('standardColorName').value.trim();
+            const hex = document.getElementById('standardColorHex').value;
+            
+            if (!name || !hex) return;
+            
+            const colorData = {
+                id: editingStandardColorId || Date.now().toString(),
+                name,
+                hex
+            };
+            
+            if (editingStandardColorId) {
+                const index = allStandardColors.findIndex(c => c.id === editingStandardColorId);
+                if (index >= 0) {
+                    allStandardColors[index] = colorData;
+                }
+            } else {
+                allStandardColors.push(colorData);
+            }
+            
+            saveStandardColors();
+            renderStandardColors();
+            updateStats();
+            closeStandardColorModal();
+        });
+
+        // Sync color picker and text input
+        document.getElementById('standardColorHex').addEventListener('input', function() {
+            document.getElementById('standardColorHexText').value = this.value;
+        });
+
+        document.getElementById('standardColorHexText').addEventListener('input', function() {
+            document.getElementById('standardColorHex').value = this.value;
+        });
+
+        // Auto-generate slug from name
+        document.getElementById('categoryName').addEventListener('input', function() {
+            const slug = this.value.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+            document.getElementById('categorySlug').value = slug;
+        });
+
+        // Storage functions
+        function saveCategories() {
+            localStorage.setItem('catalogCategories', JSON.stringify(allCategories));
+        }
+
+        function loadCategories() {
+            const saved = localStorage.getItem('catalogCategories');
+            if (saved) {
+                try {
+                    allCategories = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error loading categories:', e);
+                    allCategories = [];
+                }
+            }
+        }
+
+        function saveStandardColors() {
+            localStorage.setItem('catalogStandardColors', JSON.stringify(allStandardColors));
+        }
+
+        function loadStandardColors() {
+            const saved = localStorage.getItem('catalogStandardColors');
+            if (saved) {
+                try {
+                    allStandardColors = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error loading standard colors:', e);
+                    allStandardColors = [];
+                }
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('totalProducts').textContent = allProducts.length;
+            document.getElementById('totalCategories').textContent = allCategories.length;
+            document.getElementById('totalStandardColors').textContent = allStandardColors.length;
+        }
+
+        // Initialize management data
+        function initializeManagement() {
+            loadCategories();
+            loadStandardColors();
+            updateStats();
+        }
+
+        // Add to existing initialization
+        const originalInit = document.addEventListener('DOMContentLoaded', function() {
+            loadGitHubToken();
+            displayProductImages([]);
+            initializeProducts();
+            startStatusMonitoring();
+            initializeManagement();
+        });
     </script>
 </body>
 </html>
