@@ -1146,7 +1146,7 @@
                         },
                         body: JSON.stringify({
                             message: 'Update products catalog',
-                            content: btoa(JSON.stringify(allProducts, null, 2)),
+                            content: btoa(unescape(encodeURIComponent(JSON.stringify(allProducts, null, 2)))),
                             sha: sha
                         })
                     });
