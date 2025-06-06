@@ -138,6 +138,40 @@
     ]
   },
   {
+    "id": 1749228011783,
+    "name": "Cadeira Restaurante",
+    "description": "Medidas:\nAltura: 95cm\nLargura: 40cm\nComprimento: 40cm\nPeso: 5,50kg",
+    "category": "Cadeiras",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227977293-imagem_2025-06-06_133936276.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227985010-imagem_2025-06-06_133944082.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228000214-imagem_2025-06-06_133959097.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228007432-imagem_2025-06-06_134006598.png"
+    ],
+    "colors": [
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP",
+      "Não requer montagem"
+    ]
+  },
+  {
     "id": 1749175586710,
     "name": "Banqueta 50cm",
     "description": "Medidas:\nAltura: 50cm\nLargura: 30cm\nComprimento: 30cm\nPeso: 2,00kg",
@@ -269,40 +303,6 @@
     "features": [
       "MDP",
       "Dupla Furação"
-    ]
-  },
-  {
-    "id": 1749228011783,
-    "name": "Cadeira Restaurante",
-    "description": "Medidas:\nAltura: 95cm\nLargura: 40cm\nComprimento: 40cm\nPeso: 5,50kg",
-    "category": "Cadeiras",
-    "images": [
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227977293-imagem_2025-06-06_133936276.png",
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227985010-imagem_2025-06-06_133944082.png",
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228000214-imagem_2025-06-06_133959097.png",
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749228007432-imagem_2025-06-06_134006598.png"
-    ],
-    "colors": [
-      {
-        "name": "Imbuia",
-        "hex": "#8c5b17"
-      },
-      {
-        "name": "Cerejeira",
-        "hex": "#ffc852"
-      },
-      {
-        "name": "Tabaco",
-        "hex": "#000000"
-      },
-      {
-        "name": "Mogno",
-        "hex": "#9a1919"
-      }
-    ],
-    "features": [
-      "MDP",
-      "Não requer montagem"
     ]
   },
   {
