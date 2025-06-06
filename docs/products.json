@@ -176,23 +176,23 @@
     "description": "Medidas: Altura: 0,70m Largura: 0,30m Comprimento: 0,30m Peso: 3,50kg",
     "category": "Banquetas",
     "images": [
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749176070303-imagem_2025-06-05_231429550.png",
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749176076746-imagem_2025-06-05_231435934.png",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749176086528-imagem_2025-06-05_231444251.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749176076746-imagem_2025-06-05_231435934.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749176070303-imagem_2025-06-05_231429550.png",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749176093774-imagem_2025-06-05_231452821.png"
     ],
     "colors": [
       {
-        "name": "Cerejeira",
-        "hex": "#ffc852"
+        "name": "Tabaco",
+        "hex": "#000000"
       },
       {
         "name": "Imbuia",
         "hex": "#8c5b17"
       },
       {
-        "name": "Tabaco",
-        "hex": "#000000"
+        "name": "Cerejeira",
+        "hex": "#ffc852"
       },
       {
         "name": "Mogno",
