@@ -893,52 +893,41 @@
             }
         ];
 
-        // Function to fix specific character encoding issues
-        function fixUTF8(str) {
+        // Function to ensure proper UTF-8 encoding
+        function ensureUTF8(str) {
             if (typeof str !== 'string') return str;
-            
-            // Fix specific words and characters that are commonly corrupted
-            return str
-                .replace(/Dupla Furao/g, 'Dupla Furação')
-                .replace(/Dupla Furaço/g, 'Dupla Furação')
-                .replace(/Furao/g, 'Furação')
-                .replace(/Furaço/g, 'Furação')
-                .replace(/cao/g, 'ção')
-                .replace(/sao/g, 'são')
-                .replace(/nao/g, 'não')
-                .replace(/FuraÃÂÃÂo/g, 'Furação')
-                .replace(/ÃÂ/g, '')
-                .replace(/Â/g, '')
-                .replace(/�/g, 'ç');
+            try {
+                // Decode and re-encode to ensure proper UTF-8
+                return decodeURIComponent(escape(str));
+            } catch (e) {
+                return str;
+            }
         }
 
         // Function to fix UTF-8 encoding in product data
         function fixProductEncoding(products) {
             return products.map(product => ({
                 ...product,
-                name: fixUTF8(product.name),
-                description: fixUTF8(product.description),
-                category: fixUTF8(product.category),
-                features: product.features ? product.features.map(f => fixUTF8(f)) : [],
+                name: ensureUTF8(product.name),
+                description: ensureUTF8(product.description),
+                category: ensureUTF8(product.category),
+                features: product.features ? product.features.map(f => ensureUTF8(f)) : [],
                 colors: product.colors ? product.colors.map(c => ({
                     ...c,
-                    name: fixUTF8(c.name)
+                    name: ensureUTF8(c.name)
                 })) : []
             }));
         }
 
         // Load products from GitHub - automatic synchronization for all devices
         async function loadProductsFromGitHub() {
-            // Clear any cached data first
-            localStorage.removeItem('catalogProducts');
-            
-            // Force reload to ensure latest data with stronger cache busting
+            // Force reload to ensure latest data
             const timestamp = new Date().getTime();
             const sources = [
                 // Direct GitHub Pages URL with cache busting
-                `https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/products.json?v=${timestamp}&cb=${Math.random()}`,
+                `https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/products.json?t=${timestamp}`,
                 // Local fallback with cache busting
-                `./products.json?v=${timestamp}&cb=${Math.random()}`,
+                `./products.json?t=${timestamp}`,
                 // GitHub API as fallback
                 'https://api.github.com/repos/MoveisBonafe/Catalogo-Moveis-Bonafe/contents/docs/products.json'
             ];
@@ -948,10 +937,7 @@
                     const response = await fetch(source, {
                         headers: {
                             'Accept': 'application/json',
-                            'Content-Type': 'application/json; charset=utf-8',
-                            'Cache-Control': 'no-cache, no-store, must-revalidate',
-                            'Pragma': 'no-cache',
-                            'Expires': '0'
+                            'Content-Type': 'application/json; charset=utf-8'
                         }
                     });
                     if (response.ok) {
@@ -1574,22 +1560,8 @@
         // Check for product updates every 3 seconds as backup
         setInterval(refreshProducts, 3000);
 
-        // Clear all cached data on page load
-        function clearAllCache() {
-            // Clear localStorage
-            localStorage.removeItem('catalogProducts');
-            
-            // Clear session storage
-            sessionStorage.clear();
-            
-            console.log('Cache cleared, forcing fresh data reload');
-        }
-
         // Initialize
         async function initializeCatalog() {
-            // Force clear all cache first
-            clearAllCache();
-            
             try {
                 allProducts = await loadProducts();
                 filteredProducts = [...allProducts];
