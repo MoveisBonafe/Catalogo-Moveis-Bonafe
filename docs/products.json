@@ -459,5 +459,33 @@
     "features": [
       "MDP"
     ]
+  },
+  {
+    "id": 1749248082125,
+    "name": "Mesa 80x80",
+    "description": "Medidas:\nAltura: 80cm\nLargura: 80cm\nComprimento: 80cm\nPeso:",
+    "category": "Mesas",
+    "images": [],
+    "colors": [
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP"
+    ]
   }
 ]
