@@ -67,5 +67,40 @@
       "Encosto Baixo",
       "MDP"
     ]
+  },
+  {
+    "id": 1749173328564,
+    "name": "Cadeira Alta Estofada",
+    "description": "Medidas: \nAltura: 1,00m \nLargura: 0,44m \nComprimento: 0,44m \nPeso: 6,00kg",
+    "category": "Cadeiras",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749173213472-imagem_2025-06-05_222652135.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749173223064-imagem_2025-06-05_222701849.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749173255839-imagem_2025-06-05_222735083.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749173303782-imagem_2025-06-05_222822829.png"
+    ],
+    "colors": [
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "Encosto Alto",
+      "MDP",
+      "Estofada"
+    ]
   }
 ]
