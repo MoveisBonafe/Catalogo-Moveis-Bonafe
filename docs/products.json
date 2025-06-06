@@ -202,5 +202,34 @@
     "features": [
       "MDP"
     ]
+  },
+  {
+    "id": 1749219055968,
+    "name": "Cama Paris Solteiro",
+    "description": "Medidas:",
+    "category": "Camas",
+    "images": [],
+    "colors": [
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP",
+      "Dupla Furação"
+    ]
   }
 ]
