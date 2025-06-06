@@ -746,12 +746,12 @@
     ],
     "colors": [
       {
-        "name": "Cerejeira",
-        "hex": "#ffc852"
-      },
-      {
         "name": "Imbuia",
         "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
       },
       {
         "name": "Mogno",
