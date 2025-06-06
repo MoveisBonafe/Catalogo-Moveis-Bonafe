@@ -574,10 +574,10 @@
     "description": "Medidas:\nAltura: 80cm\nLargura: 80cm\nComprimento: 120cm\nPeso: 17kg",
     "category": "Mesas",
     "images": [
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749249487585-1_20_x_0_80_Imbuia.jpg",
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749249488324-120_x_80_cerejeira.jpg",
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749249489311-120_x_80_mogno.jpg",
-      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749249490188-120_x_80_tabaco.jpg"
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749249490188-120_x_80_tabaco.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749249488324-120_x_80_cerejeira.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749249487585-1_20_x_0_80_Imbuia.jpg"
     ],
     "colors": [
       {
