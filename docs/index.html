@@ -921,13 +921,16 @@
 
         // Load products from GitHub - automatic synchronization for all devices
         async function loadProductsFromGitHub() {
-            // Force reload to ensure latest data
+            // Clear any cached data first
+            localStorage.removeItem('catalogProducts');
+            
+            // Force reload to ensure latest data with stronger cache busting
             const timestamp = new Date().getTime();
             const sources = [
                 // Direct GitHub Pages URL with cache busting
-                `https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/products.json?t=${timestamp}`,
+                `https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/products.json?v=${timestamp}&cb=${Math.random()}`,
                 // Local fallback with cache busting
-                `./products.json?t=${timestamp}`,
+                `./products.json?v=${timestamp}&cb=${Math.random()}`,
                 // GitHub API as fallback
                 'https://api.github.com/repos/MoveisBonafe/Catalogo-Moveis-Bonafe/contents/docs/products.json'
             ];
@@ -937,7 +940,10 @@
                     const response = await fetch(source, {
                         headers: {
                             'Accept': 'application/json',
-                            'Content-Type': 'application/json; charset=utf-8'
+                            'Content-Type': 'application/json; charset=utf-8',
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
                         }
                     });
                     if (response.ok) {
@@ -1560,8 +1566,22 @@
         // Check for product updates every 3 seconds as backup
         setInterval(refreshProducts, 3000);
 
+        // Clear all cached data on page load
+        function clearAllCache() {
+            // Clear localStorage
+            localStorage.removeItem('catalogProducts');
+            
+            // Clear session storage
+            sessionStorage.clear();
+            
+            console.log('Cache cleared, forcing fresh data reload');
+        }
+
         // Initialize
         async function initializeCatalog() {
+            // Force clear all cache first
+            clearAllCache();
+            
             try {
                 allProducts = await loadProducts();
                 filteredProducts = [...allProducts];
