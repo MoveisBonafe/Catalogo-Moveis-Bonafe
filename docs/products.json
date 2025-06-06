@@ -206,9 +206,14 @@
   {
     "id": 1749219055968,
     "name": "Cama Paris Solteiro",
-    "description": "Medidas:",
+    "description": "Medidas:\nAltura: 94cm\nLargura: 80/90cm\nComprimento: 190cm\nPeso: 20kg",
     "category": "Camas",
-    "images": [],
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227178887-imagem_2025-06-06_132617811.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227194499-imagem_2025-06-06_132632813.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227210759-imagem_2025-06-06_132649796.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227219162-imagem_2025-06-06_132658060.png"
+    ],
     "colors": [
       {
         "name": "Imbuia",
