@@ -893,28 +893,34 @@
             }
         ];
 
-        // Function to ensure proper UTF-8 encoding
-        function ensureUTF8(str) {
+        // Function to fix specific character encoding issues
+        function fixUTF8(str) {
             if (typeof str !== 'string') return str;
-            try {
-                // Decode and re-encode to ensure proper UTF-8
-                return decodeURIComponent(escape(str));
-            } catch (e) {
-                return str;
-            }
+            
+            // Fix specific words and characters that are commonly corrupted
+            return str
+                .replace(/Dupla Furao/g, 'Dupla Furação')
+                .replace(/Furao/g, 'Furação')
+                .replace(/cao/g, 'ção')
+                .replace(/sao/g, 'são')
+                .replace(/nao/g, 'não')
+                .replace(/FuraÃÂÃÂo/g, 'Furação')
+                .replace(/ÃÂ/g, '')
+                .replace(/Â/g, '')
+                .replace(/�/g, 'ç');
         }
 
         // Function to fix UTF-8 encoding in product data
         function fixProductEncoding(products) {
             return products.map(product => ({
                 ...product,
-                name: ensureUTF8(product.name),
-                description: ensureUTF8(product.description),
-                category: ensureUTF8(product.category),
-                features: product.features ? product.features.map(f => ensureUTF8(f)) : [],
+                name: fixUTF8(product.name),
+                description: fixUTF8(product.description),
+                category: fixUTF8(product.category),
+                features: product.features ? product.features.map(f => fixUTF8(f)) : [],
                 colors: product.colors ? product.colors.map(c => ({
                     ...c,
-                    name: ensureUTF8(c.name)
+                    name: fixUTF8(c.name)
                 })) : []
             }));
         }
