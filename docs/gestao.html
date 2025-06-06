@@ -1591,14 +1591,8 @@
         // Removed old fileToBase64 function - now using ArrayBuffer for maximum quality
 
         function getFormData() {
-            const colors = Array.from(document.querySelectorAll('.color-item')).map(item => {
-                const nameInput = item.querySelector('input[type="text"]');
-                const colorInput = item.querySelector('input[type="color"]');
-                return {
-                    name: nameInput.value.trim(),
-                    hex: colorInput.value
-                };
-            }).filter(color => color.name);
+            // Get colors from the new reorder-item system
+            const colors = getCurrentProductColors();
 
             const features = Array.from(document.querySelectorAll('.feature-input'))
                 .map(input => input.value.trim())
@@ -1619,6 +1613,10 @@
             
             const formData = getFormData();
             
+            // Debug: Log the colors being saved
+            console.log('Colors being saved:', formData.colors);
+            console.log('Total colors found:', formData.colors.length);
+            
             // Basic validation
             if (!formData.name || !formData.description || !formData.category) {
                 alert('Por favor, preencha todos os campos obrigatórios.');
@@ -1630,6 +1628,7 @@
                 const index = allProducts.findIndex(p => p.id === editingProductId);
                 if (index !== -1) {
                     allProducts[index] = { ...allProducts[index], ...formData };
+                    console.log('Updated product:', allProducts[index]);
                 }
             } else {
                 // Add new product
@@ -1638,6 +1637,7 @@
                     ...formData
                 };
                 allProducts.push(newProduct);
+                console.log('Added new product:', newProduct);
             }
 
             saveProducts();
@@ -2181,9 +2181,13 @@
             const container = document.getElementById('colorsContainer');
             const colorElements = container.querySelectorAll('.reorder-item');
             
+            console.log('Color container found:', container);
+            console.log('Color elements found:', colorElements.length);
+            
             return Array.from(colorElements).map(el => {
                 const name = el.querySelector('div:nth-child(2)').textContent;
                 const hex = el.querySelector('div:nth-child(3)').textContent;
+                console.log('Extracting color:', { name, hex });
                 return { name, hex };
             });
         }
