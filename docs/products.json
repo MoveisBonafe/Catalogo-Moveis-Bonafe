@@ -699,5 +699,38 @@
     "features": [
       "MDP"
     ]
+  },
+  {
+    "id": 1749250449780,
+    "name": "Mesa 2,00 x 88",
+    "description": "Medidas:\nAltura: 80cm\nLargura: 88cm\nComprimento: 200cm\nPeso: 26,00kg",
+    "category": "Mesas",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749250434549-2_00_x_0_88_Imbuia.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749250435348-200_x_88_cerejeira.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749250436240-200_x_88_mogno.jpg",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749250437116-200_x_88_tabaco.jpg"
+    ],
+    "colors": [
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      }
+    ],
+    "features": [
+      "MDP"
+    ]
   }
 ]
