@@ -236,5 +236,39 @@
       "MDP",
       "Dupla Furação"
     ]
+  },
+  {
+    "id": 1749227564788,
+    "name": "Cama Paris Casal",
+    "description": "Medidas:\nAltura: 94cm\nLargura: 130/140cm\nComprimento: 190cm\nPeso:23,5kg",
+    "category": "Camas",
+    "images": [
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227530428-imagem_2025-06-06_133209181.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227539184-imagem_2025-06-06_133217958.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227548972-imagem_2025-06-06_133227347.png",
+      "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749227560257-imagem_2025-06-06_133239223.png"
+    ],
+    "colors": [
+      {
+        "name": "Tabaco",
+        "hex": "#000000"
+      },
+      {
+        "name": "Imbuia",
+        "hex": "#8c5b17"
+      },
+      {
+        "name": "Cerejeira",
+        "hex": "#ffc852"
+      },
+      {
+        "name": "Mogno",
+        "hex": "#9a1919"
+      }
+    ],
+    "features": [
+      "MDP",
+      "Dupla Furação"
+    ]
   }
 ]
