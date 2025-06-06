@@ -42,7 +42,12 @@
     "images": [
       "https://moveisbonafe.github.io/Catalogo-Moveis-Bonafe/images/1749172725671-imagem_2025-06-05_221715940.png"
     ],
-    "colors": [],
+    "colors": [
+      {
+        "name": "Cerejeira",
+        "hex": "#000000"
+      }
+    ],
     "features": [
       "Encosto Baixo",
       "MDP"
